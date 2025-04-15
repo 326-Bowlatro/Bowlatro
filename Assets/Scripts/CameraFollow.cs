@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target;  // Assign the ball here in the inspector
-    public Vector3 offset;  // Adjustable offset to keep the camera behind the ball
+    public Transform Target; // Assign the ball here in the inspector
+    public Vector3 Offset; // Adjustable offset to keep the camera behind the ball
+
     private Vector3 initialPosition;
     private bool shouldFollow = true;
 
@@ -16,8 +17,8 @@ public class CameraFollow : MonoBehaviour
     {
         if (shouldFollow)
         {
-            if (target != null)
-                transform.position = target.position + offset;
+            if (Target != null)
+                transform.position = Target.position + Offset;
         }
 
         // Toggle follow/reset based on a condition, e.g., the ball has hit the pins
@@ -31,6 +32,6 @@ public class CameraFollow : MonoBehaviour
 
     public void ResetCamera()
     {
-        transform.position = initialPosition;  // Reset camera to initial position
+        transform.position = initialPosition; // Reset camera to initial position
     }
 }
