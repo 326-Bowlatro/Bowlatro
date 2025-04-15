@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class BowlingBall : MonoBehaviour
 {
-    public float launchForce = 500f;
-    public float steeringForce = 10f;
-    public float resetDelay = 2f;
-    public float autoResetTime = 5f;
-    public int maxThrows = 5;
+    public float LaunchForce = 500f;
+    public float SteeringForce = 10f;
+    public float ResetDelay = 2f;
+    public float AutoResetTime = 5f;
+    public int MaxThrows = 5;
 
     private Rigidbody rb;
     private Vector3 startPos;
@@ -24,7 +24,8 @@ public class BowlingBall : MonoBehaviour
 
     void Update()
     {
-        if (throwsUsed >= maxThrows) return;
+        if (throwsUsed >= MaxThrows)
+            return;
 
         // Launch with W key
         if (!hasLaunched && Input.GetKeyDown(KeyCode.W))
@@ -46,9 +47,11 @@ public class BowlingBall : MonoBehaviour
         if (hasLaunched)
         {
             float steer = 0f;
-            if (Input.GetKey(KeyCode.A)) steer = -1f;
-            if (Input.GetKey(KeyCode.D)) steer = 1f;
-            rb.AddForce(Vector3.right * steer * steeringForce);
+            if (Input.GetKey(KeyCode.A))
+                steer = -1f;
+            if (Input.GetKey(KeyCode.D))
+                steer = 1f;
+            rb.AddForce(Vector3.right * steer * SteeringForce);
         }
 
         // Auto-reset if the ball slows down too much
@@ -59,7 +62,7 @@ public class BowlingBall : MonoBehaviour
         }
 
         // Auto-reset if too much time passes
-        if (hasLaunched && Time.time - launchTime >= autoResetTime)
+        if (hasLaunched && Time.time - launchTime >= AutoResetTime)
         {
             hasLaunched = false;
             ResetBall();
@@ -69,19 +72,19 @@ public class BowlingBall : MonoBehaviour
         if (Vector3.Distance(transform.position, startPos) > 50f)
         {
             hasLaunched = false;
-            Invoke(nameof(ResetBall), resetDelay);
+            Invoke(nameof(ResetBall), ResetDelay);
         }
     }
 
-    void LaunchBall()
+    private void LaunchBall()
     {
-        rb.AddForce(-transform.forward * launchForce); // assumes forward is negative Z
+        rb.AddForce(-transform.forward * LaunchForce); // assumes forward is negative Z
         hasLaunched = true;
         launchTime = Time.time;
         throwsUsed++;
     }
 
-    void ResetBall()
+    private void ResetBall()
     {
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;

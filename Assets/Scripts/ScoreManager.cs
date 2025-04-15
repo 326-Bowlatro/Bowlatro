@@ -1,13 +1,14 @@
+using TMPro;
 using UnityEngine;
-using TMPro;  // Import the TextMeshPro namespace
 
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
-    public int score = 0;
-    public TMP_Text scoreText;  // Change this from Text to TMP_Text
 
-    private void Awake()
+    public int Score = 0;
+    public TextMeshProUGUI ScoreText;
+
+    void Awake()
     {
         if (Instance == null)
         {
@@ -21,15 +22,15 @@ public class ScoreManager : MonoBehaviour
 
     public static void AddScore(int points)
     {
-        Instance.score += points;
+        Instance.Score += points;
         Instance.UpdateScoreText();
     }
 
     private void UpdateScoreText()
     {
-        if (scoreText != null)  // Check to ensure the scoreText is not null
+        if (ScoreText != null) // Check to ensure the scoreText is not null
         {
-            scoreText.text = "Score: " + Instance.score;
+            ScoreText.text = "Score: " + Instance.Score;
         }
         else
         {

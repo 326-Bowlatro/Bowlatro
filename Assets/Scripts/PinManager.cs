@@ -17,11 +17,11 @@ public class PinManager : MonoBehaviour
     void Update()
     {
         // Check if the pin is knocked over and hasn't been already registered as such
-        if (!isKnockedOver && transform.up.y < 0.5) 
+        if (!isKnockedOver && transform.up.y < 0.5)
         {
             isKnockedOver = true;
-            gameObject.SetActive(false);  // Optionally deactivate the pin
-            ScoreManager.AddScore(1);  
+            gameObject.SetActive(false); // Optionally deactivate the pin
+            ScoreManager.AddScore(1);
         }
     }
 
