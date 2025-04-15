@@ -6277,8 +6277,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c03840dcc5c2145b97e22ea7588f4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 855668313}
-  offset: {x: -0.02, y: 1, z: 2}
+  Target: {fileID: 855668313}
+  Offset: {x: -0.02, y: 1, z: 2}
 --- !u!43 &356319038
 Mesh:
   m_ObjectHideFlags: 0
@@ -8534,8 +8534,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c66fd858590ea4daaf0122f1e4a5a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
-  scoreText: {fileID: 1519580671}
+  Score: 0
+  ScoreText: {fileID: 1519580671}
 --- !u!1 &528341497
 GameObject:
   m_ObjectHideFlags: 0
@@ -12489,11 +12489,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a7af7be2beeb7040ac6490a4abcefff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  launchForce: 200
-  steeringForce: 2.4
-  resetDelay: 2.5
-  autoResetTime: 25
-  maxThrows: 5
+  LaunchForce: 200
+  SteeringForce: 2.4
+  ResetDelay: 2.5
+  AutoResetTime: 25
+  MaxThrows: 5
 --- !u!54 &855668309
 Rigidbody:
   m_ObjectHideFlags: 0
