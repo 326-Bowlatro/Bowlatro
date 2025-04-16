@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform Target; // Assign the ball here in the inspector
-    public Vector3 Offset; // Adjustable offset to keep the camera behind the ball
+    [FormerlySerializedAs("Target")] public Transform ballTransform;
+    [FormerlySerializedAs("Offset")] public Vector3 cameraOffset;
 
     private Vector3 initialPosition;
     private bool shouldFollow = true;
@@ -17,8 +18,8 @@ public class CameraFollow : MonoBehaviour
     {
         if (shouldFollow)
         {
-            if (Target != null)
-                transform.position = Target.position + Offset;
+            if (ballTransform != null)
+                transform.position = ballTransform.position + cameraOffset;
         }
 
         // Toggle follow/reset based on a condition, e.g., the ball has hit the pins
