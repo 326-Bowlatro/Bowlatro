@@ -3,38 +3,35 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
-    public static ScoreManager Instance;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    private float flatScore = 0, multScore = 1f, finalScore = 0;
 
-    public int Score = 0;
-    public TextMeshProUGUI ScoreText;
-
-    void Awake()
+    private void Start()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Pin.OnPinKnockedOver += PinOnOnPinKnockedOver;
     }
 
-    public static void AddScore(int points)
+    private void PinOnOnPinKnockedOver(float flat, float mult)
     {
-        Instance.Score += points;
-        Instance.UpdateScoreText();
+        AddScore(flat, mult);
+    }
+
+    private void AddScore(float flat, float mult)
+    {
+        flatScore += flat;
+        multScore += mult;
+        finalScore = flatScore * multScore;
+        UpdateScoreText();
     }
 
     private void UpdateScoreText()
     {
-        if (ScoreText != null) // Check to ensure the scoreText is not null
-        {
-            ScoreText.text = "Score: " + Instance.Score;
-        }
-        else
-        {
-            Debug.LogError("Score text component not assigned.");
-        }
+        scoreText.text = "Score: " + flatScore + "x" + multScore + "=" + finalScore;
+    }
+
+    private void OnDestroy()
+    {
+        //unsubscribe to prevent event problems
+        Pin.OnPinKnockedOver -= PinOnOnPinKnockedOver;
     }
 }
