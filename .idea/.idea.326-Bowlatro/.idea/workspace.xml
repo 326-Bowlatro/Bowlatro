@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e5780e02-5d1e-47d6-a52f-8c934470cca4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.326-Bowlatro/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.326-Bowlatro/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BowlingBall.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BowlingBall.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CameraFollow.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CameraFollow.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CameraScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CameraScript.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Pin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Pin.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScoreManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ScoreManager.cs" afterDir="false" />
     </list>
@@ -100,7 +96,7 @@
       <option name="presentableId" value="Default" />
       <updated>1744760354150</updated>
       <workItem from="1744760356281" duration="12955000" />
-      <workItem from="1744838740423" duration="14519000" />
+      <workItem from="1744838740423" duration="15124000" />
     </task>
     <servers />
   </component>

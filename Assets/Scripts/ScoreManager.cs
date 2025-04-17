@@ -9,10 +9,6 @@ using UnityEngine.Serialization;
 
 public class ScoreManager : MonoBehaviour
 {
-    // public static ScoreManager Instance;
-
-    // [FormerlySerializedAs("Score")] public int score = 0;
-
     [SerializeField] private TextMeshProUGUI scoreText;
     private float flatScore = 0, multScore = 1f, finalScore = 0;
     

@@ -39,9 +39,8 @@ public class Pin : MonoBehaviour
         if (!knockedOver && (transform.eulerAngles.x > 60 || transform.eulerAngles.z > 60))
         {
             knockedOver = true;
-            //increase score by certain amount
+            //increase score by pin predefined amount
             OnPinKnockedOver?.Invoke(flatScore, multScore);
-            // StartCoroutine(DelayedSetInactive());
         }
         
     }
