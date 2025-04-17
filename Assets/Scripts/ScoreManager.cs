@@ -27,24 +27,6 @@ public class ScoreManager : MonoBehaviour
         AddScore(flat, mult);
     }
 
-    // void Awake()
-    // {
-    //     if (Instance == null)
-    //     {
-    //         Instance = this;
-    //     }
-    //     else
-    //     {
-    //         Destroy(gameObject);
-    //     }
-    // }
-
-    // public static void AddScore(int points)
-    // {
-    //     Instance.score += points;
-    //     Instance.UpdateScoreText();
-    // }
-
     private void AddScore(float flat, float mult)
     {
         flatScore += flat;
@@ -56,5 +38,11 @@ public class ScoreManager : MonoBehaviour
     private void UpdateScoreText()
     {
         scoreText.text = "Score: " + flatScore + "x" + multScore + "=" + finalScore;
+    }
+
+    private void OnDestroy()
+    {
+        //unsubscribe to prevent event problems
+        Pin.OnPinKnockedOver -= PinOnOnPinKnockedOver;
     }
 }

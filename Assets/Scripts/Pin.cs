@@ -24,10 +24,7 @@ public class Pin : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         initialPosition = transform.position;
         initialRotation = transform.eulerAngles;
-        Debug.Log(initialRotation);
         knockedOver = false;
-        flatScore = 1;
-        multScore = 0;
         //subscribe like and comment to bowling ball reset event
         BowlingBall.OnBallReset += BowlingBallOnOnBallReset;
     }
@@ -43,9 +40,8 @@ public class Pin : MonoBehaviour
         {
             knockedOver = true;
             //increase score by certain amount
-            Debug.Log("I've fallen!");
             OnPinKnockedOver?.Invoke(flatScore, multScore);
-            StartCoroutine(DelayedSetInactive());
+            // StartCoroutine(DelayedSetInactive());
         }
         
     }

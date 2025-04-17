@@ -1,33 +1,46 @@
+using System.Collections;
+
+using Unity.Mathematics.Geometry;
+
 using UnityEngine;
+
+using Math = System.Math;
 
 public class BowlingBall : MonoBehaviour
 {
     //create event for when ball resets
     public delegate void ballReset();
 
+    public delegate void ballReachedPins();
     public static event ballReset OnBallReset;
+    public static event ballReachedPins OnBallReachedPins;
     
     [SerializeField] private Camera mainCamera;
+    [SerializeField] private Transform pinsMainPoint;
+    [SerializeField] private Collider laneCollider;
+    [SerializeField] private float aimAmount = 1f;
     
-    public float LaunchForce = 1000f;
-    public float SteeringForce = 10f;
-    public float ResetDelay = 2f;
-    public float AutoResetTime = 5f;
-    public int MaxThrows = 5;
+    [SerializeField] private float LaunchForce = 1500f;
+    [SerializeField] private float ResetDelay = 2f;
+    [SerializeField] private float AutoResetTime = 5f;
+    [SerializeField] private int MaxThrows = 5;
 
     private Rigidbody rb;
-    private Vector3 startPos;
-    private Quaternion startRot;
+    private Vector3 startPosition;
+    private Vector3 startRotation;
     private int throwsUsed = 0;
     private bool hasLaunched = false;
-    private float launchTime = 0f;
+    private bool reachedPins = false;
     private float ballLaunchedTime = 0f;
+    private float laneMax, laneMin;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        startPos = transform.position;
-        startRot = transform.rotation;
+        startPosition = transform.position;
+        startRotation = transform.eulerAngles;
+        laneMax = laneCollider.bounds.max.x;
+        laneMin = laneCollider.bounds.min.x;
     }
 
     void Update()
@@ -35,17 +48,32 @@ public class BowlingBall : MonoBehaviour
         if (throwsUsed >= MaxThrows)
             return;
 
+        if (!reachedPins && Math.Abs((transform.position - pinsMainPoint.position).magnitude) < 10f)
+        {
+            OnBallReachedPins?.Invoke();
+            reachedPins = true;
+        }
         
         if (hasLaunched)
         {
             ballLaunchedTime += Time.deltaTime;
-            // allow steering
-            float steer = 0f;
-            if (Input.GetKey(KeyCode.A))
-                steer = -1f;
-            if (Input.GetKey(KeyCode.D))
-                steer = 1f;
-            rb.AddForce(Vector3.left * (steer * SteeringForce));
+        }
+        else
+        {
+            //keeps ball in bounds with buffer so the ball doesn't go off the lane
+            if (Input.GetKey(KeyCode.A) && transform.position.x < laneMax-.1f)
+            {
+                Vector3 pos = transform.position;
+                float newX = pos.x + aimAmount*Time.deltaTime;
+                transform.position = new Vector3(newX, pos.y, pos.z);
+            }
+            
+            if (Input.GetKey(KeyCode.D) && transform.position.x > laneMin+.1f) 
+            {
+                Vector3 pos = transform.position;
+                float newX = pos.x - aimAmount*Time.deltaTime;
+                transform.position = new Vector3(newX, pos.y, pos.z);
+            }
         }
         
         // Launch with W key
@@ -53,59 +81,51 @@ public class BowlingBall : MonoBehaviour
         {
             LaunchBall();
         }
-
-        // Launch with mouse click (on ball)
-        // if (!hasLaunched && Input.GetMouseButtonDown(0))
-        // {
-        //     Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        //     if (Physics.Raycast(ray, out RaycastHit hit) && hit.collider.gameObject == gameObject)
-        //     {
-        //         LaunchBall();
-        //     }
-        // }
-
-
-        // Auto-reset if the ball slows down too much
+        
+        // resets when velocity is low enough
         if (hasLaunched && ballLaunchedTime >= 1f && rb.linearVelocity.magnitude < 0.05f)
         {
             hasLaunched = false;
-            ResetBall();
+            StartCoroutine(DelayedBallReset());
         }
 
-        // Auto-reset if too much time passes
+        // reset if auto reset time is reached
         if (hasLaunched && ballLaunchedTime >= AutoResetTime)
         {
             hasLaunched = false;
             ResetBall();
         }
-
-        // Reset if ball goes too far off the lane
-        if (hasLaunched && Vector3.Distance(transform.position, startPos) > 50f)
-        {
-            hasLaunched = false;
-            Invoke(nameof(ResetBall), ResetDelay); // ???
-        }
     }
 
     private void LaunchBall()
     {
-        rb.AddForce(-transform.forward * LaunchForce); // assumes forward is negative Z
+        rb.AddForce(-transform.forward * LaunchForce);
         hasLaunched = true;
-        throwsUsed++;
+        ++throwsUsed;
     }
 
     private void ResetBall()
     {
-        
+        //reset velocities
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-        transform.position = startPos;
-        transform.rotation = startRot;
+        //reset position/rotation
+        transform.position = startPosition;
+        transform.eulerAngles = startRotation;
 
+        //reset launched bool and timer for bowling ball launch
         hasLaunched = false;
         ballLaunchedTime = 0;
+        //reset reached pins bool
+        reachedPins = false;
         
         //when ball resets, send event signal out
         OnBallReset?.Invoke();
+    }
+
+    IEnumerator DelayedBallReset()
+    {
+        yield return new WaitForSeconds(ResetDelay);
+        ResetBall();
     }
 }
