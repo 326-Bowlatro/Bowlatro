@@ -6,9 +6,7 @@ using UnityEngine;
 
 public class Pin : MonoBehaviour
 {
-    public delegate void pinKnockedOver(float flat, float mult);
-
-    public static event pinKnockedOver OnPinKnockedOver;
+    public static event Action<float, float> OnPinKnockedOver;
     
     [SerializeField] private int flatScore;
     [SerializeField] private float multScore;
@@ -31,7 +29,7 @@ public class Pin : MonoBehaviour
 
     private void BowlingBallOnOnBallReset()
     {
-        resetPin();
+        ResetPin();
     }
 
     private void Update()
@@ -42,10 +40,9 @@ public class Pin : MonoBehaviour
             //increase score by pin predefined amount
             OnPinKnockedOver?.Invoke(flatScore, multScore);
         }
-        
     }
 
-    private void resetPin()
+    private void ResetPin()
     {
         //reset position/rotation
         transform.position = initialPosition;
@@ -63,11 +60,5 @@ public class Pin : MonoBehaviour
     {
         //unsubscribe
         BowlingBall.OnBallReset -= BowlingBallOnOnBallReset;
-    }
-
-    IEnumerator DelayedSetInactive()
-    {
-        yield return new WaitForSeconds(2f);
-        gameObject.SetActive(false);
     }
 }

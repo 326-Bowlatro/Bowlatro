@@ -1,25 +1,18 @@
+using System;
 using System.Collections;
-
-using Unity.Mathematics.Geometry;
-
 using UnityEngine;
-
-using Math = System.Math;
 
 public class BowlingBall : MonoBehaviour
 {
     //create event for when ball resets
-    public delegate void ballReset();
+    public static event Action OnBallReset;
+    public static event Action OnBallReachedPins;
 
-    public delegate void ballReachedPins();
-    public static event ballReset OnBallReset;
-    public static event ballReachedPins OnBallReachedPins;
-    
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Transform pinsMainPoint;
     [SerializeField] private Collider laneCollider;
     [SerializeField] private float aimAmount = 1f;
-    
+
     [SerializeField] private float LaunchForce = 1500f;
     [SerializeField] private float ResetDelay = 2f;
     [SerializeField] private float AutoResetTime = 5f;
@@ -53,7 +46,7 @@ public class BowlingBall : MonoBehaviour
             OnBallReachedPins?.Invoke();
             reachedPins = true;
         }
-        
+
         if (hasLaunched)
         {
             ballLaunchedTime += Time.deltaTime;
@@ -63,25 +56,25 @@ public class BowlingBall : MonoBehaviour
             //keeps ball in bounds with buffer so the ball doesn't go off the lane
             if (Input.GetKey(KeyCode.A) && transform.position.x < laneMax-.1f)
             {
-                Vector3 pos = transform.position;
-                float newX = pos.x + aimAmount*Time.deltaTime;
+                var pos = transform.position;
+                var newX = pos.x + aimAmount*Time.deltaTime;
                 transform.position = new Vector3(newX, pos.y, pos.z);
             }
-            
-            if (Input.GetKey(KeyCode.D) && transform.position.x > laneMin+.1f) 
+
+            if (Input.GetKey(KeyCode.D) && transform.position.x > laneMin+.1f)
             {
-                Vector3 pos = transform.position;
-                float newX = pos.x - aimAmount*Time.deltaTime;
+                var pos = transform.position;
+                var newX = pos.x - aimAmount*Time.deltaTime;
                 transform.position = new Vector3(newX, pos.y, pos.z);
             }
         }
-        
+
         // Launch with W key
         if (!hasLaunched && Input.GetKeyDown(KeyCode.W))
         {
             LaunchBall();
         }
-        
+
         // resets when velocity is low enough
         if (hasLaunched && ballLaunchedTime >= 1f && rb.linearVelocity.magnitude < 0.05f)
         {
@@ -118,7 +111,7 @@ public class BowlingBall : MonoBehaviour
         ballLaunchedTime = 0;
         //reset reached pins bool
         reachedPins = false;
-        
+
         //when ball resets, send event signal out
         OnBallReset?.Invoke();
     }

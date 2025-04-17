@@ -1,17 +1,10 @@
-using System;
-
 using TMPro;
-
-using Unity.VisualScripting;
-
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI scoreText;
     private float flatScore = 0, multScore = 1f, finalScore = 0;
-    
 
     private void Start()
     {
