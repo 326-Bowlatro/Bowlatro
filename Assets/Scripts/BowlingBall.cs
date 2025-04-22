@@ -11,16 +11,12 @@ public class BowlingBall : MonoBehaviour
 
     [SerializeField] private float LaunchForce = 1500f;
     [SerializeField] private float ResetDelay = 2f;
-    [SerializeField] private float AutoResetTime = 5f;
-    [SerializeField] private int MaxThrows = 5;
 
     private Rigidbody rb;
     private Vector3 startPosition;
     private Vector3 startRotation;
-    private int throwsUsed = 0;
     private bool hasLaunched = false;
     private bool reachedPins = false;
-    private float ballLaunchedTime = 0f;
     private float laneMax, laneMin;
 
     void Start()
@@ -34,23 +30,19 @@ public class BowlingBall : MonoBehaviour
 
     void Update()
     {
-        if (throwsUsed >= MaxThrows)
-            return;
-
         if (!reachedPins && Math.Abs((transform.position - pinsMainPoint.position).magnitude) < 10f)
         {
             // Have the camera look at the pins. This will be reset
             // automatically when the turn ends.
             mainCamera.BeginLookAtPins();
 
+            // Set a timer to end the player's turn after a delay.
+            StartCoroutine(DelayedEndTurn());
+
             reachedPins = true;
         }
 
-        if (hasLaunched)
-        {
-            ballLaunchedTime += Time.deltaTime;
-        }
-        else
+        if (!hasLaunched)
         {
             //keeps ball in bounds with buffer so the ball doesn't go off the lane
             if (Input.GetKey(KeyCode.A) && transform.position.x < laneMax-.1f)
@@ -67,33 +59,21 @@ public class BowlingBall : MonoBehaviour
                 transform.position = new Vector3(newX, pos.y, pos.z);
             }
         }
-
-        // Launch with W key
-        if (!hasLaunched && Input.GetKeyDown(KeyCode.W))
-        {
-            LaunchBall();
-        }
-
-        // resets when velocity is low enough
-        if (hasLaunched && ballLaunchedTime >= 1f && rb.linearVelocity.magnitude < 0.2f)
-        {
-            hasLaunched = false;
-            StartCoroutine(DelayedEndTurn());
-        }
-
-        // reset if auto reset time is reached
-        if (hasLaunched && ballLaunchedTime >= AutoResetTime)
-        {
-            hasLaunched = false;
-            ResetBall();
-        }
     }
 
-    private void LaunchBall()
+    /// <summary>
+    /// Launches the ball forward from its starting position.
+    /// </summary>
+    public void LaunchBall()
     {
+        // Can only launch once/turn.
+        if (hasLaunched)
+        {
+            return;
+        }
+
         rb.AddForce(-transform.forward * LaunchForce);
         hasLaunched = true;
-        ++throwsUsed;
     }
 
     public void OnEndTurn()
@@ -112,7 +92,6 @@ public class BowlingBall : MonoBehaviour
 
         //reset launched bool and timer for bowling ball launch
         hasLaunched = false;
-        ballLaunchedTime = 0;
         //reset reached pins bool
         reachedPins = false;
     }

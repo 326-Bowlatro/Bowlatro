@@ -25,6 +25,15 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
+    void Update()
+    {
+        // TODO: Move to UI button, or some input manager.
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            bowlingBall.LaunchBall();
+        }
+    }
+
     /// <summary>
     /// Ends the player's turn and resets the ball/pins.
     /// </summary>
@@ -48,7 +57,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Updates the round score with values from a knocked-over pin.
     /// </summary>
-    public void NotifyPinKnockedOver(int flatScore, int multScore)
+    public void AddPinToScore(int flatScore, int multScore)
     {
         // Update score with values from Pin
         RoundScoreFlat += flatScore;
