@@ -1,15 +1,13 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 
 using UnityEngine;
 
 public class Pin : MonoBehaviour
 {
-    public static event Action<float, float> OnPinKnockedOver;
+    public static event Action<int, int> OnPinKnockedOver;
     
     [SerializeField] private int flatScore;
-    [SerializeField] private float multScore;
+    [SerializeField] private int multScore;
 
     private Rigidbody rb;
     private Vector3 initialPosition;

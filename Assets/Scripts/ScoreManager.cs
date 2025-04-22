@@ -2,19 +2,19 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
-    private float flatScore = 0, multScore = 1f, finalScore = 0;
+    private int flatScore = 0, multScore = 1, finalScore = 0;
 
     private void Start()
     {
         Pin.OnPinKnockedOver += PinOnOnPinKnockedOver;
     }
 
-    private void PinOnOnPinKnockedOver(float flat, float mult)
+    private void PinOnOnPinKnockedOver(int flat, int mult)
     {
         AddScore(flat, mult);
     }
 
-    private void AddScore(float flat, float mult)
+    private void AddScore(int flat, int mult)
     {
         flatScore += flat;
         multScore += mult;
