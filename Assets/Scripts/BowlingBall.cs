@@ -5,7 +5,6 @@ using UnityEngine;
 public class BowlingBall : MonoBehaviour
 {
     //create event for when ball resets
-    public static event Action OnBallReset;
     public static event Action OnBallReachedPins;
 
     [SerializeField] private Camera mainCamera;
@@ -76,10 +75,10 @@ public class BowlingBall : MonoBehaviour
         }
 
         // resets when velocity is low enough
-        if (hasLaunched && ballLaunchedTime >= 1f && rb.linearVelocity.magnitude < 0.05f)
+        if (hasLaunched && ballLaunchedTime >= 1f && rb.linearVelocity.magnitude < 0.2f)
         {
             hasLaunched = false;
-            StartCoroutine(DelayedBallReset());
+            StartCoroutine(DelayedEndTurn());
         }
 
         // reset if auto reset time is reached
@@ -97,6 +96,11 @@ public class BowlingBall : MonoBehaviour
         ++throwsUsed;
     }
 
+    public void OnEndTurn()
+    {
+        ResetBall();
+    }
+
     private void ResetBall()
     {
         //reset velocities
@@ -111,14 +115,11 @@ public class BowlingBall : MonoBehaviour
         ballLaunchedTime = 0;
         //reset reached pins bool
         reachedPins = false;
-
-        //when ball resets, send event signal out
-        OnBallReset?.Invoke();
     }
 
-    IEnumerator DelayedBallReset()
+    IEnumerator DelayedEndTurn()
     {
         yield return new WaitForSeconds(ResetDelay);
-        ResetBall();
+        GameManager.Instance.EndTurn();
     }
 }

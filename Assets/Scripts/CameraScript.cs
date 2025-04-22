@@ -17,11 +17,10 @@ public class CameraScript : MonoBehaviour
     private void Start()
     {
         lookAtPins = false;
-        BowlingBall.OnBallReset += BowlingBallOnOnBallReset;
         BowlingBall.OnBallReachedPins += BowlingBallOnOnBallReachedPins;
     }
 
-    private void BowlingBallOnOnBallReset()
+    public void OnEndTurn()
     {
         lookAtPins = false;
     }
@@ -47,7 +46,6 @@ public class CameraScript : MonoBehaviour
 
     private void OnDestroy()
     {
-        BowlingBall.OnBallReset -= BowlingBallOnOnBallReset;
         BowlingBall.OnBallReachedPins -= BowlingBallOnOnBallReachedPins;
     }
 }
