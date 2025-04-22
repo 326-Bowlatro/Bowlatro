@@ -1,9 +1,7 @@
-using TMPro;
 using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI scoreText;
     private float flatScore = 0, multScore = 1f, finalScore = 0;
 
     private void Start()
@@ -21,12 +19,7 @@ public class ScoreManager : MonoBehaviour
         flatScore += flat;
         multScore += mult;
         finalScore = flatScore * multScore;
-        UpdateScoreText();
-    }
-
-    private void UpdateScoreText()
-    {
-        scoreText.text = "Score: " + flatScore + "x" + multScore + "=" + finalScore;
+        GameUI.Instance.UpdateScoreText(flatScore, multScore, finalScore);
     }
 
     private void OnDestroy()
