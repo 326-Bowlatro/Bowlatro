@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public int RoundScore => RoundScoreFlat * RoundScoreMult;
     public int RoundScoreMult { get; private set; } = 1;
     public int RoundScoreFlat { get; private set; } = 0;
+    public int TurnNum { get; private set; } = 0;
 
     void Awake()
     {
@@ -38,6 +39,10 @@ public class GameManager : MonoBehaviour
         // Reset all pins
         var pins = FindObjectsByType<Pin>(FindObjectsSortMode.None).ToList();
         pins.ForEach(pin => pin.OnEndTurn());
+
+        // Begin next turn and update UI
+        TurnNum++;
+        GameUI.Instance.Refresh();
     }
 
     /// <summary>
