@@ -1,6 +1,9 @@
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// GameManager singleton, drives all game state.
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
