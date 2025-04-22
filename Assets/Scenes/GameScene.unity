@@ -2353,9 +2353,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b74c6f4f3db604f47987bc0438d9a13e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roundScore: 0
-  roundScoreMult: 1
-  roundScoreFlat: 0
+  bowlingBall: {fileID: 855668308}
+  cameraObject: {fileID: 330585548}
 --- !u!4 &172741077
 Transform:
   m_ObjectHideFlags: 0

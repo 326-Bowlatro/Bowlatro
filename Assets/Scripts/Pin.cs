@@ -1,32 +1,25 @@
 using UnityEngine;
 
 public class Pin : MonoBehaviour
-{    
+{
     [SerializeField] private int flatScore;
     [SerializeField] private int multScore;
 
     private Rigidbody rb;
     private Vector3 initialPosition;
     private Vector3 initialRotation;
-    
+
     private bool knockedOver;
-    
-    private void Start()
+
+    void Start()
     {
         rb = GetComponent<Rigidbody>();
         initialPosition = transform.position;
         initialRotation = transform.eulerAngles;
         knockedOver = false;
-        //subscribe like and comment to bowling ball reset event
-        BowlingBall.OnBallReset += BowlingBallOnOnBallReset;
     }
 
-    private void BowlingBallOnOnBallReset()
-    {
-        ResetPin();
-    }
-
-    private void Update()
+    void Update()
     {
         if (!knockedOver && (transform.eulerAngles.x > 60 || transform.eulerAngles.z > 60))
         {
@@ -34,6 +27,11 @@ public class Pin : MonoBehaviour
             //increase score by pin predefined amount
             GameManager.Instance.NotifyPinKnockedOver(flatScore, multScore);
         }
+    }
+
+    public void OnEndTurn()
+    {
+        ResetPin();
     }
 
     private void ResetPin()
@@ -48,11 +46,5 @@ public class Pin : MonoBehaviour
         gameObject.SetActive(true);
         //set back to not knocked over
         knockedOver = false;
-    }
-
-    private void OnDestroy() //unsubscribe because can cause problems if not, i.e. break invokes, break objects etc.
-    {
-        //unsubscribe
-        BowlingBall.OnBallReset -= BowlingBallOnOnBallReset;
     }
 }
