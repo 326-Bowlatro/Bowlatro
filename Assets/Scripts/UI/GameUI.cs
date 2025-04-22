@@ -18,7 +18,13 @@ public class GameUI : MonoBehaviour
         var uiDocument = GetComponent<UIDocument>();
         rootElement = uiDocument.rootVisualElement;
 
-        // Set data source to GameManager
-        rootElement.dataSource = GameManager.Instance;
+        Refresh();
+    }
+
+    public void Refresh()
+    {
+        rootElement.Q<Label>("_Score").text = GameManager.Instance.RoundScore.ToString();
+        rootElement.Q<Label>("_ScoreMult").text = GameManager.Instance.RoundScoreMult.ToString();
+        rootElement.Q<Label>("_ScoreFlat").text = GameManager.Instance.RoundScoreFlat.ToString();
     }
 }
