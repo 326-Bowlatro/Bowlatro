@@ -1,0 +1,51 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/BaseStyles.uss?fileID=7433441132597879392&amp;guid=921c73c4fb2b341a5ab72b6e494ede34&amp;type=3#BaseStyles" />
+    <engine:VisualElement name="Container" style="flex-grow: 1; padding-top: 46px; padding-right: 10px; padding-left: 10px; background-color: rgb(43, 58, 60); border-right-width: 2px; border-left-width: 2px; border-left-color: rgb(0, 106, 178); border-right-color: rgb(0, 106, 178); border-top-color: rgb(0, 106, 178); border-bottom-color: rgb(0, 106, 178);">
+        <engine:VisualElement name="StageBlindContainer" class="menu-item large" style="align-items: stretch;">
+            <engine:VisualElement name="StageContainer" class="menu-item inner blue1 large" style="flex-grow: 1; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; border-left-color: rgb(0, 64, 115); border-right-color: rgb(0, 64, 115); border-top-color: rgb(0, 64, 115); border-bottom-color: rgb(0, 64, 115); height: 48px;">
+                <engine:Label text="Stage 1" class="big" />
+            </engine:VisualElement>
+            <engine:VisualElement name="BlindContainer" class="menu-item inner blue2 large" style="height: 170px; margin-top: 0; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; justify-content: space-between; padding-top: 8px; padding-right: 8px; padding-bottom: 8px; padding-left: 8px;">
+                <engine:Label text="Must play fewer than 5 cards" />
+                <engine:VisualElement style="flex-direction: row; align-self: stretch;">
+                    <engine:VisualElement class="menu-item" style="height: 88px; width: 88px; background-color: rgb(26, 43, 45); margin-right: 4px;" />
+                    <engine:VisualElement class="menu-item" style="background-color: rgb(26, 43, 45); flex-grow: 1; margin-left: 4px;">
+                        <engine:Label text="Score to beat" />
+                        <engine:Label text="0" class="huge" />
+                    </engine:VisualElement>
+                </engine:VisualElement>
+            </engine:VisualElement>
+        </engine:VisualElement>
+        <engine:VisualElement name="ScoreContainer" class="menu-item" style="height: 55px; margin-top: 6px; flex-direction: row; padding-left: 16px;">
+            <engine:Label text="Current&#10;Score" style="margin-right: 8px;" />
+            <engine:VisualElement class="menu-item inner" style="flex-grow: 1; justify-content: center; align-items: center; height: 40px;">
+                <engine:Label text="0" class="huge" />
+            </engine:VisualElement>
+        </engine:VisualElement>
+        <engine:VisualElement name="PinsContainer" class="menu-item" style="height: 152px; margin-top: 4px;" />
+        <engine:VisualElement name="BallsContainer" class="menu-item" style="height: 84px; margin-top: 4px;" />
+        <engine:VisualElement name="MiscContainer" style="flex-grow: 0; flex-direction: row; margin-top: 5px; justify-content: space-between;">
+            <engine:VisualElement name="CashContainer" class="menu-item small" style="width: 121px; height: 70px; align-items: stretch;">
+                <engine:VisualElement class="menu-item inner" style="flex-grow: 1;">
+                    <engine:Label text="$32" class="huge" style="color: rgb(255, 175, 26);" />
+                </engine:VisualElement>
+            </engine:VisualElement>
+            <engine:VisualElement name="TurnContainer" class="menu-item small" style="width: 82px; height: 70px; align-items: stretch;">
+                <engine:Label text="Turn" style="-unity-text-align: middle-center;" />
+                <engine:VisualElement class="menu-item inner" style="flex-grow: 1; margin-top: 2px;">
+                    <engine:Label text="2" class="huge" style="color: rgb(255, 135, 0);" />
+                </engine:VisualElement>
+            </engine:VisualElement>
+            <engine:VisualElement name="RoundContainer" class="menu-item small" style="width: 82px; height: 70px; align-items: stretch;">
+                <engine:Label text="Round" style="-unity-text-align: middle-center;" />
+                <engine:VisualElement class="menu-item inner" style="flex-grow: 1; margin-top: 2px;">
+                    <engine:Label text="4" class="huge" style="color: rgb(255, 135, 0);" />
+                </engine:VisualElement>
+            </engine:VisualElement>
+        </engine:VisualElement>
+        <engine:VisualElement name="ButtonsContainer" style="flex-grow: 0; flex-direction: row; margin-top: 6px; justify-content: space-evenly;">
+            <engine:Button text="Options" class="menu-item" style="width: 142px; height: 72px; background-color: rgb(255, 145, 0); margin-left: 4px; margin-right: 4px;" />
+            <engine:Button text="Run Info" class="menu-item" style="width: 142px; height: 72px; background-color: rgb(255, 51, 51); margin-right: 4px; margin-left: 4px;" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

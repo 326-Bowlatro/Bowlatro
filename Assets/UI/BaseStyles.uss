@@ -1,0 +1,110 @@
+* {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/m6x11plus.ttf?fileID=12800000&guid=662fbc3c6bd604972b53567a8097de44&type=3#m6x11plus");
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-center;
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+.menu-item {
+    background-color: rgb(24, 38, 41);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    flex-grow: 0;
+    margin-top: 0;
+    border-bottom-width: 2px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-right-width: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-item.small {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.menu-item.large {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.menu-item.inner {
+    background-color: rgb(43, 58, 60);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    margin-right: 6px;
+    margin-left: 6px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.menu-item.inner.blue1 {
+    background-color: rgb(0, 106, 178);
+    border-bottom-width: 2px;
+    border-left-color: rgba(0, 64, 115, 0);
+    border-right-color: rgba(0, 64, 115, 0);
+    border-top-color: rgba(0, 64, 115, 0);
+    border-bottom-color: rgba(0, 64, 115, 0);
+}
+
+.menu-item.inner.blue2 {
+    background-color: rgb(0, 68, 98);
+}
+
+Label {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-text-align: middle-left;
+}
+
+Label.big {
+    font-size: 36px;
+}
+
+Label.huge {
+    font-size: 46px;
+}
+
+Button.menu-item {
+    border-left-color: rgb(20, 30, 33);
+    border-right-color: rgb(20, 30, 33);
+    border-top-color: rgb(20, 30, 33);
+    border-bottom-color: rgb(20, 30, 33);
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    font-size: 28px;
+}
