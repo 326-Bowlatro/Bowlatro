@@ -25,7 +25,7 @@ public class Pin : MonoBehaviour
         {
             knockedOver = true;
             //increase score by pin predefined amount
-            GameManager.Instance.NotifyPinKnockedOver(flatScore, multScore);
+            GameManager.Instance.AddPinToScore(flatScore, multScore);
         }
     }
 
