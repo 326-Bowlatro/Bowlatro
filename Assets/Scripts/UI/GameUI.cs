@@ -29,5 +29,6 @@ public class GameUI : MonoBehaviour
         rootElement.Q<Label>("_Score").text = GameManager.Instance.RoundScore.ToString();
         rootElement.Q<Label>("_ScoreMult").text = GameManager.Instance.RoundScoreMult.ToString();
         rootElement.Q<Label>("_ScoreFlat").text = GameManager.Instance.RoundScoreFlat.ToString();
+        rootElement.Q<Label>("_Turn").text = (GameManager.Instance.TurnNum + 1).ToString();
     }
 }
