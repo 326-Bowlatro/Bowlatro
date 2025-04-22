@@ -2354,7 +2354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bowlingBall: {fileID: 855668308}
-  cameraObject: {fileID: 330585548}
+  mainCamera: {fileID: 330585548}
 --- !u!4 &172741077
 Transform:
   m_ObjectHideFlags: 0
@@ -13500,7 +13500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a7af7be2beeb7040ac6490a4abcefff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 330585545}
+  mainCamera: {fileID: 330585548}
   pinsMainPoint: {fileID: 1644579025}
   laneCollider: {fileID: 1687877525}
   aimAmount: 1

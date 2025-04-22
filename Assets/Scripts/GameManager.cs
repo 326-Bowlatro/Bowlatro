@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     private BowlingBall bowlingBall;
 
     [SerializeField]
-    private CameraScript cameraObject;
+    private CameraScript mainCamera;
 
     // Per-round state
     public int RoundScore => RoundScoreFlat * RoundScoreMult;
@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Calling this ends the turn and resets the ball/pins.
+    /// Ends the player's turn and resets the ball/pins.
     /// </summary>
     public void EndTurn()
     {
@@ -30,13 +30,16 @@ public class GameManager : MonoBehaviour
         bowlingBall.OnEndTurn();
 
         // Reset camera
-        cameraObject.OnEndTurn();
+        mainCamera.OnEndTurn();
 
         // Reset all pins
         var pins = FindObjectsByType<Pin>(FindObjectsSortMode.None).ToList();
         pins.ForEach(pin => pin.OnEndTurn());
     }
 
+    /// <summary>
+    /// Updates the round score with values from a knocked-over pin.
+    /// </summary>
     public void NotifyPinKnockedOver(int flatScore, int multScore)
     {
         // Update score with values from Pin

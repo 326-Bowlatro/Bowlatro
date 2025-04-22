@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class BowlingBall : MonoBehaviour
 {
-    //create event for when ball resets
-    public static event Action OnBallReachedPins;
-
-    [SerializeField] private Camera mainCamera;
+    [SerializeField] private CameraScript mainCamera;
     [SerializeField] private Transform pinsMainPoint;
     [SerializeField] private Collider laneCollider;
     [SerializeField] private float aimAmount = 1f;
@@ -42,7 +39,10 @@ public class BowlingBall : MonoBehaviour
 
         if (!reachedPins && Math.Abs((transform.position - pinsMainPoint.position).magnitude) < 10f)
         {
-            OnBallReachedPins?.Invoke();
+            // Have the camera look at the pins. This will be reset
+            // automatically when the turn ends.
+            mainCamera.BeginLookAtPins();
+
             reachedPins = true;
         }
 
