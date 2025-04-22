@@ -21,6 +21,9 @@ public class GameUI : MonoBehaviour
         Refresh();
     }
 
+    /// <summary>
+    /// Refreshes entire UI with latest state. Should be called any time UI-visible values are changed.
+    /// </summary>
     public void Refresh()
     {
         rootElement.Q<Label>("_Score").text = GameManager.Instance.RoundScore.ToString();

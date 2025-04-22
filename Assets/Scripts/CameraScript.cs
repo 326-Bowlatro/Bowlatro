@@ -1,7 +1,4 @@
-using System;
-
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class CameraScript : MonoBehaviour
 {
@@ -12,27 +9,32 @@ public class CameraScript : MonoBehaviour
     [SerializeField] private Vector3 ballLookAtOffset;
     [SerializeField] private Vector3 pinLookAtOffset;
 
-    private bool lookAtPins;
-    
-    private void Start()
+    private bool isLookingAtPins = false;
+
+    /// <summary>
+    /// Switches camera mode to show the pins.
+    /// </summary>
+    public void BeginLookAtPins()
     {
-        lookAtPins = false;
-        BowlingBall.OnBallReachedPins += BowlingBallOnOnBallReachedPins;
+        isLookingAtPins = true;
+    }
+
+    /// <summary>
+    /// Switches camera mode to follow the ball.
+    /// </summary>
+    public void EndLookAtPins()
+    {
+        isLookingAtPins = false;
     }
 
     public void OnEndTurn()
     {
-        lookAtPins = false;
-    }
-
-    private void BowlingBallOnOnBallReachedPins()
-    {
-        lookAtPins = true;
+        EndLookAtPins();
     }
 
     private void Update()
     {
-        if (lookAtPins)
+        if (isLookingAtPins)
         {
             transform.position = pinLookTarget.position + camPinOffset;
             transform.LookAt(pinLookTarget.position + pinLookAtOffset);
@@ -42,10 +44,5 @@ public class CameraScript : MonoBehaviour
             transform.position = ballLookTarget.position + camBallOffset;
             transform.LookAt(ballLookTarget.position + ballLookAtOffset);
         }
-    }
-
-    private void OnDestroy()
-    {
-        BowlingBall.OnBallReachedPins -= BowlingBallOnOnBallReachedPins;
     }
 }
