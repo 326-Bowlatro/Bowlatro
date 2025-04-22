@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Calling this ends the turn and resets balls/pins.
+    /// Calling this ends the turn and resets the ball/pins.
     /// </summary>
     public void EndTurn()
     {
