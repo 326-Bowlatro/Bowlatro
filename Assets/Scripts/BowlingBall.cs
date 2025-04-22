@@ -75,7 +75,7 @@ public class BowlingBall : MonoBehaviour
         }
 
         // resets when velocity is low enough
-        if (hasLaunched && ballLaunchedTime >= 1f && rb.linearVelocity.magnitude < 0.05f)
+        if (hasLaunched && ballLaunchedTime >= 1f && rb.linearVelocity.magnitude < 0.2f)
         {
             hasLaunched = false;
             StartCoroutine(DelayedEndTurn());
