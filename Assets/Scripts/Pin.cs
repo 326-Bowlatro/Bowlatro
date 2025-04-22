@@ -1,11 +1,7 @@
-using System;
-
 using UnityEngine;
 
 public class Pin : MonoBehaviour
-{
-    public static event Action<int, int> OnPinKnockedOver;
-    
+{    
     [SerializeField] private int flatScore;
     [SerializeField] private int multScore;
 
@@ -36,7 +32,7 @@ public class Pin : MonoBehaviour
         {
             knockedOver = true;
             //increase score by pin predefined amount
-            OnPinKnockedOver?.Invoke(flatScore, multScore);
+            GameManager.Instance.NotifyPinKnockedOver(flatScore, multScore);
         }
     }
 

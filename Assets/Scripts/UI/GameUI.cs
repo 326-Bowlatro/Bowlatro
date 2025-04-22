@@ -18,14 +18,7 @@ public class GameUI : MonoBehaviour
         var uiDocument = GetComponent<UIDocument>();
         rootElement = uiDocument.rootVisualElement;
 
-        // Set data source to self
-        rootElement.dataSource = this;
-    }
-
-    public void UpdateScoreText(int flatScore, int multScore, int finalScore)
-    {
-        rootElement.Q<Label>("_ScoreFlat").text = flatScore.ToString();
-        rootElement.Q<Label>("_ScoreMult").text = multScore.ToString();
-        rootElement.Q<Label>("_Score").text = finalScore.ToString();
+        // Set data source to GameManager
+        rootElement.dataSource = GameManager.Instance;
     }
 }
