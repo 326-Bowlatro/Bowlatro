@@ -37,50 +37,40 @@ public class PinLayoutManager : MonoBehaviour
         //each case can call a function with some 2d array grid, just create it
         //case 1
         //call CreateLayout(2d array)
-        int[][] grid;
-        switch(layoutType)
+        int[][] grid = layoutType switch
         {
-            case LayoutEnum.Triangle:
-                grid = new int[][]
-                {
-                    new int[] {1, 0, 1, 0, 1, 0, 1}, 
-                    new int[] {0, 1, 0, 1, 0, 1, 0},
-                    new int[] {0, 0, 1, 0, 1, 0, 0},
-                    new int[] {0, 0, 0, 1, 0, 0, 0}
-                };
-                CreateLayout(grid);
-                break;
-            case LayoutEnum.Block:
-                grid = new int[][]
-                {
-                    new int[] { 1, 0, 1, 0, 1, 0, 1 },
-                    new int[] { 1, 0, 1, 0, 1, 0, 1 },
-                    new int[] { 0, 0, 1, 0, 1, 0, 0 },
-                    new int[] { 0, 0, 0, 0, 0, 0, 0 }
-                };
-                CreateLayout(grid);
-                break;
-            case LayoutEnum.Diamond:
-                grid = new int[][]
-                {
-                    new int[] { 0, 0, 0, 1, 0, 0, 0 },
-                    new int[] { 0, 1, 0, 1, 0, 1, 0 },
-                    new int[] { 1, 0, 0, 1, 0, 0, 1 },
-                    new int[] { 0, 1, 0, 1, 0, 1, 0 }
-                };
-                CreateLayout(grid);
-                break;
-            // case LayoutEnum.ReverseTriangle:
-            //     grid = new int[][]
-            //     {
-            //         new int[] {0, 0, 0, 1, 0, 0, 0},
-            //         new int[] {0, 0, 1, 0, 1, 0, 0},
-            //         new int[] {0, 1, 0, 1, 0, 1, 0},
-            //         new int[] {1, 0, 1, 0, 1, 0, 1}
-            //     };
-            //     CreateLayout(grid);
-            //     break;
-        }
+            LayoutEnum.Triangle => new int[][]
+            {
+                new int[] { 1, 0, 1, 0, 1, 0, 1 },
+                new int[] { 0, 1, 0, 1, 0, 1, 0 },
+                new int[] { 0, 0, 1, 0, 1, 0, 0 },
+                new int[] { 0, 0, 0, 1, 0, 0, 0 },
+            },
+            LayoutEnum.Block => new int[][]
+            {
+                new int[] { 1, 0, 1, 0, 1, 0, 1 },
+                new int[] { 1, 0, 1, 0, 1, 0, 1 },
+                new int[] { 0, 0, 1, 0, 1, 0, 0 },
+                new int[] { 0, 0, 0, 0, 0, 0, 0 },
+            },
+            LayoutEnum.Diamond => new int[][]
+            {
+                new int[] { 0, 0, 0, 1, 0, 0, 0 },
+                new int[] { 0, 1, 0, 1, 0, 1, 0 },
+                new int[] { 1, 0, 0, 1, 0, 0, 1 },
+                new int[] { 0, 1, 0, 1, 0, 1, 0 },
+            },
+            // LayoutEnum.ReverseTriangle => new int[][]
+            // {
+            //     new int[] { 0, 0, 0, 1, 0, 0, 0 },
+            //     new int[] { 0, 0, 1, 0, 1, 0, 0 },
+            //     new int[] { 0, 1, 0, 1, 0, 1, 0 },
+            //     new int[] { 1, 0, 1, 0, 1, 0, 1 },
+            // },
+            _ => throw new NotImplementedException()
+        };
+
+        CreateLayout(grid);
     }
 
     private void CreateLayout(int[][] grid)
