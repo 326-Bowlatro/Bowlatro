@@ -7,6 +7,7 @@ using UnityEngine;
 public class Pin : MonoBehaviour
 {
     public static event Action<float, float> OnPinKnockedOver;
+    public static event Action PinStillStanding;
     
     [SerializeField] private int flatScore;
     [SerializeField] private float multScore;
@@ -15,20 +16,20 @@ public class Pin : MonoBehaviour
     private Vector3 initialPosition;
     private Vector3 initialRotation;
     
-    private bool knockedOver;
-    
+    public bool knockedOver;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         initialPosition = transform.position;
         initialRotation = transform.eulerAngles;
         knockedOver = false;
-        //subscribe like and comment to bowling ball reset event
-        BowlingBall.OnBallReset += BowlingBallOnOnBallReset;
+        RoundManager.PinSignal += RoundManagerOnPinSignal;
+        RoundManager.ResetRound += RoundManagerOnResetRound;
     }
 
-    private void BowlingBallOnOnBallReset()
-    {
+    private void RoundManagerOnResetRound()
+    {       
         ResetPin();
     }
 
@@ -51,14 +52,22 @@ public class Pin : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
         rb.linearVelocity = Vector3.zero;
         //set back to active
-        gameObject.SetActive(true);
+        // gameObject.SetActive(true);
         //set back to not knocked over
         knockedOver = false;
+    }
+    private void RoundManagerOnPinSignal()
+    {
+        if (knockedOver)
+        {
+            PinStillStanding?.Invoke();
+        }
     }
 
     private void OnDestroy() //unsubscribe because can cause problems if not, i.e. break invokes, break objects etc.
     {
         //unsubscribe
-        BowlingBall.OnBallReset -= BowlingBallOnOnBallReset;
+        RoundManager.PinSignal -= RoundManagerOnPinSignal;
     }
 }
+

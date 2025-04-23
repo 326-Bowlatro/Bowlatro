@@ -6,24 +6,21 @@ public class BowlingBall : MonoBehaviour
 {
     //create event for when ball resets
     public static event Action OnBallReset;
+
+    public static event Action OnBallDie;
     public static event Action OnBallReachedPins;
 
-    [SerializeField] private Camera mainCamera;
-    [SerializeField] private Transform pinsMainPoint;
     [SerializeField] private Collider laneCollider;
     [SerializeField] private float aimAmount = 1f;
 
     [SerializeField] private float LaunchForce = 1500f;
     [SerializeField] private float ResetDelay = 2f;
     [SerializeField] private float AutoResetTime = 5f;
-    [SerializeField] private int MaxThrows = 5;
 
     private Rigidbody rb;
     private Vector3 startPosition;
     private Vector3 startRotation;
-    private int throwsUsed = 0;
     private bool hasLaunched = false;
-    private bool reachedPins = false;
     private float ballLaunchedTime = 0f;
     private float laneMax, laneMin;
 
@@ -38,15 +35,6 @@ public class BowlingBall : MonoBehaviour
 
     void Update()
     {
-        if (throwsUsed >= MaxThrows)
-            return;
-
-        if (!reachedPins && Math.Abs((transform.position - pinsMainPoint.position).magnitude) < 10f)
-        {
-            OnBallReachedPins?.Invoke();
-            reachedPins = true;
-        }
-
         if (hasLaunched)
         {
             ballLaunchedTime += Time.deltaTime;
@@ -54,18 +42,24 @@ public class BowlingBall : MonoBehaviour
         else
         {
             //keeps ball in bounds with buffer so the ball doesn't go off the lane
-            if (Input.GetKey(KeyCode.A) && transform.position.x < laneMax-.1f)
+            // if (Input.GetKey(KeyCode.A) && transform.position.x < laneMax-.1f)
+            if(Input.GetKey(KeyCode.A))
             {
-                var pos = transform.position;
-                var newX = pos.x + aimAmount*Time.deltaTime;
+                Vector3 pos = transform.position;
+                float newX = pos.x + aimAmount*Time.deltaTime;
                 transform.position = new Vector3(newX, pos.y, pos.z);
+                rb.angularVelocity = Vector3.zero;
+                rb.linearVelocity = Vector3.zero;
             }
 
-            if (Input.GetKey(KeyCode.D) && transform.position.x > laneMin+.1f)
+            // if (Input.GetKey(KeyCode.D) && transform.position.x > laneMin+.1f)
+            if(Input.GetKey(KeyCode.D))
             {
-                var pos = transform.position;
-                var newX = pos.x - aimAmount*Time.deltaTime;
+                Vector3 pos = transform.position;
+                float newX = pos.x - aimAmount*Time.deltaTime;
                 transform.position = new Vector3(newX, pos.y, pos.z);
+                rb.angularVelocity = Vector3.zero;
+                rb.linearVelocity = Vector3.zero;
             }
         }
 
@@ -86,7 +80,8 @@ public class BowlingBall : MonoBehaviour
         if (hasLaunched && ballLaunchedTime >= AutoResetTime)
         {
             hasLaunched = false;
-            ResetBall();
+            Destroy(gameObject);
+            // ResetBall();
         }
     }
 
@@ -94,23 +89,20 @@ public class BowlingBall : MonoBehaviour
     {
         rb.AddForce(-transform.forward * LaunchForce);
         hasLaunched = true;
-        ++throwsUsed;
     }
 
     private void ResetBall()
     {
-        //reset velocities
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-        //reset position/rotation
-        transform.position = startPosition;
-        transform.eulerAngles = startRotation;
-
-        //reset launched bool and timer for bowling ball launch
-        hasLaunched = false;
-        ballLaunchedTime = 0;
-        //reset reached pins bool
-        reachedPins = false;
+        // //reset velocities
+        // rb.linearVelocity = Vector3.zero;
+        // rb.angularVelocity = Vector3.zero;
+        // //reset position/rotation
+        // transform.position = startPosition;
+        // transform.eulerAngles = startRotation;
+        //
+        // //reset launched bool and timer for bowling ball launch
+        // hasLaunched = false;
+        // ballLaunchedTime = 0;
 
         //when ball resets, send event signal out
         OnBallReset?.Invoke();
@@ -120,5 +112,10 @@ public class BowlingBall : MonoBehaviour
     {
         yield return new WaitForSeconds(ResetDelay);
         ResetBall();
+    }
+
+    private void OnDestroy()
+    {
+        OnBallDie?.Invoke();
     }
 }
