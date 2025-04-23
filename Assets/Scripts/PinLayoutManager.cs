@@ -76,7 +76,7 @@ public class PinLayoutManager : MonoBehaviour
     private void CreateLayout(int[][] grid)
     {
         float baseX = -0.6f;
-        float baseZ = 2f;
+        float baseZ = 0.75f;
 
         for (int z = 0; z < grid.Length; z++)
         {
@@ -89,7 +89,7 @@ public class PinLayoutManager : MonoBehaviour
                 }
 
                 var pin = Instantiate(pinPrefab, pinParent);
-                pin.transform.localPosition = new Vector3(baseX + x * 0.2f, 0, baseZ + z * -0.25f);
+                pin.transform.localPosition = new Vector3(baseX + x * 0.2f, 0, baseZ + z * 0.25f);
 
                 Debug.Log("X: " + z + " Y: " + x + " Value: " + grid[z][x]);
             }
