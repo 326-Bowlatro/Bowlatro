@@ -51,7 +51,7 @@
             <engine:VisualElement name="RoundContainer" class="menu-item small" style="width: 82px; height: 70px; align-items: stretch;">
                 <engine:Label text="Round" style="-unity-text-align: middle-center;" />
                 <engine:VisualElement class="menu-item inner" style="flex-grow: 1; margin-top: 2px;">
-                    <engine:Label text="4" class="huge" style="color: rgb(255, 135, 0);" />
+                    <engine:Label text="1" name="_Round" class="huge" style="color: rgb(255, 135, 0);" />
                 </engine:VisualElement>
             </engine:VisualElement>
         </engine:VisualElement>
