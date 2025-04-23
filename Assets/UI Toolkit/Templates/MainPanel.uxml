@@ -1,7 +1,7 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <engine:Template name="MainPanelTemplate" src="project://database/Assets/UI%20Toolkit/Templates/GamePanel.uxml?fileID=9197481963319205126&amp;guid=3748d147ea85a4293a4c1398c4ceea5c&amp;type=3#GamePanel" />
     <Style src="project://database/Assets/UI%20Toolkit/Styles/Shared.uss?fileID=7433441132597879392&amp;guid=921c73c4fb2b341a5ab72b6e494ede34&amp;type=3#Shared" />
-    <engine:VisualElement style="flex-grow: 1; flex-direction: row; margin-left: 36px;">
+    <engine:VisualElement picking-mode="Ignore" style="flex-grow: 1; flex-direction: row; margin-left: 36px;">
         <engine:Instance template="MainPanelTemplate" />
     </engine:VisualElement>
 </engine:UXML>

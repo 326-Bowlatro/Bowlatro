@@ -75,29 +75,24 @@ public class PinLayoutManager : MonoBehaviour
 
     private void CreateLayout(int[][] grid)
     {
-        float xOffset = .6f, zOffset = -.75f;
-        foreach (int[] row in grid)
-        {
-            xOffset = .6f;
-            foreach (int cell in row)
-            {
-                //place pin
-                //check if pin is there
-                if (cell == 1)
-                {
-                    // //Instantiate pin under pin parent, hi :)
-                    // GameObject pin = Instantiate(pinPrefab, pinParent);
-                    // //move to offset
-                    // pin.transform.position = new Vector3(xOffset, 0, zOffset);
-                    Instantiate(pinPrefab, pinParent);
-                    pinPrefab.transform.position = new Vector3(xOffset, 0, zOffset);
-                    Debug.Log("X: " + xOffset + " Z: " + zOffset);
-                }
-                //decrement
-                xOffset -= .2f;
-            }
+        float baseX = -0.6f;
+        float baseZ = 2f;
 
-            zOffset += .25f;
+        for (int z = 0; z < grid.Length; z++)
+        {
+            for (int x = 0; x < grid[z].Length; x++)
+            {
+                // Only spawn pin if 1
+                if (grid[z][x] == 0)
+                {
+                    continue;
+                }
+
+                var pin = Instantiate(pinPrefab, pinParent);
+                pin.transform.localPosition = new Vector3(baseX + x * 0.2f, 0, baseZ + z * -0.25f);
+
+                Debug.Log("X: " + z + " Y: " + x + " Value: " + grid[z][x]);
+            }
         }
     }
 }
