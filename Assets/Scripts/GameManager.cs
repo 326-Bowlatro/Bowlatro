@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public int RoundScoreMult { get; private set; } = 1;
     public int RoundScoreFlat { get; private set; } = 0;
     public int TurnNum { get; private set; } = 0;
+    public int RoundNum { get; private set; } = 0;
 
     void Awake()
     {
@@ -45,12 +46,34 @@ public class GameManager : MonoBehaviour
         // Reset camera
         mainCamera.OnEndTurn();
 
+        // Begin next turn and update UI
+        TurnNum++;
+
+        // End the round after 2 turns
+        if (TurnNum >= 2)
+        {
+            EndRound();
+        }
+
+        // Trigger UI refresh
+        GameUI.Instance.Refresh();
+    }
+
+    public void EndRound()
+    {
+        // Incremenet round number
+        RoundNum++;
+
+        // Reset round state
+        RoundScoreFlat = 0;
+        RoundScoreMult = 1;
+        TurnNum = 0;
+
         // Reset all pins
         var pins = FindObjectsByType<Pin>(FindObjectsSortMode.None).ToList();
         pins.ForEach(pin => pin.OnEndTurn());
 
-        // Begin next turn and update UI
-        TurnNum++;
+        // Trigger UI refresh
         GameUI.Instance.Refresh();
     }
 
