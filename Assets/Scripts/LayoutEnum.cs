@@ -1,6 +1,6 @@
 ﻿public enum LayoutEnum
 {
-    Square,
+    Block,
     Triangle,
     Diamond,
     ReverseTriangle

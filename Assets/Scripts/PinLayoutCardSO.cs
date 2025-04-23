@@ -6,5 +6,5 @@ public class PinLayoutCardSO : ScriptableObject
 {
     public Image image;
     public LayoutEnum layoutType;
-    [SerializeField] private string layoutName;
+    public string layoutName;
 }
