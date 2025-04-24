@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1b319f04bc82e5438f4d6bd93c2f964, type: 3}
   m_Name: Block Pin Layout
   m_EditorClassIdentifier: 
+  Prefab: {fileID: 8841162509278332963, guid: 3f54acc37584e044bb0602eafede2e5d, type: 3}
   Image: {fileID: 0}
   LayoutType: 0
   LayoutName: Block

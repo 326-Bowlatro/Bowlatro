@@ -16,6 +16,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private CameraScript mainCamera;
 
+    [SerializeField] 
+    private CardManager cardManager;
+
+    [SerializeField]
+    private ShopBackButtonScript shopBackButton;
+    
     // Per-blind state
     public int CurrentScore => CurrentScoreFlat * CurrentScoreMult;
     public int CurrentScoreMult { get; private set; } = 1;
@@ -119,6 +125,11 @@ public class GameManager : MonoBehaviour
 
         // Reset RoundNum
         RoundNum = 0;
+        
+        //Go to shop
+        LayoutManager.ClearPins();
+        mainCamera.BeginLookAtShop();
+        shopBackButton.Enable();
     }
 
     /// <summary>
