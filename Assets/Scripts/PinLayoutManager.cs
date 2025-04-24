@@ -60,14 +60,14 @@ public class PinLayoutManager : MonoBehaviour
                 new int[] { 1, 0, 0, 1, 0, 0, 1 },
                 new int[] { 0, 1, 0, 1, 0, 1, 0 },
             },
-            // LayoutEnum.ReverseTriangle => new int[][]
-            // {
-            //     new int[] { 0, 0, 0, 1, 0, 0, 0 },
-            //     new int[] { 0, 0, 1, 0, 1, 0, 0 },
-            //     new int[] { 0, 1, 0, 1, 0, 1, 0 },
-            //     new int[] { 1, 0, 1, 0, 1, 0, 1 },
-            // },
-            _ => throw new NotImplementedException()
+            LayoutEnum.ReverseTriangle => new int[][]
+            {
+                new int[] { 0, 0, 0, 1, 0, 0, 0 },
+                new int[] { 0, 0, 1, 0, 1, 0, 0 },
+                new int[] { 0, 1, 0, 1, 0, 1, 0 },
+                new int[] { 1, 0, 1, 0, 1, 0, 1 },
+            },
+            // _ => throw new NotImplementedException()
         };
 
         CreateLayout(grid);
