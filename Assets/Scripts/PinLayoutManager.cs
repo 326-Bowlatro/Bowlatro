@@ -1,38 +1,30 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+
+public enum LayoutType
+{
+    Block,
+    Triangle,
+    Diamond,
+    ReverseTriangle,
+}
 
 public class PinLayoutManager : MonoBehaviour
 {
+    public LayoutType LayoutType { get; private set; }
+
     [SerializeField] private Transform pinParent;
     [SerializeField] private GameObject pinPrefab;
-    [SerializeField] private int laneNumber;
-    private void Start()
-    {
-        PinLayoutCard.PinLayoutSelected += PinLayoutCardOnPinLayoutSelected;
-    }
 
-    private void PinLayoutCardOnPinLayoutSelected(LayoutType layoutType)
+    /// <summary>
+    /// Spawns a pin layout based on the given type.
+    /// </summary>
+    public void SpawnLayout(LayoutType layoutType)
     {
-        //create layout to be what the enum states
-        ChooseLayout(layoutType);
-        GameManager.Instance.layoutType = layoutType;
-    }
+        LayoutType = layoutType;
 
-    private void OnDestroy()
-    {
-        PinLayoutCard.PinLayoutSelected -= PinLayoutCardOnPinLayoutSelected;
-    }
-
-    private void Update()
-    {
-        
-    }
-
-    public void ChooseLayout(LayoutType layoutType)
-    {
-        //switch
-        //each case can call a function with some 2d array grid, just create it
-        //case 1
-        //call CreateLayout(2d array)
+        // Map enum values to layout grids
         int[][] grid = layoutType switch
         {
             LayoutType.Triangle => new[]
@@ -63,22 +55,15 @@ public class PinLayoutManager : MonoBehaviour
                 new[] { 0, 1, 0, 1, 0, 1, 0 },
                 new[] { 1, 0, 1, 0, 1, 0, 1 },
             },
-            _ => null
-            // _ => throw new NotImplementedException()
-            
+            _ => throw new NotImplementedException(),
         };
 
-        CreateLayout(grid);
-    }
-
-    private void CreateLayout(int[][] grid)
-    {
-        float baseX = -0.6f;
-        float baseZ = 0.75f;
-
-        for (int z = 0; z < grid.Length; z++)
+        // Spawn pins in chosen layout
+        const float baseX = -0.6f;
+        const float baseZ = 0.75f;
+        for (var z = 0; z < grid.Length; z++)
         {
-            for (int x = 0; x < grid[z].Length; x++)
+            for (var x = 0; x < grid[z].Length; x++)
             {
                 // Only spawn pin if 1
                 if (grid[z][x] == 0)
@@ -88,8 +73,6 @@ public class PinLayoutManager : MonoBehaviour
 
                 var pin = Instantiate(pinPrefab, pinParent);
                 pin.transform.localPosition = new Vector3(baseX + x * 0.2f, 0, baseZ + z * 0.25f);
-
-                // Debug.Log("X: " + z + " Y: " + x + " Value: " + grid[z][x]);
             }
         }
     }

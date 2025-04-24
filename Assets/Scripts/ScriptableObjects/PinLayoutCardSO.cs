@@ -4,7 +4,7 @@ using UnityEngine.UI;
 [CreateAssetMenu()]
 public class PinLayoutCardSO : ScriptableObject
 {
-    public Image image;
-    public LayoutType layoutType;
-    public string layoutName;
+    public Image Image;
+    public LayoutType LayoutType;
+    public string LayoutName;
 }

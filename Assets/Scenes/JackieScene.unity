@@ -1140,8 +1140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bowlingBall: {fileID: 855668308}
   mainCamera: {fileID: 330585548}
-  layoutManager: {fileID: 921458846}
-  layoutType: 0
+  LayoutManager: {fileID: 921458846}
 --- !u!4 &172741077
 Transform:
   m_ObjectHideFlags: 0
@@ -9025,7 +9024,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pinParent: {fileID: 1644579025}
   pinPrefab: {fileID: 7486533534180108460, guid: 6894647091809c74895ae88ee3c1281c, type: 3}
-  laneNumber: 0
+  LayoutType: 0
 --- !u!4 &921458847
 Transform:
   m_ObjectHideFlags: 0
