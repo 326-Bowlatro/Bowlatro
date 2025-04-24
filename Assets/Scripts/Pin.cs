@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Pin : MonoBehaviour
 {
+    public bool IsKnockedOver { get; private set; }
+
     [SerializeField] private int flatScore;
     [SerializeField] private int multScore;
 
@@ -9,22 +11,20 @@ public class Pin : MonoBehaviour
     private Vector3 initialPosition;
     private Vector3 initialRotation;
 
-    private bool knockedOver;
-
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         initialPosition = transform.position;
         initialRotation = transform.eulerAngles;
-        knockedOver = false;
+        IsKnockedOver = false;
     }
 
     void Update()
     {
         // Are we less than 80% upright?
-        if (!knockedOver && Vector3.Dot(transform.up, Vector3.up) < 0.8f)
+        if (!IsKnockedOver && Vector3.Dot(transform.up, Vector3.up) < 0.8f)
         {
-            knockedOver = true;
+            IsKnockedOver = true;
             //increase score by pin predefined amount
             GameManager.Instance.AddPinToScore(flatScore, multScore);
         }
@@ -39,7 +39,7 @@ public class Pin : MonoBehaviour
     {
         // Destroy because pins can be knocked down between throws, and it interferes with the current strike detection system
         // Only destroy if knocked down
-        if (knockedOver)
+        if (IsKnockedOver)
         {
             Destroy(gameObject);
         }
@@ -59,6 +59,6 @@ public class Pin : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
         rb.linearVelocity = Vector3.zero;
         // Set back to not knocked over
-        knockedOver = false;
+        IsKnockedOver = false;
     }
 }

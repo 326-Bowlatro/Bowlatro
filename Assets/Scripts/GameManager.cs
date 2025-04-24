@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
     public int TurnNum { get; private set; } = 0;
     public int RoundNum { get; private set; } = 0;
 
-    private int numPinsFallen = 0;
     private int blindNum = 0;
 
     void Awake()
@@ -45,18 +44,17 @@ public class GameManager : MonoBehaviour
         // Reset ball
         bowlingBall.OnEndTurn();
 
-        // Disable pins to prevent pins getting knocked down between throws
-        var pins = FindObjectsByType<Pin>(FindObjectsSortMode.None).ToList();
-        pins.ForEach(pin => pin.OnEndTurn());
+        // Reset/destroy pins (based on knocked status) to keep them from falling between throws
+        LayoutManager.OnEndTurn();
 
         // Reset camera
         mainCamera.OnEndTurn();
 
-        // Begin next turn and update UI
-        TurnNum++;
-
-        //check what kind of throw happened
+        // Check what kind of throw happened
         CheckForStrike();
+
+        // Begin next turn
+        TurnNum++;
 
         // End the round after 2 turns
         if (TurnNum >= 2)
@@ -73,11 +71,13 @@ public class GameManager : MonoBehaviour
         Debug.Log("Checking for strike...");
         Debug.Log($"Throws: {TurnNum}");
 
+        Debug.Log($"Pins fallen: {LayoutManager.NumPinsFallen}");
+
         // All pins knocked?
-        if (numPinsFallen == 10)
+        if (LayoutManager.NumPinsFallen == 10)
         {
             // Strike if done on turn 1
-            if (TurnNum == 1)
+            if (TurnNum == 0)
             {
                 Debug.Log("STRIKE");
                 EndRound();
@@ -103,7 +103,6 @@ public class GameManager : MonoBehaviour
 
         // Reset round state
         TurnNum = 0;
-        numPinsFallen = 0;
 
         // Reset all pins
         var pins = FindObjectsByType<Pin>(FindObjectsSortMode.None).ToList();
@@ -146,9 +145,6 @@ public class GameManager : MonoBehaviour
         // Update score with values from Pin
         RoundScoreFlat += flatScore;
         RoundScoreMult += multScore;
-
-        // Called when a pin falls, so increment pins fallen count here
-        ++numPinsFallen;
 
         // Update UI
         GameUI.Instance.Refresh();
