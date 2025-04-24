@@ -12,7 +12,7 @@ public enum LayoutType
 
 public class PinLayoutManager : MonoBehaviour
 {
-    public LayoutType LayoutType;
+    public LayoutType LayoutType { get; private set; }
 
     [SerializeField] private Transform pinParent;
     [SerializeField] private GameObject pinPrefab;
