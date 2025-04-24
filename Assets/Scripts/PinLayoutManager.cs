@@ -1,5 +1,3 @@
-using System;
-using NUnit.Framework.Internal.Filters;
 using UnityEngine;
 
 public class PinLayoutManager : MonoBehaviour
@@ -39,35 +37,37 @@ public class PinLayoutManager : MonoBehaviour
         //call CreateLayout(2d array)
         int[][] grid = layoutType switch
         {
-            LayoutEnum.Triangle => new int[][]
+            LayoutEnum.Triangle => new[]
             {
-                new int[] { 1, 0, 1, 0, 1, 0, 1 },
-                new int[] { 0, 1, 0, 1, 0, 1, 0 },
-                new int[] { 0, 0, 1, 0, 1, 0, 0 },
-                new int[] { 0, 0, 0, 1, 0, 0, 0 },
+                new[] { 1, 0, 1, 0, 1, 0, 1 },
+                new[] { 0, 1, 0, 1, 0, 1, 0 },
+                new[] { 0, 0, 1, 0, 1, 0, 0 },
+                new[] { 0, 0, 0, 1, 0, 0, 0 },
             },
-            LayoutEnum.Block => new int[][]
+            LayoutEnum.Block => new[]
             {
-                new int[] { 1, 0, 1, 0, 1, 0, 1 },
-                new int[] { 1, 0, 1, 0, 1, 0, 1 },
-                new int[] { 0, 0, 1, 0, 1, 0, 0 },
-                new int[] { 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 1, 0, 1, 0, 1, 0, 1 },
+                new[] { 1, 0, 1, 0, 1, 0, 1 },
+                new[] { 0, 0, 1, 0, 1, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0 },
             },
-            LayoutEnum.Diamond => new int[][]
+            LayoutEnum.Diamond => new[]
             {
-                new int[] { 0, 0, 0, 1, 0, 0, 0 },
-                new int[] { 0, 1, 0, 1, 0, 1, 0 },
-                new int[] { 1, 0, 0, 1, 0, 0, 1 },
-                new int[] { 0, 1, 0, 1, 0, 1, 0 },
+                new[] { 0, 0, 0, 1, 0, 0, 0 },
+                new[] { 0, 1, 0, 1, 0, 1, 0 },
+                new[] { 1, 0, 0, 1, 0, 0, 1 },
+                new[] { 0, 1, 0, 1, 0, 1, 0 },
             },
-            LayoutEnum.ReverseTriangle => new int[][]
+            LayoutEnum.ReverseTriangle => new[]
             {
-                new int[] { 0, 0, 0, 1, 0, 0, 0 },
-                new int[] { 0, 0, 1, 0, 1, 0, 0 },
-                new int[] { 0, 1, 0, 1, 0, 1, 0 },
-                new int[] { 1, 0, 1, 0, 1, 0, 1 },
+                new[] { 0, 0, 0, 1, 0, 0, 0 },
+                new[] { 0, 0, 1, 0, 1, 0, 0 },
+                new[] { 0, 1, 0, 1, 0, 1, 0 },
+                new[] { 1, 0, 1, 0, 1, 0, 1 },
             },
+            _ => null
             // _ => throw new NotImplementedException()
+            
         };
 
         CreateLayout(grid);
@@ -91,7 +91,7 @@ public class PinLayoutManager : MonoBehaviour
                 var pin = Instantiate(pinPrefab, pinParent);
                 pin.transform.localPosition = new Vector3(baseX + x * 0.2f, 0, baseZ + z * 0.25f);
 
-                Debug.Log("X: " + z + " Y: " + x + " Value: " + grid[z][x]);
+                // Debug.Log("X: " + z + " Y: " + x + " Value: " + grid[z][x]);
             }
         }
     }

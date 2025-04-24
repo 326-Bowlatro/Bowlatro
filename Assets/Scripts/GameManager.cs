@@ -71,7 +71,6 @@ public class GameManager : MonoBehaviour
 
         // Reset all pins
         var pins = FindObjectsByType<Pin>(FindObjectsSortMode.None).ToList();
-        Debug.Log(pins.Count);
         pins.ForEach(pin => pin.OnEndTurn());
 
         // Trigger UI refresh
