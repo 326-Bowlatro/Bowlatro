@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1b319f04bc82e5438f4d6bd93c2f964, type: 3}
   m_Name: Block Pin Layout
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
-  layoutType: 0
-  layoutName: Block
+  Image: {fileID: 0}
+  LayoutType: 0
+  LayoutName: Block
