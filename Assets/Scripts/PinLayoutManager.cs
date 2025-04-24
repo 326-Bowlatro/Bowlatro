@@ -14,6 +14,7 @@ public class PinLayoutManager : MonoBehaviour
     {
         //create layout to be what the enum states
         ChooseLayout(layoutType);
+        GameManager.Instance.layoutType = layoutType;
     }
 
     private void OnDestroy()
@@ -23,13 +24,10 @@ public class PinLayoutManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            ChooseLayout(LayoutEnum.Triangle);
-        }
+        
     }
 
-    private void ChooseLayout(LayoutEnum layoutType)
+    public void ChooseLayout(LayoutEnum layoutType)
     {
         //switch
         //each case can call a function with some 2d array grid, just create it

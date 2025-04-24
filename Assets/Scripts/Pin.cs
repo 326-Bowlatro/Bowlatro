@@ -5,7 +5,7 @@ public class Pin : MonoBehaviour
 {
     [SerializeField] private int flatScore;
     [SerializeField] private int multScore;
-    [SerializeField] private float disableDelay = 2f;
+    [SerializeField] private float disableDelay = 4f;
 
     private Rigidbody rb;
     private Vector3 initialPosition;
@@ -40,7 +40,20 @@ public class Pin : MonoBehaviour
     public void OnEndTurn()
     {
         //disable because pins can be knocked down between throws, and it interferes with the current strike detection system
-        StartCoroutine(DelayedDisable());
+        //only disable if knocked down
+        if (knockedOver)
+        {
+            // StartCoroutine(DelayedDisable());
+            //disable? or turn off colliding?
+            // gameObject.SetActive(false);
+            //instead destroy
+            Destroy(gameObject);
+        }
+        else
+        {
+            //to prevent pins mid-fall to keep falling and possibly create a strike
+            ResetPin();
+        }
     }
 
     private void ResetPin()
