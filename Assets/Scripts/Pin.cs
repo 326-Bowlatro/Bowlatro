@@ -21,7 +21,8 @@ public class Pin : MonoBehaviour
 
     void Update()
     {
-        if (!knockedOver && (transform.eulerAngles.x > 60 || transform.eulerAngles.z > 60))
+        // Are we less than 80% upright?
+        if (!knockedOver && Vector3.Dot(transform.up, Vector3.up) < 0.8f)
         {
             knockedOver = true;
             //increase score by pin predefined amount
