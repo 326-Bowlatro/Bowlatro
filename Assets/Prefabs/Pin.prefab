@@ -1213,6 +1213,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0128acc4dafe36429b24704c5206848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flatScore: 1
-  multScore: 0
-  disableDelay: 2
+  FlatScore: 1
+  MultScore: 0
