@@ -37,28 +37,28 @@ public class Pin : MonoBehaviour
 
     public void OnEndTurn()
     {
-        //destroy because pins can be knocked down between throws, and it interferes with the current strike detection system
-        //only destroy if knocked down
+        // Destroy because pins can be knocked down between throws, and it interferes with the current strike detection system
+        // Only destroy if knocked down
         if (knockedOver)
         {
             Destroy(gameObject);
         }
         else
         {
-            //to prevent pins mid-fall to keep falling and possibly create a strike
+            // To prevent pins mid-fall to keep falling and possibly create a strike
             ResetPin();
         }
     }
 
     private void ResetPin()
     {
-        //reset position/rotation
+        // Reset position/rotation
         transform.position = initialPosition;
         transform.eulerAngles = initialRotation;
-        //reset velocities
+        // Reset velocities
         rb.angularVelocity = Vector3.zero;
         rb.linearVelocity = Vector3.zero;
-        //set back to not knocked over
+        // Set back to not knocked over
         knockedOver = false;
     }
 }

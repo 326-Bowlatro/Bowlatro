@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum LayoutType
@@ -11,14 +12,14 @@ public enum LayoutType
 
 public class PinLayoutManager : MonoBehaviour
 {
-    [SerializeField]
-    private Transform pinParent;
-
-    [SerializeField]
-    private GameObject pinPrefab;
-
     public LayoutType LayoutType;
 
+    [SerializeField] private Transform pinParent;
+    [SerializeField] private GameObject pinPrefab;
+
+    /// <summary>
+    /// Spawns a pin layout based on the given type.
+    /// </summary>
     public void SpawnLayout(LayoutType layoutType)
     {
         LayoutType = layoutType;

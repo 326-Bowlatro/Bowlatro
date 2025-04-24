@@ -8,13 +8,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [SerializeField]
-    private BowlingBall bowlingBall;
-
-    [SerializeField]
-    private CameraScript mainCamera;
-
     public PinLayoutManager LayoutManager;
+    
+    [SerializeField] private BowlingBall bowlingBall;
+    [SerializeField] private CameraScript mainCamera;
 
     // Per-round state
     public int RoundScore => RoundScoreFlat * RoundScoreMult;
@@ -130,14 +127,14 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void EndBlind()
     {
-        //Increment blind number
+        // Increment blind number
         ++blindNum;
 
-        //Reset Score for next blind
+        // Reset Score for next blind
         RoundScoreFlat = 0;
         RoundScoreMult = 1;
 
-        //reset RoundNum
+        // Reset RoundNum
         RoundNum = 0;
     }
 
