@@ -24,9 +24,8 @@ public class GameManager : MonoBehaviour
     public int TurnNum { get; private set; } = 0;
     public int RoundNum { get; private set; } = 0;
     private int pinsFallen = 0;
-    private int throwsMade  = 0;
     private int blindNum  = 0;
-    public LayoutEnum layoutType;
+    public LayoutType layoutType;
 
     void Awake()
     {
@@ -39,7 +38,6 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W))
         {
             bowlingBall.LaunchBall();
-            ++throwsMade;
         }
     }
 
@@ -77,24 +75,24 @@ public class GameManager : MonoBehaviour
     private void CheckForStrike()
     {
         Debug.Log("Checking for strike...");
-        Debug.Log("Throws: " + throwsMade);
+        Debug.Log("Throws: " + TurnNum);
         //check if pins fallen reaches 10, since 10 is a constant number of pins
         
         //if 10 pins fell and only 1 throw is made, it's a strike
-        if (pinsFallen == 10 && throwsMade == 1)
+        if (pinsFallen == 10 && TurnNum == 1)
         {
             Debug.Log("STRIKE");
             EndRound();
             ++RoundScoreMult;
         }
         //if 10 pins fell and 2 throws have been made, it's a spare
-        else if (pinsFallen == 10 && throwsMade == 2)
+        else if (pinsFallen == 10 && TurnNum == 2)
         {
             //shouldn't have to reset because EndTurn should do it
             Debug.Log("SPARE");
         }
         //if 2 throws have happened and less than 10 pins fell, then it's just normal
-        else if (pinsFallen < 10 && throwsMade == 2)
+        else if (pinsFallen < 10 && TurnNum == 2)
         {
             //shouldn't have to reset because EndTurn should do it
             Debug.Log("Normal.");
@@ -110,7 +108,6 @@ public class GameManager : MonoBehaviour
         // RoundScoreFlat = 0;
         // RoundScoreMult = 1;
         TurnNum = 0;
-        throwsMade = 0;
         pinsFallen = 0;
 
         // Reset all pins

@@ -1,4 +1,4 @@
-﻿public enum LayoutEnum
+﻿public enum LayoutType
 {
     Block,
     Triangle,

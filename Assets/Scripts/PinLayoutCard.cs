@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class PinLayoutCard : MonoBehaviour, IPointerClickHandler
 {
-    public static event Action<LayoutEnum> PinLayoutSelected;
+    public static event Action<LayoutType> PinLayoutSelected;
     
     [SerializeField] private PinLayoutCardSO pinCardSO;
     [SerializeField] private TextMeshProUGUI cardName;

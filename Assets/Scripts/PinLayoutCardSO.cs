@@ -5,6 +5,6 @@ using UnityEngine.UI;
 public class PinLayoutCardSO : ScriptableObject
 {
     public Image image;
-    public LayoutEnum layoutType;
+    public LayoutType layoutType;
     public string layoutName;
 }

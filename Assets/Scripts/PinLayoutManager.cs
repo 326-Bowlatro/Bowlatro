@@ -10,7 +10,7 @@ public class PinLayoutManager : MonoBehaviour
         PinLayoutCard.PinLayoutSelected += PinLayoutCardOnPinLayoutSelected;
     }
 
-    private void PinLayoutCardOnPinLayoutSelected(LayoutEnum layoutType)
+    private void PinLayoutCardOnPinLayoutSelected(LayoutType layoutType)
     {
         //create layout to be what the enum states
         ChooseLayout(layoutType);
@@ -27,7 +27,7 @@ public class PinLayoutManager : MonoBehaviour
         
     }
 
-    public void ChooseLayout(LayoutEnum layoutType)
+    public void ChooseLayout(LayoutType layoutType)
     {
         //switch
         //each case can call a function with some 2d array grid, just create it
@@ -35,28 +35,28 @@ public class PinLayoutManager : MonoBehaviour
         //call CreateLayout(2d array)
         int[][] grid = layoutType switch
         {
-            LayoutEnum.Triangle => new[]
+            LayoutType.Triangle => new[]
             {
                 new[] { 1, 0, 1, 0, 1, 0, 1 },
                 new[] { 0, 1, 0, 1, 0, 1, 0 },
                 new[] { 0, 0, 1, 0, 1, 0, 0 },
                 new[] { 0, 0, 0, 1, 0, 0, 0 },
             },
-            LayoutEnum.Block => new[]
+            LayoutType.Block => new[]
             {
                 new[] { 1, 0, 1, 0, 1, 0, 1 },
                 new[] { 1, 0, 1, 0, 1, 0, 1 },
                 new[] { 0, 0, 1, 0, 1, 0, 0 },
                 new[] { 0, 0, 0, 0, 0, 0, 0 },
             },
-            LayoutEnum.Diamond => new[]
+            LayoutType.Diamond => new[]
             {
                 new[] { 0, 0, 0, 1, 0, 0, 0 },
                 new[] { 0, 1, 0, 1, 0, 1, 0 },
                 new[] { 1, 0, 0, 1, 0, 0, 1 },
                 new[] { 0, 1, 0, 1, 0, 1, 0 },
             },
-            LayoutEnum.ReverseTriangle => new[]
+            LayoutType.ReverseTriangle => new[]
             {
                 new[] { 0, 0, 0, 1, 0, 0, 0 },
                 new[] { 0, 0, 1, 0, 1, 0, 0 },
