@@ -10,7 +10,7 @@ public class BowlingBall : MonoBehaviour
     [SerializeField] private float aimAmount = 1f;
 
     [SerializeField] private float LaunchForce = 1500f;
-    [SerializeField] private float ResetDelay = 2f;
+    [SerializeField] private float ResetDelay = 4f;
 
     private Rigidbody rb;
     private Vector3 startPosition;
