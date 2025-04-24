@@ -1,25 +1,22 @@
-using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class PinLayoutCard : MonoBehaviour, IPointerClickHandler
 {
-    public static event Action<LayoutType> PinLayoutSelected;
-    
-    [SerializeField] private PinLayoutCardSO pinCardSO;
-    [SerializeField] private TextMeshProUGUI cardName;
+    [SerializeField]
+    private PinLayoutCardSO pinCardSO;
 
-    private void Start()
+    [SerializeField]
+    private TextMeshProUGUI cardName;
+
+    void Start()
     {
-        cardName.text = pinCardSO.layoutName;
+        cardName.text = pinCardSO.LayoutName;
     }
-
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        PinLayoutSelected?.Invoke(pinCardSO.layoutType);
-        Debug.Log("Card Cliced!!!");
+        GameManager.Instance.LayoutManager.SpawnLayout(pinCardSO.LayoutType);
     }
 }

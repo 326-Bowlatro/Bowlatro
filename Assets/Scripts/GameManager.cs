@@ -14,8 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private CameraScript mainCamera;
 
-    [SerializeField] 
-    private PinLayoutManager layoutManager;
+    public PinLayoutManager LayoutManager;
 
     // Per-round state
     public int RoundScore => RoundScoreFlat * RoundScoreMult;
@@ -23,9 +22,9 @@ public class GameManager : MonoBehaviour
     public int RoundScoreFlat { get; private set; } = 0;
     public int TurnNum { get; private set; } = 0;
     public int RoundNum { get; private set; } = 0;
-    private int pinsFallen = 0;
-    private int blindNum  = 0;
-    public LayoutType layoutType;
+
+    private int numPinsFallen = 0;
+    private int blindNum = 0;
 
     void Awake()
     {
@@ -52,13 +51,13 @@ public class GameManager : MonoBehaviour
         // Disable pins to prevent pins getting knocked down between throws
         var pins = FindObjectsByType<Pin>(FindObjectsSortMode.None).ToList();
         pins.ForEach(pin => pin.OnEndTurn());
-        
+
         // Reset camera
         mainCamera.OnEndTurn();
 
         // Begin next turn and update UI
         TurnNum++;
-        
+
         //check what kind of throw happened
         CheckForStrike();
 
@@ -76,25 +75,26 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Checking for strike...");
         Debug.Log("Throws: " + TurnNum);
-        //check if pins fallen reaches 10, since 10 is a constant number of pins
-        
-        //if 10 pins fell and only 1 throw is made, it's a strike
-        if (pinsFallen == 10 && TurnNum == 1)
+
+        // All pins knocked?
+        if (numPinsFallen == 10)
         {
-            Debug.Log("STRIKE");
-            EndRound();
-            ++RoundScoreMult;
+            // Strike if done on turn 1
+            if (TurnNum == 1)
+            {
+                Debug.Log("STRIKE");
+                EndRound();
+                ++RoundScoreMult;
+            }
+            // Spare if done on turn 2
+            else
+            {
+                //shouldn't have to reset because EndTurn should do it
+                Debug.Log("SPARE");
+            }
         }
-        //if 10 pins fell and 2 throws have been made, it's a spare
-        else if (pinsFallen == 10 && TurnNum == 2)
+        else
         {
-            //shouldn't have to reset because EndTurn should do it
-            Debug.Log("SPARE");
-        }
-        //if 2 throws have happened and less than 10 pins fell, then it's just normal
-        else if (pinsFallen < 10 && TurnNum == 2)
-        {
-            //shouldn't have to reset because EndTurn should do it
             Debug.Log("Normal.");
         }
     }
@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
         // RoundScoreFlat = 0;
         // RoundScoreMult = 1;
         TurnNum = 0;
-        pinsFallen = 0;
+        numPinsFallen = 0;
 
         // Reset all pins
         // Problem: when pins are disabled, they can't be found with this
@@ -118,14 +118,14 @@ public class GameManager : MonoBehaviour
         var pins = FindObjectsByType<Pin>(FindObjectsSortMode.None).ToList();
         pins.ForEach(pin => Destroy(pin.gameObject));
         //since destroying pins, just call the same function to place them after destroying all of them
-        layoutManager.ChooseLayout(layoutType);
+        LayoutManager.SpawnLayout(LayoutManager.LayoutType);
 
         //go to next blind if roundNum > 3
         if (RoundNum >= 3)
         {
             EndBlind();
         }
-        
+
         // Trigger UI refresh
         GameUI.Instance.Refresh();
     }
@@ -137,17 +137,14 @@ public class GameManager : MonoBehaviour
     {
         //Increment blind number
         ++blindNum;
-        
+
         //Reset Score for next blind
         RoundScoreFlat = 0;
         RoundScoreMult = 1;
-        
+
         //reset RoundNum
         RoundNum = 0;
-
-        //shouldn't need to reset pins, EndRound will do that
     }
-    
 
     /// <summary>
     /// Updates the round score with values from a knocked-over pin.
@@ -159,10 +156,9 @@ public class GameManager : MonoBehaviour
         RoundScoreMult += multScore;
 
         //called when a pin falls, so increment pins fallen count here
-        ++pinsFallen;
-        
+        ++numPinsFallen;
+
         // Update UI
         GameUI.Instance.Refresh();
-        
     }
 }
