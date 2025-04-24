@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void EndTurn()
     {
+        Debug.Log("Turn over");
+
         // Reset ball
         bowlingBall.OnEndTurn();
 
@@ -55,13 +57,13 @@ public class GameManager : MonoBehaviour
         mainCamera.OnEndTurn();
 
         // Check what kind of throw happened
-        CheckForStrike();
+        bool isStrike = CheckForStrike();
 
         // Begin next turn
         TurnNum++;
 
-        // End the round after 2 turns
-        if (TurnNum >= 2)
+        // End the round after 2 turns or a strike
+        if (TurnNum >= 2 || isStrike)
         {
             EndRound();
         }
@@ -76,6 +78,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void EndRound()
     {
+        Debug.Log("Round over");
+
         // Increment round number
         RoundNum++;
 
@@ -104,6 +108,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void EndBlind()
     {
+        Debug.Log("Blind over");
+
         // Increment blind number
         ++blindNum;
 
@@ -127,8 +133,11 @@ public class GameManager : MonoBehaviour
         // Update UI
         GameUI.Instance.Refresh();
     }
-
-    private void CheckForStrike()
+    
+    /// <summary>
+    /// Checks if the player has scored a strike.
+    /// </summary>
+    private bool CheckForStrike()
     {
         // All pins knocked?
         if (LayoutManager.NumPinsFallen == 10)
@@ -138,19 +147,21 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("STRIKE");
 
-                EndRound();
                 CurrentScoreMult++;
+                return true;
             }
             // Spare if done on turn 2
             else
             {
                 //shouldn't have to reset because EndTurn should do it
                 Debug.Log("SPARE");
+                return false;
             }
         }
         else
         {
             Debug.Log("Normal");
+            return false;
         }
     }
 }
