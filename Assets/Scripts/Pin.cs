@@ -4,8 +4,8 @@ public class Pin : MonoBehaviour
 {
     public bool IsKnockedOver { get; private set; }
 
-    [SerializeField] private int flatScore;
-    [SerializeField] private int multScore;
+    public int FlatScore;
+    public int MultScore;
 
     private Rigidbody rb;
     private Vector3 initialPosition;
@@ -26,7 +26,7 @@ public class Pin : MonoBehaviour
         {
             IsKnockedOver = true;
             //increase score by pin predefined amount
-            GameManager.Instance.AddPinToScore(flatScore, multScore);
+            GameManager.Instance.AddPinToScore(this);
         }
     }
 

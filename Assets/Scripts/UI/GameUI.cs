@@ -26,9 +26,9 @@ public class GameUI : MonoBehaviour
     /// </summary>
     public void Refresh()
     {
-        rootElement.Q<Label>("_Score").text = GameManager.Instance.RoundScore.ToString();
-        rootElement.Q<Label>("_ScoreMult").text = GameManager.Instance.RoundScoreMult.ToString();
-        rootElement.Q<Label>("_ScoreFlat").text = GameManager.Instance.RoundScoreFlat.ToString();
+        rootElement.Q<Label>("_Score").text = GameManager.Instance.CurrentScore.ToString();
+        rootElement.Q<Label>("_ScoreMult").text = GameManager.Instance.CurrentScoreMult.ToString();
+        rootElement.Q<Label>("_ScoreFlat").text = GameManager.Instance.CurrentScoreFlat.ToString();
         rootElement.Q<Label>("_Turn").text = (GameManager.Instance.TurnNum + 1).ToString();
         rootElement.Q<Label>("_Round").text = (GameManager.Instance.RoundNum + 1).ToString();
     }

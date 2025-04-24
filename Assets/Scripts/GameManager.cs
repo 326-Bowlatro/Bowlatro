@@ -9,14 +9,17 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public PinLayoutManager LayoutManager;
-    
-    [SerializeField] private BowlingBall bowlingBall;
-    [SerializeField] private CameraScript mainCamera;
 
-    // Per-round state
-    public int RoundScore => RoundScoreFlat * RoundScoreMult;
-    public int RoundScoreMult { get; private set; } = 1;
-    public int RoundScoreFlat { get; private set; } = 0;
+    [SerializeField]
+    private BowlingBall bowlingBall;
+
+    [SerializeField]
+    private CameraScript mainCamera;
+
+    // Per-blind state
+    public int CurrentScore => CurrentScoreFlat * CurrentScoreMult;
+    public int CurrentScoreMult { get; private set; } = 1;
+    public int CurrentScoreFlat { get; private set; } = 0;
     public int TurnNum { get; private set; } = 0;
     public int RoundNum { get; private set; } = 0;
 
@@ -37,7 +40,8 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Ends the player's turn and resets the ball/pins.
+    /// Ends the player's turn. Possibly ends the round if all pins are knocked
+    /// down, or if we've hit the turn limit (2).
     /// </summary>
     public void EndTurn()
     {
@@ -66,36 +70,10 @@ public class GameManager : MonoBehaviour
         GameUI.Instance.Refresh();
     }
 
-    private void CheckForStrike()
-    {
-        Debug.Log("Checking for strike...");
-        Debug.Log($"Throws: {TurnNum}");
-
-        Debug.Log($"Pins fallen: {LayoutManager.NumPinsFallen}");
-
-        // All pins knocked?
-        if (LayoutManager.NumPinsFallen == 10)
-        {
-            // Strike if done on turn 1
-            if (TurnNum == 0)
-            {
-                Debug.Log("STRIKE");
-                EndRound();
-                ++RoundScoreMult;
-            }
-            // Spare if done on turn 2
-            else
-            {
-                //shouldn't have to reset because EndTurn should do it
-                Debug.Log("SPARE");
-            }
-        }
-        else
-        {
-            Debug.Log("Normal");
-        }
-    }
-
+    /// <summary>
+    /// Ends the current round, resetting pins. Possibly ends the blind if we've
+    /// hit the round limit (3).
+    /// </summary>
     public void EndRound()
     {
         // Increment round number
@@ -104,12 +82,11 @@ public class GameManager : MonoBehaviour
         // Reset round state
         TurnNum = 0;
 
-        // Reset all pins
-        var pins = FindObjectsByType<Pin>(FindObjectsSortMode.None).ToList();
-        pins.ForEach(pin => Destroy(pin.gameObject));
+        // Destroy all existing pins
+        LayoutManager.ClearPins();
 
-        // Since pins are destroyed, just spawn a new set
-        LayoutManager.SpawnLayout(LayoutManager.LayoutType);
+        // Now pins are destroyed, replace with a new set
+        LayoutManager.SpawnPins(LayoutManager.LayoutType);
 
         //go to next blind if roundNum > 3
         if (RoundNum >= 3)
@@ -122,6 +99,7 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Ends the current blind (3 rounds).
     /// Takes name from Balatro, Round will be subsections, "Blind" will be called "Game" in this, EndGame can be confusing
     /// </summary>
     public void EndBlind()
@@ -130,23 +108,49 @@ public class GameManager : MonoBehaviour
         ++blindNum;
 
         // Reset Score for next blind
-        RoundScoreFlat = 0;
-        RoundScoreMult = 1;
+        CurrentScoreFlat = 0;
+        CurrentScoreMult = 1;
 
         // Reset RoundNum
         RoundNum = 0;
     }
 
     /// <summary>
-    /// Updates the round score with values from a knocked-over pin.
+    /// Updates the blind score with values from a knocked-over pin.
     /// </summary>
-    public void AddPinToScore(int flatScore, int multScore)
+    public void AddPinToScore(Pin pin)
     {
         // Update score with values from Pin
-        RoundScoreFlat += flatScore;
-        RoundScoreMult += multScore;
+        CurrentScoreFlat += pin.FlatScore;
+        CurrentScoreMult += pin.MultScore;
 
         // Update UI
         GameUI.Instance.Refresh();
+    }
+
+    private void CheckForStrike()
+    {
+        // All pins knocked?
+        if (LayoutManager.NumPinsFallen == 10)
+        {
+            // Strike if done on turn 1
+            if (TurnNum == 0)
+            {
+                Debug.Log("STRIKE");
+
+                EndRound();
+                CurrentScoreMult++;
+            }
+            // Spare if done on turn 2
+            else
+            {
+                //shouldn't have to reset because EndTurn should do it
+                Debug.Log("SPARE");
+            }
+        }
+        else
+        {
+            Debug.Log("Normal");
+        }
     }
 }

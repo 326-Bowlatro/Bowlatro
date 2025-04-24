@@ -19,18 +19,35 @@ public class PinLayoutManager : MonoBehaviour
     public const int NumPins = 10;
     public int NumPinsFallen => NumPins - Pins.Count(pin => !pin.IsKnockedOver);
 
-    [SerializeField] private Transform pinParent;
-    [SerializeField] private GameObject pinPrefab;
+    [SerializeField]
+    private Transform pinParent;
+
+    [SerializeField]
+    private GameObject pinPrefab;
 
     public void OnEndTurn()
     {
-        Pins.ToList().ForEach(pin => pin.OnEndTurn());
+        foreach (var pin in Pins)
+        {
+            pin.OnEndTurn();
+        }
     }
 
     /// <summary>
-    /// Spawns a pin layout based on the given type.
+    /// Destroys all pins owned by the layout manager.
     /// </summary>
-    public void SpawnLayout(LayoutType layoutType)
+    public void ClearPins()
+    {
+        foreach (var pin in Pins.ToList())
+        {
+            Destroy(pin.gameObject);
+        }
+    }
+
+    /// <summary>
+    /// Spawns a set of pins based on the given layout type.
+    /// </summary>
+    public void SpawnPins(LayoutType layoutType)
     {
         LayoutType = layoutType;
 

@@ -17,6 +17,6 @@ public class PinLayoutCardUI : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        GameManager.Instance.LayoutManager.SpawnLayout(pinCardSO.LayoutType);
+        GameManager.Instance.LayoutManager.SpawnPins(pinCardSO.LayoutType);
     }
 }
