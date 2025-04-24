@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
     private void CheckForStrike()
     {
         Debug.Log("Checking for strike...");
-        Debug.Log("Throws: " + TurnNum);
+        Debug.Log($"Throws: {TurnNum}");
 
         // All pins knocked?
         if (numPinsFallen == 10)
@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Normal.");
+            Debug.Log("Normal");
         }
     }
 
@@ -105,19 +105,14 @@ public class GameManager : MonoBehaviour
         RoundNum++;
 
         // Reset round state
-        // RoundScoreFlat = 0;
-        // RoundScoreMult = 1;
         TurnNum = 0;
         numPinsFallen = 0;
 
         // Reset all pins
-        // Problem: when pins are disabled, they can't be found with this
-        // var pins = FindObjectsByType<Pin>(FindObjectsSortMode.None).ToList();
-        // pins.ForEach(pin => pin.OnEndRound());
-
         var pins = FindObjectsByType<Pin>(FindObjectsSortMode.None).ToList();
         pins.ForEach(pin => Destroy(pin.gameObject));
-        //since destroying pins, just call the same function to place them after destroying all of them
+
+        // Since pins are destroyed, just spawn a new set
         LayoutManager.SpawnLayout(LayoutManager.LayoutType);
 
         //go to next blind if roundNum > 3
@@ -155,7 +150,7 @@ public class GameManager : MonoBehaviour
         RoundScoreFlat += flatScore;
         RoundScoreMult += multScore;
 
-        //called when a pin falls, so increment pins fallen count here
+        // Called when a pin falls, so increment pins fallen count here
         ++numPinsFallen;
 
         // Update UI

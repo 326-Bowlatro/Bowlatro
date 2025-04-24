@@ -23,6 +23,7 @@ public class PinLayoutManager : MonoBehaviour
     {
         LayoutType = layoutType;
 
+        // Map enum values to layout grids
         int[][] grid = layoutType switch
         {
             LayoutType.Triangle => new[]
