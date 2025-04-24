@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1b319f04bc82e5438f4d6bd93c2f964, type: 3}
   m_Name: Reverse Triangle Pin Layout
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
-  layoutType: 3
-  layoutName: Reverse Triangle
+  Image: {fileID: 0}
+  LayoutType: 3
+  LayoutName: Reverse Triangle
