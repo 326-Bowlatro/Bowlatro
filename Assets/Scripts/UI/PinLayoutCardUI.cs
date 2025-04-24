@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PinLayoutCard : MonoBehaviour, IPointerClickHandler
+public class PinLayoutCardUI : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField]
     private PinLayoutCardSO pinCardSO;

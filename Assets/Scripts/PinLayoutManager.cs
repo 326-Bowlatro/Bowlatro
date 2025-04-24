@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum LayoutType
@@ -13,9 +14,18 @@ public enum LayoutType
 public class PinLayoutManager : MonoBehaviour
 {
     public LayoutType LayoutType { get; private set; }
+    public IEnumerable<Pin> Pins => pinParent.GetComponentsInChildren<Pin>();
+
+    public const int NumPins = 10;
+    public int NumPinsFallen => NumPins - Pins.Count(pin => !pin.IsKnockedOver);
 
     [SerializeField] private Transform pinParent;
     [SerializeField] private GameObject pinPrefab;
+
+    public void OnEndTurn()
+    {
+        Pins.ToList().ForEach(pin => pin.OnEndTurn());
+    }
 
     /// <summary>
     /// Spawns a pin layout based on the given type.
