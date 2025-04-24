@@ -34,15 +34,17 @@ public class CameraScript : MonoBehaviour
 
     private void Update()
     {
-        if (isLookingAtPins)
-        {
-            transform.position = pinLookTarget.position + camPinOffset;
-            transform.LookAt(pinLookTarget.position + pinLookAtOffset);
-        }
-        else
-        {
-            transform.position = ballLookTarget.position + camBallOffset;
-            transform.LookAt(ballLookTarget.position + ballLookAtOffset);
-        }
+        // if (isLookingAtPins)
+        // {
+        //     transform.position = pinLookTarget.position + camPinOffset;
+        //     transform.LookAt(pinLookTarget.position + pinLookAtOffset);
+        // }
+        // else
+        // {
+        //     transform.position = ballLookTarget.position + camBallOffset;
+        //     transform.LookAt(ballLookTarget.position + ballLookAtOffset);
+        // }
+        transform.position = ballLookTarget.position + camBallOffset;
+        transform.LookAt(ballLookTarget.position + ballLookAtOffset);
     }
 }
