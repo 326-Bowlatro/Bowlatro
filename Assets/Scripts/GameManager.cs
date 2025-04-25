@@ -1,0 +1,92 @@
+using System.Linq;
+using UnityEngine;
+
+/// <summary>
+/// GameManager singleton, drives all game state.
+/// </summary>
+public class GameManager : MonoBehaviour
+{
+    public static GameManager Instance { get; private set; }
+
+    [SerializeField]
+    private BowlingBall bowlingBall;
+
+    [SerializeField]
+    private CameraScript mainCamera;
+
+    // Per-round state
+    public int RoundScore => RoundScoreFlat * RoundScoreMult;
+    public int RoundScoreMult { get; private set; } = 1;
+    public int RoundScoreFlat { get; private set; } = 0;
+    public int TurnNum { get; private set; } = 0;
+    public int RoundNum { get; private set; } = 0;
+
+    void Awake()
+    {
+        Instance = this;
+    }
+
+    void Update()
+    {
+        // TODO: Move to UI button, or some input manager.
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            bowlingBall.LaunchBall();
+        }
+    }
+
+    /// <summary>
+    /// Ends the player's turn and resets the ball/pins.
+    /// </summary>
+    public void EndTurn()
+    {
+        // Reset ball
+        bowlingBall.OnEndTurn();
+
+        // Reset camera
+        mainCamera.OnEndTurn();
+
+        // Begin next turn and update UI
+        TurnNum++;
+
+        // End the round after 2 turns
+        if (TurnNum >= 2)
+        {
+            EndRound();
+        }
+
+        // Trigger UI refresh
+        GameUI.Instance.Refresh();
+    }
+
+    public void EndRound()
+    {
+        // Incremenet round number
+        RoundNum++;
+
+        // Reset round state
+        RoundScoreFlat = 0;
+        RoundScoreMult = 1;
+        TurnNum = 0;
+
+        // Reset all pins
+        var pins = FindObjectsByType<Pin>(FindObjectsSortMode.None).ToList();
+        pins.ForEach(pin => pin.OnEndTurn());
+
+        // Trigger UI refresh
+        GameUI.Instance.Refresh();
+    }
+
+    /// <summary>
+    /// Updates the round score with values from a knocked-over pin.
+    /// </summary>
+    public void AddPinToScore(int flatScore, int multScore)
+    {
+        // Update score with values from Pin
+        RoundScoreFlat += flatScore;
+        RoundScoreMult += multScore;
+
+        // Update UI
+        GameUI.Instance.Refresh();
+    }
+}

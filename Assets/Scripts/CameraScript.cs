@@ -1,7 +1,4 @@
-using System;
-
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class CameraScript : MonoBehaviour
 {
@@ -12,28 +9,32 @@ public class CameraScript : MonoBehaviour
     [SerializeField] private Vector3 ballLookAtOffset;
     [SerializeField] private Vector3 pinLookAtOffset;
 
-    private bool lookAtPins;
-    
-    private void Start()
+    private bool isLookingAtPins = false;
+
+    /// <summary>
+    /// Switches camera mode to show the pins.
+    /// </summary>
+    public void BeginLookAtPins()
     {
-        lookAtPins = false;
-        BowlingBall.OnBallReset += BowlingBallOnOnBallReset;
-        BowlingBall.OnBallReachedPins += BowlingBallOnOnBallReachedPins;
+        isLookingAtPins = true;
     }
 
-    private void BowlingBallOnOnBallReset()
+    /// <summary>
+    /// Switches camera mode to follow the ball.
+    /// </summary>
+    public void EndLookAtPins()
     {
-        lookAtPins = false;
+        isLookingAtPins = false;
     }
 
-    private void BowlingBallOnOnBallReachedPins()
+    public void OnEndTurn()
     {
-        lookAtPins = true;
+        EndLookAtPins();
     }
 
     private void Update()
     {
-        if (lookAtPins)
+        if (isLookingAtPins)
         {
             transform.position = pinLookTarget.position + camPinOffset;
             transform.LookAt(pinLookTarget.position + pinLookAtOffset);
@@ -43,11 +44,5 @@ public class CameraScript : MonoBehaviour
             transform.position = ballLookTarget.position + camBallOffset;
             transform.LookAt(ballLookTarget.position + ballLookAtOffset);
         }
-    }
-
-    private void OnDestroy()
-    {
-        BowlingBall.OnBallReset -= BowlingBallOnOnBallReset;
-        BowlingBall.OnBallReachedPins -= BowlingBallOnOnBallReachedPins;
     }
 }

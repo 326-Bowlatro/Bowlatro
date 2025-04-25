@@ -1,45 +1,54 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-
 using UnityEngine;
 
 public class Pin : MonoBehaviour
 {
-    public static event Action<float, float> OnPinKnockedOver;
-    
     [SerializeField] private int flatScore;
-    [SerializeField] private float multScore;
+    [SerializeField] private int multScore;
 
     private Rigidbody rb;
     private Vector3 initialPosition;
     private Vector3 initialRotation;
-    
+
     private bool knockedOver;
-    
-    private void Start()
+
+    void Start()
     {
         rb = GetComponent<Rigidbody>();
         initialPosition = transform.position;
         initialRotation = transform.eulerAngles;
         knockedOver = false;
-        //subscribe like and comment to bowling ball reset event
-        BowlingBall.OnBallReset += BowlingBallOnOnBallReset;
     }
 
-    private void BowlingBallOnOnBallReset()
-    {
-        ResetPin();
-    }
-
-    private void Update()
+    void Update()
     {
         if (!knockedOver && (transform.eulerAngles.x > 60 || transform.eulerAngles.z > 60))
         {
             knockedOver = true;
+            
+            var bowlingBall = FindObjectOfType<BowlingBall>();
+            int finalFlat = flatScore;
+            int finalMult = multScore;
+    
+            if ( bowlingBall != null)
+            {
+                if (bowlingBall.isMultiplierBall)
+                {
+                    finalMult *= 2;
+                }
+                if (bowlingBall.isBonusBall)
+                {
+                    finalFlat += 100;
+                }
+            }
+            
             //increase score by pin predefined amount
-            OnPinKnockedOver?.Invoke(flatScore, multScore);
+            GameManager.Instance.AddPinToScore(finalFlat, finalMult);
         }
+    }
+
+    public void OnEndTurn()
+    {
+        ResetPin();
     }
 
     private void ResetPin()
@@ -54,11 +63,5 @@ public class Pin : MonoBehaviour
         gameObject.SetActive(true);
         //set back to not knocked over
         knockedOver = false;
-    }
-
-    private void OnDestroy() //unsubscribe because can cause problems if not, i.e. break invokes, break objects etc.
-    {
-        //unsubscribe
-        BowlingBall.OnBallReset -= BowlingBallOnOnBallReset;
     }
 }

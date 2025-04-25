@@ -1,30 +1,34 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BowlingBall : MonoBehaviour
 {
-    //create event for when ball resets
-    public static event Action OnBallReset;
-    public static event Action OnBallReachedPins;
+    [Header("Boss Modifiers")]
+    public bool isBossRound = false;
+    public bool veerEnabled = false;
+    public float veerDirection = 1f; // 1 for right, -1 for left
+    public float veerStrength = 5f;
+    public bool requireBounce = false;
 
-    [SerializeField] private Camera mainCamera;
+    [Header("Special Balls")]
+    public bool isMultiplierBall = false;
+    public bool isBonusBall = false;
+    
+    [SerializeField] private CameraScript mainCamera;
     [SerializeField] private Transform pinsMainPoint;
     [SerializeField] private Collider laneCollider;
     [SerializeField] private float aimAmount = 1f;
 
     [SerializeField] private float LaunchForce = 1500f;
     [SerializeField] private float ResetDelay = 2f;
-    [SerializeField] private float AutoResetTime = 5f;
-    [SerializeField] private int MaxThrows = 5;
 
     private Rigidbody rb;
     private Vector3 startPosition;
     private Vector3 startRotation;
-    private int throwsUsed = 0;
     private bool hasLaunched = false;
     private bool reachedPins = false;
-    private float ballLaunchedTime = 0f;
     private float laneMax, laneMin;
 
     void Start()
@@ -38,20 +42,19 @@ public class BowlingBall : MonoBehaviour
 
     void Update()
     {
-        if (throwsUsed >= MaxThrows)
-            return;
-
         if (!reachedPins && Math.Abs((transform.position - pinsMainPoint.position).magnitude) < 10f)
         {
-            OnBallReachedPins?.Invoke();
+            // Have the camera look at the pins. This will be reset
+            // automatically when the turn ends.
+            mainCamera.BeginLookAtPins();
+
+            // Set a timer to end the player's turn after a delay.
+            StartCoroutine(DelayedEndTurn());
+
             reachedPins = true;
         }
 
-        if (hasLaunched)
-        {
-            ballLaunchedTime += Time.deltaTime;
-        }
-        else
+        if (!hasLaunched)
         {
             //keeps ball in bounds with buffer so the ball doesn't go off the lane
             if (Input.GetKey(KeyCode.A) && transform.position.x < laneMax-.1f)
@@ -68,33 +71,39 @@ public class BowlingBall : MonoBehaviour
                 transform.position = new Vector3(newX, pos.y, pos.z);
             }
         }
-
-        // Launch with W key
-        if (!hasLaunched && Input.GetKeyDown(KeyCode.W))
-        {
-            LaunchBall();
-        }
-
-        // resets when velocity is low enough
-        if (hasLaunched && ballLaunchedTime >= 1f && rb.linearVelocity.magnitude < 0.05f)
-        {
-            hasLaunched = false;
-            StartCoroutine(DelayedBallReset());
-        }
-
-        // reset if auto reset time is reached
-        if (hasLaunched && ballLaunchedTime >= AutoResetTime)
-        {
-            hasLaunched = false;
-            ResetBall();
-        }
     }
 
-    private void LaunchBall()
+    /// <summary>
+    /// Launches the ball forward from its starting position.
+    /// </summary>
+    public void LaunchBall()
     {
-        rb.AddForce(-transform.forward * LaunchForce);
+        // Can only launch once/turn.
+        if (hasLaunched)
+        {
+            return;
+        }
+        if (isBossRound && veerEnabled)
+        {
+            // Making the ball veer
+            Vector3 combinedForce = (-transform.forward * LaunchForce) + 
+                                    (Vector3.right * (veerDirection * veerStrength));
+            rb.AddForce(combinedForce);
+            
+            // Start maintaining the veer direction
+            StartCoroutine(VeerBall());
+        }
+        else
+        {
+            // Normal launch
+            rb.AddForce(-transform.forward * LaunchForce);
+        }
         hasLaunched = true;
-        ++throwsUsed;
+    }
+
+    public void OnEndTurn()
+    {
+        ResetBall();
     }
 
     private void ResetBall()
@@ -108,17 +117,46 @@ public class BowlingBall : MonoBehaviour
 
         //reset launched bool and timer for bowling ball launch
         hasLaunched = false;
-        ballLaunchedTime = 0;
         //reset reached pins bool
         reachedPins = false;
+        
+        isMultiplierBall = false;
+        isBonusBall = false;
 
-        //when ball resets, send event signal out
-        OnBallReset?.Invoke();
     }
 
-    IEnumerator DelayedBallReset()
+    IEnumerator DelayedEndTurn()
     {
         yield return new WaitForSeconds(ResetDelay);
-        ResetBall();
+        GameManager.Instance.EndTurn();
     }
+    
+    public IEnumerator VeerBall()
+    {
+        
+        while (!reachedPins)
+        {
+            rb.AddForce(
+                Vector3.right * (veerDirection * veerStrength),
+                ForceMode.Force);
+            yield return null;
+        }
+
+        
+    }
+
+    public IEnumerator SlowDownBall()
+    {
+        while (hasLaunched && !reachedPins)
+        {
+            rb.linearVelocity *= 0.99f;
+            yield return null;
+        }
+    }
+    public void SetBossRound(bool isBoss, bool veerActive)
+    {
+        isBossRound = isBoss;
+        veerEnabled = veerActive;
+    }
+
 }
