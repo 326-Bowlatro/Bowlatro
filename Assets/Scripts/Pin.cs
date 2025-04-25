@@ -11,6 +11,8 @@ public class Pin : MonoBehaviour
     private Vector3 initialPosition;
     private Vector3 initialRotation;
 
+    private static bool soundPlayedThisFrame = false; // Static per-frame limiter
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -25,9 +27,23 @@ public class Pin : MonoBehaviour
         if (!IsKnockedOver && Vector3.Dot(transform.up, Vector3.up) < 0.8f)
         {
             IsKnockedOver = true;
+
+            if (!soundPlayedThisFrame) // Play sound once per frame
+            {
+                AudioSource audio = GameObject.Find("PinAudioPlayer").GetComponent<AudioSource>();
+                if (audio != null && !audio.isPlaying)
+                {
+                    audio.Play();
+                    soundPlayedThisFrame = true;
+                }
+            }
+
             //increase score by pin predefined amount
             GameManager.Instance.AddPinToScore(this);
         }
+
+        // Reset static flag at end of frame
+        soundPlayedThisFrame = false;
     }
 
     public void OnEndRound()
