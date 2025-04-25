@@ -24,6 +24,8 @@ public class BowlingBall : MonoBehaviour
     [SerializeField] private float LaunchForce = 1500f;
     [SerializeField] private float ResetDelay = 2f;
 
+
+
     private Rigidbody rb;
     private Vector3 startPosition;
     private Vector3 startRotation;
@@ -98,6 +100,12 @@ public class BowlingBall : MonoBehaviour
             // Normal launch
             rb.AddForce(-transform.forward * LaunchForce);
         }
+=======
+        {
+            return;
+        }
+
+        
         hasLaunched = true;
     }
 
@@ -119,6 +127,7 @@ public class BowlingBall : MonoBehaviour
         hasLaunched = false;
         //reset reached pins bool
         reachedPins = false;
+
         
         isMultiplierBall = false;
         isBonusBall = false;
@@ -129,6 +138,7 @@ public class BowlingBall : MonoBehaviour
     {
         yield return new WaitForSeconds(ResetDelay);
         GameManager.Instance.EndTurn();
+
     }
     
     public IEnumerator VeerBall()
@@ -142,7 +152,6 @@ public class BowlingBall : MonoBehaviour
             yield return null;
         }
 
-        
     }
 
     public IEnumerator SlowDownBall()
