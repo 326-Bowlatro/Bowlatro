@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -13,6 +14,11 @@ public class Shop : MonoBehaviour
 
     private ItemPack selectedPack;
     private PackUI selectedPackUI;
+
+    void Awake()
+    {
+        GameObject.Find("ShopOverlay").SetActive(false);
+    }
 
     void Start()
     {
@@ -59,7 +65,7 @@ public class Shop : MonoBehaviour
     {
         if (selectedPack == null || selectedPack.isBought) return;
 
-        Debug.Log($"Bought {selectedPack.packName} for ${selectedPack.price}");
+        Debug.Log($"Bought a {selectedPack.packName} for: ${selectedPack.price}");
         
         selectedPack.isBought = true;
         selectedPackUI.MarkAsBought(); 
