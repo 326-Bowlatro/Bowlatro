@@ -1,16 +1,30 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BowlingBall : MonoBehaviour
 {
+    [Header("Boss Modifiers")]
+    public bool isBossRound = false;
+    public bool veerEnabled = false;
+    public float veerDirection = 1f; // 1 for right, -1 for left
+    public float veerStrength = 5f;
+    public bool requireBounce = false;
+
+    [Header("Special Balls")]
+    public bool isMultiplierBall = false;
+    public bool isBonusBall = false;
+    
     [SerializeField] private CameraScript mainCamera;
     [SerializeField] private Transform pinsMainPoint;
     [SerializeField] private Collider laneCollider;
     [SerializeField] private float aimAmount = 1f;
 
     [SerializeField] private float LaunchForce = 1500f;
-    [SerializeField] private float ResetDelay = 4f;
+    [SerializeField] private float ResetDelay = 2f;
+
+
 
     private Rigidbody rb;
     private Vector3 startPosition;
@@ -71,8 +85,27 @@ public class BowlingBall : MonoBehaviour
         {
             return;
         }
+        if (isBossRound && veerEnabled)
+        {
+            // Making the ball veer
+            Vector3 combinedForce = (-transform.forward * LaunchForce) + 
+                                    (Vector3.right * (veerDirection * veerStrength));
+            rb.AddForce(combinedForce);
+            
+            // Start maintaining the veer direction
+            StartCoroutine(VeerBall());
+        }
+        else
+        {
+            // Normal launch
+            rb.AddForce(-transform.forward * LaunchForce);
+        }
+=======
+        {
+            return;
+        }
 
-        rb.AddForce(-transform.forward * LaunchForce);
+        
         hasLaunched = true;
     }
 
@@ -94,11 +127,45 @@ public class BowlingBall : MonoBehaviour
         hasLaunched = false;
         //reset reached pins bool
         reachedPins = false;
+
+        
+        isMultiplierBall = false;
+        isBonusBall = false;
+
     }
 
     IEnumerator DelayedEndTurn()
     {
         yield return new WaitForSeconds(ResetDelay);
         GameManager.Instance.EndTurn();
+
     }
+    
+    public IEnumerator VeerBall()
+    {
+        
+        while (!reachedPins)
+        {
+            rb.AddForce(
+                Vector3.right * (veerDirection * veerStrength),
+                ForceMode.Force);
+            yield return null;
+        }
+
+    }
+
+    public IEnumerator SlowDownBall()
+    {
+        while (hasLaunched && !reachedPins)
+        {
+            rb.linearVelocity *= 0.99f;
+            yield return null;
+        }
+    }
+    public void SetBossRound(bool isBoss, bool veerActive)
+    {
+        isBossRound = isBoss;
+        veerEnabled = veerActive;
+    }
+
 }
