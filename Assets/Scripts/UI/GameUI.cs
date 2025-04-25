@@ -1,23 +1,24 @@
+using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class GameUI : MonoBehaviour
 {
     public static GameUI Instance { get; private set; }
 
-    private VisualElement rootElement;
+    // Element references
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI scoreMultText;
+    [SerializeField] private TextMeshProUGUI scoreFlatText;
+    [SerializeField] private TextMeshProUGUI turnText;
+    [SerializeField] private TextMeshProUGUI roundText;
 
     void Awake()
     {
         Instance = this;
     }
 
-    void OnEnable()
+    void Start()
     {
-        // Fetch root element from UIDocument
-        var uiDocument = GetComponent<UIDocument>();
-        rootElement = uiDocument.rootVisualElement;
-
         Refresh();
     }
 
@@ -26,10 +27,10 @@ public class GameUI : MonoBehaviour
     /// </summary>
     public void Refresh()
     {
-        rootElement.Q<Label>("_Score").text = GameManager.Instance.CurrentScore.ToString();
-        rootElement.Q<Label>("_ScoreMult").text = GameManager.Instance.CurrentScoreMult.ToString();
-        rootElement.Q<Label>("_ScoreFlat").text = GameManager.Instance.CurrentScoreFlat.ToString();
-        rootElement.Q<Label>("_Turn").text = (GameManager.Instance.TurnNum + 1).ToString();
-        rootElement.Q<Label>("_Round").text = (GameManager.Instance.RoundNum + 1).ToString();
+        scoreText.text = GameManager.Instance.CurrentScore.ToString();
+        scoreMultText.text = GameManager.Instance.CurrentScoreMult.ToString();
+        scoreFlatText.text = GameManager.Instance.CurrentScoreFlat.ToString();
+        turnText.text = (GameManager.Instance.TurnNum + 1).ToString();
+        roundText.text = (GameManager.Instance.RoundNum + 1).ToString();
     }
 }
