@@ -16,14 +16,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private CameraScript mainCamera;
 
-
-    // Per-round state
-    public int RoundScore => RoundScoreFlat * RoundScoreMult;
-    public int RoundScoreMult { get; private set; } = 1;
-    public int RoundScoreFlat { get; private set; } = 0;
-    public int TurnNum { get; private set; } = 0;
-    public int RoundNum { get; private set; } = 0;
-
     // Per-blind state
     public int CurrentScore => CurrentScoreFlat * CurrentScoreMult;
     public int CurrentScoreMult { get; private set; } = 1;
@@ -47,7 +39,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
+    /// <summary>
     /// Ends the player's turn. Possibly ends the round if all pins are knocked
     /// down, or if we've hit the turn limit (2).
     /// </summary>
@@ -72,7 +64,6 @@ public class GameManager : MonoBehaviour
 
         // End the round after 2 turns or a strike
         if (TurnNum >= 2 || isStrike)
-
         {
             EndRound();
         }
@@ -80,9 +71,6 @@ public class GameManager : MonoBehaviour
         // Trigger UI refresh
         GameUI.Instance.Refresh();
     }
-
-
-  
 
     /// <summary>
     /// Ends the current round, resetting pins. Possibly ends the blind if we've
@@ -96,8 +84,6 @@ public class GameManager : MonoBehaviour
         RoundNum++;
 
         // Reset round state
-        RoundScoreFlat = 0;
-        RoundScoreMult = 1;
         TurnNum = 0;
 
         // Destroy all existing pins
@@ -112,15 +98,11 @@ public class GameManager : MonoBehaviour
             EndBlind();
         }
 
-
         // Trigger UI refresh
         GameUI.Instance.Refresh();
     }
 
     /// <summary>
-
-    
-
     /// Ends the current blind (3 rounds).
     /// Takes name from Balatro, Round will be subsections, "Blind" will be called "Game" in this, EndGame can be confusing
     /// </summary>
@@ -182,5 +164,4 @@ public class GameManager : MonoBehaviour
             return false;
         }
     }
-
 }
