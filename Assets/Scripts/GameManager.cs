@@ -16,15 +16,24 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private CameraScript mainCamera;
 
+    [SerializeField]
+    private ShopBackButton shopBackButton;
+    
+    [SerializeField]
+    private ToShopButton toShopButton;
+
     // Per-blind state
     public int CurrentScore => CurrentScoreFlat * CurrentScoreMult;
     public int CurrentScoreMult { get; private set; } = 1;
     public int CurrentScoreFlat { get; private set; } = 0;
     public int TurnNum { get; private set; } = 0;
     public int RoundNum { get; private set; } = 0;
+    public int BlindNum { get; private set; } = 0;
+    public int AnteNum { get; private set; } = 0;
+    public int Cash { get; private set; } = 0;
 
-    private int blindNum = 0;
-
+    [SerializeField] private int normalBlindStartingCash = 3;
+    
     void Awake()
     {
         Instance = this;
@@ -87,14 +96,16 @@ public class GameManager : MonoBehaviour
 
         // Destroy all existing pins
         LayoutManager.ClearPins();
-
-        // Now pins are destroyed, replace with a new set
-        LayoutManager.SpawnPins(LayoutManager.LayoutType);
-
+        
         //go to next blind if roundNum > 3
         if (RoundNum >= 3)
         {
             EndBlind();
+        }
+        else
+        {
+            // Now pins are destroyed, let player select again
+            PinCardManager.Instance.StartSelection();
         }
 
         // Trigger UI refresh
@@ -109,17 +120,63 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Blind over");
 
+        
         // Increment blind number
-        ++blindNum;
+        ++BlindNum;
 
+        //go to next Ante if blindNum > 3
+        if (BlindNum >= 3)
+        {
+            EndAnte();
+        }
+        
+        // Reset RoundNum
+        RoundNum = 0;
+        
+        //Go to results
+        StartResults();
+    }
+    /// <summary>
+    /// Ends current Ante/Lane (3 different blinds)
+    /// Antes from Balatro will be called lanes
+    /// </summary>
+    public void EndAnte()
+    {
+        Debug.Log("Ante Over");
+
+        //Increment Ante Number
+        ++AnteNum;
+        
+        //Reset BlindNum
+        BlindNum = 0;
+    }
+
+    /// <summary>
+    /// Will enable everything that shows the results of the blind that the player just finished
+    /// </summary>
+    public void StartResults()
+    {
+        LayoutManager.ClearPins();
+        mainCamera.BeginLookAtResults();
+        toShopButton.Enable();
+    }
+
+    public void StartShop()
+    {
         // Reset Score for next blind
         CurrentScoreFlat = 0;
         CurrentScoreMult = 1;
-
-        // Reset RoundNum
-        RoundNum = 0;
+        
+        //Increase cash amount depending on which blind in this current ante/lane
+        Cash += normalBlindStartingCash + (BlindNum);
+        
+        //enable shop back button
+        shopBackButton.Enable();
+        
+        //set cam to look at shop spot
+        mainCamera.BeginLookAtShop();
     }
-
+    
     /// <summary>
     /// Updates the blind score with values from a knocked-over pin.
     /// </summary>
@@ -157,6 +214,7 @@ public class GameManager : MonoBehaviour
             {
                 //shouldn't have to reset because EndTurn should do it
                 Debug.Log("SPARE");
+                CurrentScoreFlat += 5;
                 return false;
             }
         }

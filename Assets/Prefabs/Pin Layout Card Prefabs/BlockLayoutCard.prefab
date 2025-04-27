@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7808485056903915838}
   - component: {fileID: 7066188374150208600}
   m_Layer: 5
-  m_Name: SquareLayoutCard
+  m_Name: BlockLayoutCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
