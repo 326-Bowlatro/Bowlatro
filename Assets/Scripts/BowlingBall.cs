@@ -24,8 +24,6 @@ public class BowlingBall : MonoBehaviour
     [SerializeField] private float LaunchForce = 1500f;
     [SerializeField] private float ResetDelay = 4f;
 
-
-
     private Rigidbody rb;
     private Vector3 startPosition;
     private Vector3 startRotation;
@@ -100,10 +98,8 @@ public class BowlingBall : MonoBehaviour
             // Normal launch
             rb.AddForce(-transform.forward * LaunchForce);
         }
-
-      
         
-         AudioSource audio = GetComponent<AudioSource>();
+        AudioSource audio = GetComponent<AudioSource>();
         if (audio != null && !audio.isPlaying)
         {
             Debug.Log("🎳 Playing bowling ball roll sound!");
@@ -166,10 +162,10 @@ public class BowlingBall : MonoBehaviour
             yield return null;
         }
     }
+
     public void SetBossRound(bool isBoss, bool veerActive)
     {
         isBossRound = isBoss;
         veerEnabled = veerActive;
     }
-
 }

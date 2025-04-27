@@ -27,18 +27,16 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-    
         Instance = this;
     }
 
-   void Update()
-{
-    if (Input.GetKeyDown(KeyCode.W))
+    void Update()
     {
-        bowlingBall.LaunchBall();
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            bowlingBall.LaunchBall();
+        }
     }
-}
-
 
     /// <summary>
     /// Ends the player's turn. Possibly ends the round if all pins are knocked
@@ -127,7 +125,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void AddPinToScore(Pin pin)
     {
-        int jokerMultiplier = JokerManager.Instance != null ? JokerManager.Instance.GetTotalMultiplier() : 1;
+        int jokerMultiplier =
+            JokerManager.Instance != null ? JokerManager.Instance.GetTotalMultiplier() : 1;
 
         // Update score with values from Pin
         CurrentScoreFlat += pin.FlatScore * jokerMultiplier;
@@ -136,7 +135,7 @@ public class GameManager : MonoBehaviour
         // Update UI
         GameUI.Instance.Refresh();
     }
-    
+
     /// <summary>
     /// Checks if the player has scored a strike.
     /// </summary>
