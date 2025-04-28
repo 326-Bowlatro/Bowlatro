@@ -31,8 +31,13 @@ public class GameManager : MonoBehaviour
     public int BlindNum { get; private set; } = 0;
     public int AnteNum { get; private set; } = 0;
     public int Cash { get; private set; } = 0;
+    public string ThrowType { get; private set; } = "";
 
     [SerializeField] private int normalBlindStartingCash = 3;
+
+    [SerializeField] private int currentScoreToBeat = 30;
+
+    private int strikesNum = 0;
     
     void Awake()
     {
@@ -66,6 +71,14 @@ public class GameManager : MonoBehaviour
 
         // Check what kind of throw happened
         bool isStrike = CheckForStrike();
+        
+        //check for turkey
+        if (isStrike && strikesNum == 3)
+        {
+            Debug.Log("TURKEY");
+            CurrentScoreMult += 2;
+            ThrowType = "Turkey!";
+        }
 
         // Begin next turn
         TurnNum++;
@@ -98,7 +111,7 @@ public class GameManager : MonoBehaviour
         LayoutManager.ClearPins();
         
         //go to next blind if roundNum > 3
-        if (RoundNum >= 3)
+        if (RoundNum >= 3 || CurrentScore >= currentScoreToBeat)
         {
             EndBlind();
         }
@@ -123,7 +136,7 @@ public class GameManager : MonoBehaviour
         
         // Increment blind number
         ++BlindNum;
-
+        
         //go to next Ante if blindNum > 3
         if (BlindNum >= 3)
         {
@@ -157,8 +170,9 @@ public class GameManager : MonoBehaviour
     public void StartResults()
     {
         LayoutManager.ClearPins();
-        mainCamera.BeginLookAtResults();
-        toShopButton.Enable();
+        ResultsManager.Instance.cashToBeEarned = normalBlindStartingCash + (BlindNum-1); //minus 1 because BlindNum has been incremented already
+        // ResultsManager.Instance.cashToBeEarned += 3 - RoundNum; // gives more money if ended early
+        ResultsManager.Instance.Enable();
     }
 
     public void StartShop()
@@ -168,13 +182,16 @@ public class GameManager : MonoBehaviour
         CurrentScoreMult = 1;
         
         //Increase cash amount depending on which blind in this current ante/lane
-        Cash += normalBlindStartingCash + (BlindNum);
+        Cash += normalBlindStartingCash + (BlindNum-1);
+        // Cash += 3 - RoundNum  // gives more money if ended early
         
         //enable shop back button
         shopBackButton.Enable();
         
         //set cam to look at shop spot
         mainCamera.BeginLookAtShop();
+        
+        GameUI.Instance.Refresh();
     }
     
     /// <summary>
@@ -207,6 +224,8 @@ public class GameManager : MonoBehaviour
                 Debug.Log("STRIKE");
 
                 CurrentScoreMult++;
+                strikesNum++;
+                ThrowType = "Strike";
                 return true;
             }
             // Spare if done on turn 2
@@ -215,12 +234,14 @@ public class GameManager : MonoBehaviour
                 //shouldn't have to reset because EndTurn should do it
                 Debug.Log("SPARE");
                 CurrentScoreFlat += 5;
+                ThrowType = "Spare";
                 return false;
             }
         }
         else
         {
             Debug.Log("Normal");
+            ThrowType = LayoutManager.NumPinsFallen + " Pins";
             return false;
         }
     }

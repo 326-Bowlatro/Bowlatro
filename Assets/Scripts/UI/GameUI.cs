@@ -34,6 +34,7 @@ public class GameUI : MonoBehaviour
 
         rootElement.Q<Label>("_Wallet").text = "$" + GameManager.Instance.Cash;
         rootElement.Q<Label>("_Stage").text = "Stage " + (GameManager.Instance.BlindNum + 1);
-        rootElement.Q<Label>("_Status").text = "Just Some Pins 2";
+        rootElement.Q<Label>("_Status").text = GameManager.Instance.ThrowType;
+        //need access to score needed to beat
     }
 }
