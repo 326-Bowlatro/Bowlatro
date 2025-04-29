@@ -25,6 +25,7 @@ public class ShopBackButton : MonoBehaviour
     {
         cam.EndLookAtShop();
         pinCardManager.StartSelection();
+        GameManager.Instance.EndShop();
         Disable();
     }
 }

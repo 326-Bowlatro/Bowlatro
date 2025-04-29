@@ -33,8 +33,16 @@ public class GameUI : MonoBehaviour
         rootElement.Q<Label>("_Round").text = (GameManager.Instance.RoundNum + 1).ToString();
 
         rootElement.Q<Label>("_Wallet").text = "$" + GameManager.Instance.Cash;
-        rootElement.Q<Label>("_Stage").text = "Stage " + (GameManager.Instance.BlindNum + 1);
         rootElement.Q<Label>("_Status").text = GameManager.Instance.ThrowType;
         //need access to score needed to beat
+
+        if ((GameManager.Instance.BlindNum + 1) % 3 == 0)
+        {
+            rootElement.Q<Label>("_Stage").text = "Boss Stage";   
+        }
+        else
+        {
+            rootElement.Q<Label>("_Stage").text = "Stage " + (GameManager.Instance.BlindNum + 1);
+        }
     }
 }

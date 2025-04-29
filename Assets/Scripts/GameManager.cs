@@ -36,12 +36,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int normalBlindStartingCash = 3;
 
     [SerializeField] private int currentScoreToBeat = 30;
+    [SerializeField] private int currentBossScoreToBeat;
 
     private int strikesNum = 0;
+
+    [SerializeField] private bool isBossStage = false;
     
     void Awake()
     {
         Instance = this;
+        currentBossScoreToBeat += currentScoreToBeat + currentScoreToBeat / 2;
     }
 
     void Update()
@@ -111,7 +115,9 @@ public class GameManager : MonoBehaviour
         LayoutManager.ClearPins();
         
         //go to next blind if roundNum > 3
-        if (RoundNum >= 3 || CurrentScore >= currentScoreToBeat)
+        if (RoundNum >= 3 ||
+            (CurrentScore >= currentScoreToBeat && !isBossStage) ||
+            (isBossStage && CurrentScore >= currentBossScoreToBeat))
         {
             EndBlind();
         }
@@ -132,10 +138,15 @@ public class GameManager : MonoBehaviour
     public void EndBlind()
     {
         Debug.Log("Blind over");
-
         
         // Increment blind number
         ++BlindNum;
+        
+        //check if score is enough, if not, you lose
+        if (CurrentScore < currentScoreToBeat)
+        {
+            Debug.Log("Lose.");
+        }
         
         //go to next Ante if blindNum > 3
         if (BlindNum >= 3)
@@ -145,6 +156,13 @@ public class GameManager : MonoBehaviour
         
         // Reset RoundNum
         RoundNum = 0;
+        
+        //reset strike count
+        strikesNum = 0;
+        
+        //increase score to beat
+        currentScoreToBeat += (currentScoreToBeat/2);
+        currentBossScoreToBeat += (currentScoreToBeat / 2);
         
         //Go to results
         StartResults();
@@ -170,7 +188,17 @@ public class GameManager : MonoBehaviour
     public void StartResults()
     {
         LayoutManager.ClearPins();
-        ResultsManager.Instance.cashToBeEarned = normalBlindStartingCash + (BlindNum-1); //minus 1 because BlindNum has been incremented already
+        
+        //boss stage gives extra
+        if (isBossStage)
+        {
+            ResultsManager.Instance.cashToBeEarned = normalBlindStartingCash * 2;
+        }
+        else
+        {
+            ResultsManager.Instance.cashToBeEarned = normalBlindStartingCash + (BlindNum-1); //minus 1 because BlindNum has been incremented already
+        }
+        
         // ResultsManager.Instance.cashToBeEarned += 3 - RoundNum; // gives more money if ended early
         ResultsManager.Instance.Enable();
     }
@@ -180,10 +208,17 @@ public class GameManager : MonoBehaviour
         // Reset Score for next blind
         CurrentScoreFlat = 0;
         CurrentScoreMult = 1;
-        
-        //Increase cash amount depending on which blind in this current ante/lane
-        Cash += normalBlindStartingCash + (BlindNum-1);
-        // Cash += 3 - RoundNum  // gives more money if ended early
+
+        if (isBossStage)
+        {
+            Cash += normalBlindStartingCash * 2;
+        }
+        else
+        {
+            //Increase cash amount depending on which blind in this current ante/lane
+            Cash += normalBlindStartingCash + (BlindNum-1);
+        }
+        // Cash += 3 - RoundNum;  // gives more money if ended early
         
         //enable shop back button
         shopBackButton.Enable();
@@ -192,6 +227,19 @@ public class GameManager : MonoBehaviour
         mainCamera.BeginLookAtShop();
         
         GameUI.Instance.Refresh();
+    }
+
+    public void EndShop()
+    {
+        //Check for boss stage here, so it will check once you leave the shop
+        if ((BlindNum+1) % 3 == 0 && BlindNum > 0)
+        {
+            isBossStage = true;
+        }
+        else
+        {
+            isBossStage = false;
+        }
     }
     
     /// <summary>
