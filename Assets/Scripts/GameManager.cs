@@ -1,11 +1,20 @@
 using UnityEngine;
 
+public enum GameState
+{
+    Playing,
+    Results,
+    Shop
+}
+
 /// <summary>
 /// GameManager singleton, drives all game state.
 /// </summary>
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+
+    public GameState State { get; private set; } = GameState.Playing;
 
     public PinLayoutManager LayoutManager => pinLayoutManager;
 
@@ -14,9 +23,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private CameraScript mainCamera;
-    
-    [SerializeField]
-    private ShopBackButton shopBackButton;
     
     [SerializeField]
     private ToShopButton toShopButton;
@@ -132,7 +138,7 @@ public class GameManager : MonoBehaviour
         LayoutManager.ClearPins();
         
         //go to next blind if roundNum > 3
-        if (RoundNum >= 3)
+        if (RoundNum >= 3 || true /*TEMP DO NOT COMMIT ME*/)
         {
             EndBlind();
         }
@@ -204,6 +210,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void StartResults()
     {
+        State = GameState.Results;
+
         LayoutManager.ClearPins();
         
         //boss stage gives extra
@@ -218,10 +226,14 @@ public class GameManager : MonoBehaviour
         
         // ResultsManager.Instance.cashToBeEarned += 3 - RoundNum; // gives more money if ended early
         ResultsManager.Instance.Enable();
+
+        GameUI.Instance.Refresh();
     }
 
     public void StartShop()
     {
+        State = GameState.Shop;
+
         // Reset score for next blind
         CurrentScoreFlat = 0;
         CurrentScoreMult = 1;
@@ -232,9 +244,6 @@ public class GameManager : MonoBehaviour
         // Have interest, every 10, get 1
         Cash += Cash % 10;
         
-        // Enable shop back button
-        shopBackButton.Enable();
-        
         // Set cam to look at shop spot
         mainCamera.BeginLookAtShop();
         
@@ -243,6 +252,11 @@ public class GameManager : MonoBehaviour
 
     public void EndShop()
     {
+        State = GameState.Playing;
+
+        mainCamera.EndLookAtShop();
+        PinCardManager.Instance.StartSelection();
+
         //Check for boss stage here, so it will check once you leave the shop
         if ((BlindNum+1) % 3 == 0 && BlindNum > 0)
         {

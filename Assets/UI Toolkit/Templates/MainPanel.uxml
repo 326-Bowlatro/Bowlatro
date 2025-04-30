@@ -4,8 +4,8 @@
     <Style src="project://database/Assets/UI%20Toolkit/Styles/Shared.uss?fileID=7433441132597879392&amp;guid=921c73c4fb2b341a5ab72b6e494ede34&amp;type=3#Shared" />
     <engine:VisualElement picking-mode="Ignore" style="flex-grow: 1; flex-direction: row; margin-left: 36px;">
         <engine:Instance template="MainPanelTemplate" />
-        <engine:VisualElement style="flex-grow: 1; padding-left: 36px;">
-            <engine:Instance template="ShopPanel" style="height: 340px; width: 460px;" />
+        <engine:VisualElement picking-mode="Ignore" style="flex-grow: 1; padding-left: 36px;">
+            <engine:Instance template="ShopPanel" name="_ShopHost" style="height: 340px; width: 460px; transform-origin: top; transition-property: translate; transition-duration: 0.25s; transition-timing-function: ease;" />
         </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>
