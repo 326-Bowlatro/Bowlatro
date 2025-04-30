@@ -2,10 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BossModifier
+{
+    VeerLeft,
+    VeerRight,
+    SlowDown,
+    Obstacles,
+    NoStrike
+}
+
 public class BossModifierManager : MonoBehaviour
 {
-    public static BossModifierManager Instance { get; private set; }
-
     [Header("Settings")]
     public int blindsPerBoss = 3; // Boss every 3 blinds
     public GameObject obstaclePrefab;
@@ -20,26 +27,9 @@ public class BossModifierManager : MonoBehaviour
     private GameObject[] spawnedObstacles;
     private int blindCounter = 0;
 
-    public enum BossModifier
-    {
-        VeerLeft,
-        VeerRight,
-        SlowDown,
-        Obstacles,
-        NoStrike
-    }
-
     void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-            InitializeModifiers();
-        }
+        InitializeModifiers();
     }
 
     private void InitializeModifiers()
@@ -61,7 +51,6 @@ public class BossModifierManager : MonoBehaviour
             EndBossModifier();
         }
     }
-
 
     private void StartBossModifier()
     {

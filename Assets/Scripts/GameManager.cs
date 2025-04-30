@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public PinLayoutManager LayoutManager;
+    public PinLayoutManager LayoutManager => pinLayoutManager;
 
     [SerializeField]
     private BowlingBall bowlingBall;
@@ -15,9 +15,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private CameraScript mainCamera;
     
-    [SerializeField] 
-    private BossModifierManager bossModifierManager;
-
     [SerializeField]
     private ShopBackButton shopBackButton;
     
@@ -41,14 +38,19 @@ public class GameManager : MonoBehaviour
     public int CurrentScoreToBeat { get; private set; } = 20;
     public int CurrentBossScoreToBeat { get; private set; }
 
-    private int strikesNum = 0;
-
     public bool hasChosenLayout = false;
+
+    private int strikesNum = 0;
+    private BossModifierManager bossModifierManager;
+    private PinLayoutManager pinLayoutManager;
     
     void Awake()
     {
         Instance = this;
         CurrentBossScoreToBeat += CurrentScoreToBeat + CurrentScoreToBeat / 2;
+
+        bossModifierManager = GetComponent<BossModifierManager>();
+        pinLayoutManager = GetComponent<PinLayoutManager>();
     }
 
     void Update()
@@ -153,7 +155,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Blind over");
         
         // Notify boss modifier manager
-        BossModifierManager.Instance.OnBlindCompleted();
+        bossModifierManager.OnBlindCompleted();
 
         ++BlindNum;
         
@@ -283,7 +285,7 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("STRIKE");
                 
-                if (BossModifierManager.Instance.isBossActive && BossModifierManager.Instance.currentModifier == BossModifierManager.BossModifier.NoStrike)
+                if (bossModifierManager.isBossActive && bossModifierManager.currentModifier == BossModifier.NoStrike)
                 {
                     Debug.Log("STRIKE PREVENTED by NoStrike modifier");
                     return true;
@@ -312,5 +314,4 @@ public class GameManager : MonoBehaviour
             return false;
         }
     }
-    
 }

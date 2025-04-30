@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5159426534695303106}
   - component: {fileID: 5854317158804842900}
+  - component: {fileID: 3277764162808829257}
+  - component: {fileID: 2770819629102231949}
+  - component: {fileID: 8921172820484345540}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -47,7 +50,57 @@ MonoBehaviour:
   LayoutManager: {fileID: 0}
   bowlingBall: {fileID: 0}
   mainCamera: {fileID: 0}
+  bossModifierManager: {fileID: 0}
   shopBackButton: {fileID: 0}
   toShopButton: {fileID: 0}
   normalBlindStartingCash: 3
-  currentScoreToBeat: 20
+  hasChosenLayout: 0
+--- !u!114 &3277764162808829257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5543114670215132893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0df023120249d2a4d9de214ee4ce5bab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pinParent: {fileID: 0}
+  pinPrefab: {fileID: 7486533534180108460, guid: 6894647091809c74895ae88ee3c1281c, type: 3}
+  enableSpecialPins: 0
+  specialPinPrefabs: []
+  specialPinsCount: 1
+--- !u!114 &2770819629102231949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5543114670215132893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b37bba7037981434aa88f2d0fd1fdff7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blindsPerBoss: 3
+  obstaclePrefab: {fileID: 3787273008359229700, guid: d00b6b14b42b2c24784485b32cf78c86, type: 3}
+  obstacleSpawnPoints: []
+  isBossActive: 0
+  currentModifier: 0
+--- !u!114 &8921172820484345540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5543114670215132893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67b3be6c12e192d4cb66336860f5803b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCam: {fileID: 0}
+  toShopButton: {fileID: 0}
+  cashToBeEarned: 0
