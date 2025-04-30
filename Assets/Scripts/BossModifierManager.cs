@@ -63,7 +63,6 @@ public class BossModifierManager : MonoBehaviour
         currentModifier = unusedModifiers[randomIndex];
         unusedModifiers.RemoveAt(randomIndex);
         
-        
         GameManager.Instance.BowlingBall.SetBossBlind(true);
         isBossActive = true;
         ApplyModifier(currentModifier);

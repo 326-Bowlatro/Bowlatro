@@ -193,7 +193,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
 
         // Reset ball
         bowlingBall.OnEndTurn();
-
+        
         // Reset/destroy pins (based on knocked status) to keep them from falling between throws
         LayoutManager.OnEndTurn();
 
@@ -349,7 +349,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
             if (TurnNum == 0)
             {
                 Debug.Log("STRIKE");
-
+                
                 if (
                     bossModifierManager.isBossActive
                     && bossModifierManager.currentModifier == BossModifier.NoStrike
