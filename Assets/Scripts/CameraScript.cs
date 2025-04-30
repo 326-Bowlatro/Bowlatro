@@ -19,6 +19,30 @@ public class CameraScript : MonoBehaviour
     private bool isLookingAtShop = false;
     private bool isLookingAtResults = false;
 
+    void Update()
+    {
+        if (isLookingAtPins)
+        {
+            transform.position = pinLookTarget.position + camPinOffset;
+            transform.LookAt(pinLookTarget.position + pinLookAtOffset);
+        }
+        else if (isLookingAtShop)
+        {
+            transform.position = shopLookTarget.position + camShopOffset;
+            transform.LookAt(shopLookTarget.position + shopLookAtOffset);
+        }
+        else if (isLookingAtResults)
+        {
+            transform.position = resultsLookTarget.position + camResultsOffset;
+            transform.LookAt(resultsLookTarget.position + resultsLookAtOffset);
+        }
+        else
+        {
+            transform.position = ballLookTarget.position + camBallOffset;
+            transform.LookAt(ballLookTarget.position + ballLookAtOffset);
+        }
+    }
+
     /// <summary>
     /// Switches camera mode to show the pins.
     /// </summary>
@@ -58,29 +82,5 @@ public class CameraScript : MonoBehaviour
     public void OnEndTurn()
     {
         EndLookAtPins();
-    }
-
-    private void Update()
-    {
-        if (isLookingAtPins)
-        {
-            transform.position = pinLookTarget.position + camPinOffset;
-            transform.LookAt(pinLookTarget.position + pinLookAtOffset);
-        }
-        else if (isLookingAtShop)
-        {
-            transform.position = shopLookTarget.position + camShopOffset;
-            transform.LookAt(shopLookTarget.position + shopLookAtOffset);
-        }
-        else if (isLookingAtResults)
-        {
-            transform.position = resultsLookTarget.position + camResultsOffset;
-            transform.LookAt(resultsLookTarget.position + resultsLookAtOffset);
-        }
-        else
-        {
-            transform.position = ballLookTarget.position + camBallOffset;
-            transform.LookAt(ballLookTarget.position + ballLookAtOffset);
-        }
     }
 }

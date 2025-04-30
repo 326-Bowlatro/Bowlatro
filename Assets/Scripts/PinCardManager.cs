@@ -13,7 +13,7 @@ public class PinCardManager : MonoBehaviour
 
     [SerializeField] int cardGenerationLimit = 3;
 
-    private void Start()
+    void Start()
     {
         Instance = this;
         

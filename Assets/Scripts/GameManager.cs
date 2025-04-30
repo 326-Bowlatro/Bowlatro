@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -26,6 +24,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private ToShopButton toShopButton;
 
+    [SerializeField]
+    private int normalBlindStartingCash = 3;
+
     // Per-blind state
     public int CurrentScore => CurrentScoreFlat * CurrentScoreMult;
     public int CurrentScoreMult { get; private set; } = 1;
@@ -40,9 +41,6 @@ public class GameManager : MonoBehaviour
     public int CurrentScoreToBeat { get; private set; } = 20;
     public int CurrentBossScoreToBeat { get; private set; }
 
-    [SerializeField] private int normalBlindStartingCash = 3;
-
-
     private int strikesNum = 0;
 
     public bool hasChosenLayout = false;
@@ -50,18 +48,8 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-
-        bossModifierManager = FindObjectOfType<BossModifierManager>();
-    
-        // Make sure BowlingBall exists
-        if (bowlingBall == null)
-        {
-            bowlingBall = FindObjectOfType<BowlingBall>();
-        }
-
         CurrentBossScoreToBeat += CurrentScoreToBeat + CurrentScoreToBeat / 2;
     }
-
 
     void Update()
     {
@@ -70,7 +58,6 @@ public class GameManager : MonoBehaviour
             bowlingBall.LaunchBall();
         }
     }
-
 
     /// <summary>
     /// Ends the player's turn. Possibly ends the round if all pins are knocked
@@ -189,8 +176,8 @@ public class GameManager : MonoBehaviour
         strikesNum = 0;
         
         //increase score to beat
-        CurrentScoreToBeat += (CurrentScoreToBeat/2);
-        CurrentBossScoreToBeat += (CurrentScoreToBeat / 2);
+        CurrentScoreToBeat += CurrentScoreToBeat / 2;
+        CurrentBossScoreToBeat += CurrentScoreToBeat / 2;
         
         //Go to results
         StartResults();
@@ -233,27 +220,20 @@ public class GameManager : MonoBehaviour
 
     public void StartShop()
     {
-        // Reset Score for next blind
+        // Reset score for next blind
         CurrentScoreFlat = 0;
         CurrentScoreMult = 1;
 
-        if (IsBossStage)
-        {
-            Cash += normalBlindStartingCash * 2;
-        }
-        else
-        {
-            //Increase cash amount depending on which blind in this current ante/lane
-            Cash += normalBlindStartingCash + (BlindNum-1);
-        }
-        //have interest, every 10, get 1
+        // Boss stage gives 2x cash. Else, multiplier is based on blind number.
+        Cash += IsBossStage ? normalBlindStartingCash * 2 : normalBlindStartingCash + (BlindNum - 1);
+
+        // Have interest, every 10, get 1
         Cash += Cash % 10;
-        // Cash += 3 - RoundNum;  // gives more money if ended early
         
-        //enable shop back button
+        // Enable shop back button
         shopBackButton.Enable();
         
-        //set cam to look at shop spot
+        // Set cam to look at shop spot
         mainCamera.BeginLookAtShop();
         
         GameUI.Instance.Refresh();
@@ -271,7 +251,6 @@ public class GameManager : MonoBehaviour
             IsBossStage = false;
         }
         
-        //refresh for boss stage boolean to take effect
         GameUI.Instance.Refresh();
     }
     

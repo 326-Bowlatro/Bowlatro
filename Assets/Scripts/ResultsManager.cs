@@ -10,7 +10,7 @@ public class ResultsManager : MonoBehaviour
 
     public int cashToBeEarned = 0;
     
-    private void Start()
+    void Start()
     {
         Instance = this;
     }
