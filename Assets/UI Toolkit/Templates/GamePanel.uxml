@@ -11,7 +11,7 @@
                     <engine:VisualElement class="menu-item" style="height: 88px; width: 88px; background-color: rgb(26, 43, 45); margin-right: 4px;" />
                     <engine:VisualElement class="menu-item" style="background-color: rgb(26, 43, 45); flex-grow: 1; margin-left: 4px;">
                         <engine:Label text="Score to beat" />
-                        <engine:Label text="0" class="huge" />
+                        <engine:Label text="0" name="_ScoreToBeat" class="huge" />
                     </engine:VisualElement>
                 </engine:VisualElement>
             </engine:VisualElement>
