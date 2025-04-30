@@ -110,7 +110,7 @@ public class PinLayoutManager : MonoBehaviour
 
         List<Vector3> pinPositions = new List<Vector3>();
         const float baseX = -0.6f;
-        const float baseZ = 0.75f;
+        const float baseZ = 0;
         
         // First spawn all regular pins
         for (var z = 0; z < grid.Length; z++)

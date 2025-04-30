@@ -44,5 +44,14 @@ public class GameUI : MonoBehaviour
         {
             rootElement.Q<Label>("_Stage").text = "Stage " + (GameManager.Instance.BlindNum + 1);
         }
+
+        if (GameManager.Instance.IsBossStage)
+        {
+            rootElement.Q<Label>("_ScoreToBeat").text = GameManager.Instance.CurrentBossScoreToBeat.ToString();
+        }
+        else
+        {
+            rootElement.Q<Label>("_ScoreToBeat").text = GameManager.Instance.CurrentScoreToBeat.ToString();
+        }
     }
 }

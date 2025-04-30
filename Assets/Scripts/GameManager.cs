@@ -34,22 +34,23 @@ public class GameManager : MonoBehaviour
     public int RoundNum { get; private set; } = 0;
     public int BlindNum { get; private set; } = 0;
     public int AnteNum { get; private set; } = 0;
-    public int Cash { get; private set; } = 0;
+    public int Cash { get; private set; } = 3;
     public string ThrowType { get; private set; } = "";
+    public bool IsBossStage { get; private set; } = false;
+    public int CurrentScoreToBeat { get; private set; } = 20;
+    public int CurrentBossScoreToBeat { get; private set; }
 
     [SerializeField] private int normalBlindStartingCash = 3;
 
-    [SerializeField] private int currentScoreToBeat = 30;
-    [SerializeField] private int currentBossScoreToBeat;
 
     private int strikesNum = 0;
 
-    [SerializeField] private bool isBossStage = false;
+    public bool hasChosenLayout = false;
     
     void Awake()
     {
         Instance = this;
-        
+
         bossModifierManager = FindObjectOfType<BossModifierManager>();
     
         // Make sure BowlingBall exists
@@ -58,13 +59,13 @@ public class GameManager : MonoBehaviour
             bowlingBall = FindObjectOfType<BowlingBall>();
         }
 
-        currentBossScoreToBeat += currentScoreToBeat + currentScoreToBeat / 2;
+        CurrentBossScoreToBeat += CurrentScoreToBeat + CurrentScoreToBeat / 2;
     }
 
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) && hasChosenLayout)
         {
             bowlingBall.LaunchBall();
         }
@@ -84,7 +85,7 @@ public class GameManager : MonoBehaviour
         
         // Reset/destroy pins (based on knocked status) to keep them from falling between throws
         LayoutManager.OnEndTurn();
-
+        
         // Reset camera
         mainCamera.OnEndTurn();
 
@@ -101,9 +102,18 @@ public class GameManager : MonoBehaviour
 
         // Begin next turn
         TurnNum++;
-
+        
+        //if score is reached, end blind early
+        if ((CurrentScore >= CurrentScoreToBeat && !IsBossStage) ||
+            (IsBossStage && CurrentScore >= CurrentBossScoreToBeat))
+        {
+            EndBlind();
+            //End round early
+            bowlingBall.OnEndTurn();
+            TurnNum = 0;
+        }
         // End the round after 2 turns or a strike
-        if (TurnNum >= 2 || isStrike)
+        else if (TurnNum >= 2 || isStrike)
         {
             EndRound();
         }
@@ -126,13 +136,14 @@ public class GameManager : MonoBehaviour
         // Reset round state
         TurnNum = 0;
 
+        //set hasChosenLayout to false
+        hasChosenLayout = false;
+        
         // Destroy all existing pins
         LayoutManager.ClearPins();
         
         //go to next blind if roundNum > 3
-        if (RoundNum >= 3 ||
-            (CurrentScore >= currentScoreToBeat && !isBossStage) ||
-            (isBossStage && CurrentScore >= currentBossScoreToBeat))
+        if (RoundNum >= 3)
         {
             EndBlind();
         }
@@ -154,16 +165,13 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Blind over");
         
-        // Increment blind number
-        ++blindNum;
-        
         // Notify boss modifier manager
         BossModifierManager.Instance.OnBlindCompleted();
 
         ++BlindNum;
         
         //check if score is enough, if not, you lose
-        if (CurrentScore < currentScoreToBeat)
+        if (CurrentScore < CurrentScoreToBeat)
         {
             Debug.Log("Lose.");
         }
@@ -181,8 +189,8 @@ public class GameManager : MonoBehaviour
         strikesNum = 0;
         
         //increase score to beat
-        currentScoreToBeat += (currentScoreToBeat/2);
-        currentBossScoreToBeat += (currentScoreToBeat / 2);
+        CurrentScoreToBeat += (CurrentScoreToBeat/2);
+        CurrentBossScoreToBeat += (CurrentScoreToBeat / 2);
         
         //Go to results
         StartResults();
@@ -210,7 +218,7 @@ public class GameManager : MonoBehaviour
         LayoutManager.ClearPins();
         
         //boss stage gives extra
-        if (isBossStage)
+        if (IsBossStage)
         {
             ResultsManager.Instance.cashToBeEarned = normalBlindStartingCash * 2;
         }
@@ -229,7 +237,7 @@ public class GameManager : MonoBehaviour
         CurrentScoreFlat = 0;
         CurrentScoreMult = 1;
 
-        if (isBossStage)
+        if (IsBossStage)
         {
             Cash += normalBlindStartingCash * 2;
         }
@@ -238,6 +246,8 @@ public class GameManager : MonoBehaviour
             //Increase cash amount depending on which blind in this current ante/lane
             Cash += normalBlindStartingCash + (BlindNum-1);
         }
+        //have interest, every 10, get 1
+        Cash += Cash % 10;
         // Cash += 3 - RoundNum;  // gives more money if ended early
         
         //enable shop back button
@@ -254,12 +264,15 @@ public class GameManager : MonoBehaviour
         //Check for boss stage here, so it will check once you leave the shop
         if ((BlindNum+1) % 3 == 0 && BlindNum > 0)
         {
-            isBossStage = true;
+            IsBossStage = true;
         }
         else
         {
-            isBossStage = false;
+            IsBossStage = false;
         }
+        
+        //refresh for boss stage boolean to take effect
+        GameUI.Instance.Refresh();
     }
     
     /// <summary>
