@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -26,6 +24,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private ToShopButton toShopButton;
 
+    [SerializeField]
+    private int normalBlindStartingCash = 3;
+
     // Per-blind state
     public int CurrentScore => CurrentScoreFlat * CurrentScoreMult;
     public int CurrentScoreMult { get; private set; } = 1;
@@ -40,8 +41,6 @@ public class GameManager : MonoBehaviour
     public int CurrentScoreToBeat { get; private set; } = 20;
     public int CurrentBossScoreToBeat { get; private set; }
 
-    [SerializeField] private int normalBlindStartingCash = 3;
-
     private int strikesNum = 0;
 
     public bool hasChosenLayout = false;
@@ -52,7 +51,6 @@ public class GameManager : MonoBehaviour
         CurrentBossScoreToBeat += CurrentScoreToBeat + CurrentScoreToBeat / 2;
     }
 
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.W) && hasChosenLayout)
@@ -60,7 +58,6 @@ public class GameManager : MonoBehaviour
             bowlingBall.LaunchBall();
         }
     }
-
 
     /// <summary>
     /// Ends the player's turn. Possibly ends the round if all pins are knocked
