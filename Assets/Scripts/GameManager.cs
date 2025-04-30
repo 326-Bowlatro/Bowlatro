@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public GameState State { get; private set; } = GameState.Playing;
 
     public PinLayoutManager LayoutManager => pinLayoutManager;
+    public ResultsManager ResultsManager => resultsManager;
+    public BowlingBall BowlingBall => bowlingBall;
 
     [SerializeField]
     private BowlingBall bowlingBall;
@@ -49,6 +51,7 @@ public class GameManager : MonoBehaviour
     private int strikesNum = 0;
     private BossModifierManager bossModifierManager;
     private PinLayoutManager pinLayoutManager;
+    private ResultsManager resultsManager;
     
     void Awake()
     {
@@ -57,6 +60,7 @@ public class GameManager : MonoBehaviour
 
         bossModifierManager = GetComponent<BossModifierManager>();
         pinLayoutManager = GetComponent<PinLayoutManager>();
+        resultsManager = GetComponent<ResultsManager>();
     }
 
     void Update()
@@ -217,15 +221,15 @@ public class GameManager : MonoBehaviour
         //boss stage gives extra
         if (IsBossStage)
         {
-            ResultsManager.Instance.cashToBeEarned = normalBlindStartingCash * 2;
+            resultsManager.cashToBeEarned = normalBlindStartingCash * 2;
         }
         else
         {
-            ResultsManager.Instance.cashToBeEarned = normalBlindStartingCash + (BlindNum-1); //minus 1 because BlindNum has been incremented already
+            resultsManager.cashToBeEarned = normalBlindStartingCash + (BlindNum-1); //minus 1 because BlindNum has been incremented already
         }
         
-        // ResultsManager.Instance.cashToBeEarned += 3 - RoundNum; // gives more money if ended early
-        ResultsManager.Instance.Enable();
+        // resultsManager.cashToBeEarned += 3 - RoundNum; // gives more money if ended early
+        resultsManager.Enable();
 
         GameUI.Instance.Refresh();
     }

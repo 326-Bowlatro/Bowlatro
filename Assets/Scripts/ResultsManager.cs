@@ -3,17 +3,10 @@ using UnityEngine;
 
 public class ResultsManager : MonoBehaviour
 {
-    public static ResultsManager Instance { get; private set; }
-
     [SerializeField] private CameraScript mainCam;
     [SerializeField] private ToShopButton toShopButton;
 
     public int cashToBeEarned = 0;
-    
-    void Start()
-    {
-        Instance = this;
-    }
 
     public void Enable()
     {

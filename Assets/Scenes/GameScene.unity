@@ -6701,17 +6701,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5859382892537588923, guid: be5e586bc99371b4b920bfe6ad550784, type: 3}
   m_PrefabInstance: {fileID: 2910471852512712413}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &695827077 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 657646713543314445, guid: be5e586bc99371b4b920bfe6ad550784, type: 3}
-  m_PrefabInstance: {fileID: 2910471852512712413}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0452a37ebcb41e4baf29b6ee99a4159, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!43 &731238186
 Mesh:
   m_ObjectHideFlags: 0
@@ -20234,14 +20223,6 @@ PrefabInstance:
       propertyPath: toShopButton
       value: 
       objectReference: {fileID: 606052520}
-    - target: {fileID: 5854317158804842900, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
-      propertyPath: LayoutManager
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5854317158804842900, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
-      propertyPath: shopBackButton
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8921172820484345540, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: mainCam
       value: 
@@ -20488,7 +20469,7 @@ PrefabInstance:
     - target: {fileID: 1692050200353570202, guid: 50950686edf33044fbb8bf92f8af73d5, type: 3}
       propertyPath: pinCardManager
       value: 
-      objectReference: {fileID: 695827077}
+      objectReference: {fileID: 0}
     - target: {fileID: 4067078179464852156, guid: 50950686edf33044fbb8bf92f8af73d5, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

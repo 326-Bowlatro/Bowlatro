@@ -47,11 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b74c6f4f3db604f47987bc0438d9a13e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LayoutManager: {fileID: 0}
   bowlingBall: {fileID: 0}
   mainCamera: {fileID: 0}
-  bossModifierManager: {fileID: 0}
-  shopBackButton: {fileID: 0}
   toShopButton: {fileID: 0}
   normalBlindStartingCash: 3
   hasChosenLayout: 0

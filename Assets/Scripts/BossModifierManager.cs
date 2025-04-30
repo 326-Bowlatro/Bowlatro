@@ -64,7 +64,7 @@ public class BossModifierManager : MonoBehaviour
         unusedModifiers.RemoveAt(randomIndex);
         
         
-        BowlingBall.Instance.SetBossBlind(true);
+        GameManager.Instance.BowlingBall.SetBossBlind(true);
         isBossActive = true;
         ApplyModifier(currentModifier);
         
@@ -76,15 +76,15 @@ public class BossModifierManager : MonoBehaviour
         switch (modifier)
         {
             case BossModifier.VeerLeft:
-                BowlingBall.Instance.SetVeerEnabled(true, 1f);
+                GameManager.Instance.BowlingBall.SetVeerEnabled(true, 1f);
                 break;
                 
             case BossModifier.VeerRight:
-                BowlingBall.Instance.SetVeerEnabled(true, -1f);
+                GameManager.Instance.BowlingBall.SetVeerEnabled(true, -1f);
                 break;
                 
             case BossModifier.SlowDown:
-                BowlingBall.Instance.SetSlowDownEnabled(true);
+                GameManager.Instance.BowlingBall.SetSlowDownEnabled(true);
                 break;
                 
             case BossModifier.Obstacles:
@@ -108,9 +108,9 @@ public class BossModifierManager : MonoBehaviour
 
     private void ClearCurrentModifier()
     {
-        BowlingBall.Instance.SetVeerEnabled(false, 0f);
-        BowlingBall.Instance.SetSlowDownEnabled(false);
-        BowlingBall.Instance.StopAllCoroutines();
+        GameManager.Instance.BowlingBall.SetVeerEnabled(false, 0f);
+        GameManager.Instance.BowlingBall.SetSlowDownEnabled(false);
+        GameManager.Instance.BowlingBall.StopAllCoroutines();
         RemoveObstacles();
     }
 

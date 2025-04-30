@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class BowlingBall : MonoBehaviour
 {
-    public static BowlingBall Instance { get; private set; }
     [Header("Boss Modifiers")]
     public bool isBossRound = false;
     public bool veerEnabled = false;
@@ -145,7 +143,6 @@ public class BowlingBall : MonoBehaviour
     {
         yield return new WaitForSeconds(ResetDelay);
         GameManager.Instance.EndTurn();
-
     }
     
     private IEnumerator VeerBall()
