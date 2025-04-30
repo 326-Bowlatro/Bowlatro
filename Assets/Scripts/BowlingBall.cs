@@ -14,6 +14,10 @@ public class BowlingBall : MonoBehaviour
     public float slowDownFactor = 0.78f;
     public bool slowDownEnabled = false;
 
+    [Header("Special Balls")]
+    public bool isMultiplierBall = false;
+    public bool isBonusBall = false;
+    
     [SerializeField] private CameraScript mainCamera;
     [SerializeField] private Transform pinsMainPoint;
     [SerializeField] private Collider laneCollider;
@@ -21,8 +25,6 @@ public class BowlingBall : MonoBehaviour
 
     [SerializeField] private float LaunchForce = 1500f;
     [SerializeField] private float ResetDelay = 4f;
-
-
 
     private Rigidbody rb;
     private Vector3 startPosition;
@@ -73,27 +75,6 @@ public class BowlingBall : MonoBehaviour
         }
     }
 
-    void Awake()
-    {
-        // Singleton pattern
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-        }
-    }
-    void OnDestroy()
-    {
-        if (Instance == this)
-        {
-            Instance = null;
-        }
-    }
-
-
     /// <summary>
     /// Launches the ball forward from its starting position.
     /// </summary>
@@ -128,10 +109,8 @@ public class BowlingBall : MonoBehaviour
             // Normal launch
             rb.AddForce(-transform.forward * LaunchForce);
         }
-
-      
         
-         AudioSource audio = GetComponent<AudioSource>();
+        AudioSource audio = GetComponent<AudioSource>();
         if (audio != null && !audio.isPlaying)
         {
             Debug.Log("🎳 Playing bowling ball roll sound!");
@@ -165,23 +144,7 @@ public class BowlingBall : MonoBehaviour
     IEnumerator DelayedEndTurn()
     {
         yield return new WaitForSeconds(ResetDelay);
-    
-        // Triple-check everything before ending turn
-        if (this == null) yield break;
-        if (GameManager.Instance == null)
-        {
-            Debug.LogError("GameManager instance missing!");
-            yield break;
-        }
-    
-        try
-        {
-            GameManager.Instance.EndTurn();
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError($"Error ending turn: {e.Message}");
-        }
+        GameManager.Instance.EndTurn();
 
     }
     

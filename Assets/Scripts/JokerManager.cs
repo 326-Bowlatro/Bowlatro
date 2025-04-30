@@ -21,12 +21,11 @@ public class JokerManager : MonoBehaviour
     }
 
     public void ActivateJokers(List<string> jokerNames)
-{
-    activeJokers = jokerNames;
-    Debug.Log("Activated Jokers: " + string.Join(", ", activeJokers));
-    SceneManager.LoadScene("GameScene");
-}
-
+    {
+        activeJokers = jokerNames;
+        Debug.Log("Activated Jokers: " + string.Join(", ", activeJokers));
+        SceneManager.LoadScene("GameScene");
+    }
 
     public int GetTotalMultiplier()
     {
@@ -36,11 +35,21 @@ public class JokerManager : MonoBehaviour
         {
             switch (joker)
             {
-                case "Strike": total += 1; break;
-                case "Single Throw": total += 0; break;
-                case "Spare": total += 2; break;
-                case "Blind Boss Buff": total += 3; break;
-                case "Ball Return Bonus": total += 4; break;
+                case "Strike":
+                    total += 1;
+                    break;
+                case "Single Throw":
+                    total += 0;
+                    break;
+                case "Spare":
+                    total += 2;
+                    break;
+                case "Blind Boss Buff":
+                    total += 3;
+                    break;
+                case "Ball Return Bonus":
+                    total += 4;
+                    break;
             }
         }
 

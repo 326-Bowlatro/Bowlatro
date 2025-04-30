@@ -20,15 +20,32 @@ public class GameManager : MonoBehaviour
     [SerializeField] 
     private BossModifierManager bossModifierManager;
 
+    [SerializeField]
+    private ShopBackButton shopBackButton;
+    
+    [SerializeField]
+    private ToShopButton toShopButton;
+
     // Per-blind state
     public int CurrentScore => CurrentScoreFlat * CurrentScoreMult;
     public int CurrentScoreMult { get; private set; } = 1;
     public int CurrentScoreFlat { get; private set; } = 0;
     public int TurnNum { get; private set; } = 0;
     public int RoundNum { get; private set; } = 0;
+    public int BlindNum { get; private set; } = 0;
+    public int AnteNum { get; private set; } = 0;
+    public int Cash { get; private set; } = 0;
+    public string ThrowType { get; private set; } = "";
 
-    private int blindNum = 0;
+    [SerializeField] private int normalBlindStartingCash = 3;
 
+    [SerializeField] private int currentScoreToBeat = 30;
+    [SerializeField] private int currentBossScoreToBeat;
+
+    private int strikesNum = 0;
+
+    [SerializeField] private bool isBossStage = false;
+    
     void Awake()
     {
         Instance = this;
@@ -41,16 +58,17 @@ public class GameManager : MonoBehaviour
             bowlingBall = FindObjectOfType<BowlingBall>();
         }
 
+        currentBossScoreToBeat += currentScoreToBeat + currentScoreToBeat / 2;
     }
 
 
-   void Update()
-{
-    if (Input.GetKeyDown(KeyCode.W))
+    void Update()
     {
-        bowlingBall.LaunchBall();
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            bowlingBall.LaunchBall();
+        }
     }
-}
 
 
     /// <summary>
@@ -72,6 +90,14 @@ public class GameManager : MonoBehaviour
 
         // Check what kind of throw happened
         bool isStrike = CheckForStrike();
+        
+        //check for turkey
+        if (isStrike && strikesNum == 3)
+        {
+            Debug.Log("TURKEY");
+            CurrentScoreMult += 2;
+            ThrowType = "Turkey!";
+        }
 
         // Begin next turn
         TurnNum++;
@@ -102,14 +128,18 @@ public class GameManager : MonoBehaviour
 
         // Destroy all existing pins
         LayoutManager.ClearPins();
-
-        // Now pins are destroyed, replace with a new set
-        LayoutManager.SpawnPins(LayoutManager.LayoutType);
-
+        
         //go to next blind if roundNum > 3
-        if (RoundNum >= 3)
+        if (RoundNum >= 3 ||
+            (CurrentScore >= currentScoreToBeat && !isBossStage) ||
+            (isBossStage && CurrentScore >= currentBossScoreToBeat))
         {
             EndBlind();
+        }
+        else
+        {
+            // Now pins are destroyed, let player select again
+            PinCardManager.Instance.StartSelection();
         }
 
         // Trigger UI refresh
@@ -123,27 +153,122 @@ public class GameManager : MonoBehaviour
     public void EndBlind()
     {
         Debug.Log("Blind over");
-
+        
         // Increment blind number
         ++blindNum;
         
         // Notify boss modifier manager
         BossModifierManager.Instance.OnBlindCompleted();
 
+        ++BlindNum;
+        
+        //check if score is enough, if not, you lose
+        if (CurrentScore < currentScoreToBeat)
+        {
+            Debug.Log("Lose.");
+        }
+        
+        //go to next Ante if blindNum > 3
+        if (BlindNum >= 3)
+        {
+            EndAnte();
+        }
+        
+        // Reset RoundNum
+        RoundNum = 0;
+        
+        //reset strike count
+        strikesNum = 0;
+        
+        //increase score to beat
+        currentScoreToBeat += (currentScoreToBeat/2);
+        currentBossScoreToBeat += (currentScoreToBeat / 2);
+        
+        //Go to results
+        StartResults();
+    }
+    /// <summary>
+    /// Ends current Ante/Lane (3 different blinds)
+    /// Antes from Balatro will be called lanes
+    /// </summary>
+    public void EndAnte()
+    {
+        Debug.Log("Ante Over");
+
+        //Increment Ante Number
+        ++AnteNum;
+        
+        //Reset BlindNum
+        BlindNum = 0;
+    }
+
+    /// <summary>
+    /// Will enable everything that shows the results of the blind that the player just finished
+    /// </summary>
+    public void StartResults()
+    {
+        LayoutManager.ClearPins();
+        
+        //boss stage gives extra
+        if (isBossStage)
+        {
+            ResultsManager.Instance.cashToBeEarned = normalBlindStartingCash * 2;
+        }
+        else
+        {
+            ResultsManager.Instance.cashToBeEarned = normalBlindStartingCash + (BlindNum-1); //minus 1 because BlindNum has been incremented already
+        }
+        
+        // ResultsManager.Instance.cashToBeEarned += 3 - RoundNum; // gives more money if ended early
+        ResultsManager.Instance.Enable();
+    }
+
+    public void StartShop()
+    {
         // Reset Score for next blind
         CurrentScoreFlat = 0;
         CurrentScoreMult = 1;
 
-        // Reset RoundNum
-        RoundNum = 0;
+        if (isBossStage)
+        {
+            Cash += normalBlindStartingCash * 2;
+        }
+        else
+        {
+            //Increase cash amount depending on which blind in this current ante/lane
+            Cash += normalBlindStartingCash + (BlindNum-1);
+        }
+        // Cash += 3 - RoundNum;  // gives more money if ended early
+        
+        //enable shop back button
+        shopBackButton.Enable();
+        
+        //set cam to look at shop spot
+        mainCamera.BeginLookAtShop();
+        
+        GameUI.Instance.Refresh();
     }
 
+    public void EndShop()
+    {
+        //Check for boss stage here, so it will check once you leave the shop
+        if ((BlindNum+1) % 3 == 0 && BlindNum > 0)
+        {
+            isBossStage = true;
+        }
+        else
+        {
+            isBossStage = false;
+        }
+    }
+    
     /// <summary>
     /// Updates the blind score with values from a knocked-over pin.
     /// </summary>
     public void AddPinToScore(Pin pin)
     {
-        int jokerMultiplier = JokerManager.Instance != null ? JokerManager.Instance.GetTotalMultiplier() : 1;
+        int jokerMultiplier =
+            JokerManager.Instance != null ? JokerManager.Instance.GetTotalMultiplier() : 1;
 
         // Update score with values from Pin
         CurrentScoreFlat += pin.FlatScore * jokerMultiplier;
@@ -152,7 +277,7 @@ public class GameManager : MonoBehaviour
         // Update UI
         GameUI.Instance.Refresh();
     }
-    
+
     /// <summary>
     /// Checks if the player has scored a strike.
     /// </summary>
@@ -173,6 +298,8 @@ public class GameManager : MonoBehaviour
                 }
                 
                 CurrentScoreMult++;
+                strikesNum++;
+                ThrowType = "Strike";
                 return true;
             }
             // Spare if done on turn 2
@@ -180,6 +307,8 @@ public class GameManager : MonoBehaviour
             {
                 //shouldn't have to reset because EndTurn should do it
                 Debug.Log("SPARE");
+                CurrentScoreFlat += 5;
+                ThrowType = "Spare";
                 return false;
             }
             
@@ -187,6 +316,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("Normal");
+            ThrowType = LayoutManager.NumPinsFallen + " Pins";
             return false;
         }
     }
