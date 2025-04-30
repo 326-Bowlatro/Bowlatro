@@ -29,7 +29,7 @@ public class BossModifierManager : MonoBehaviour
         NoStrike
     }
 
-    private void Awake()
+    void Awake()
     {
         if (Instance != null && Instance != this)
         {

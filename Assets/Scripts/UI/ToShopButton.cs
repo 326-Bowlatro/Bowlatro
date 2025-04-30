@@ -5,7 +5,8 @@ public class ToShopButton : MonoBehaviour
 {
     [SerializeField] private CameraScript cam;
     [SerializeField] private PinCardManager pinCardManager;
-    private void Start()
+    
+    void Start()
     {
         Disable();
     }

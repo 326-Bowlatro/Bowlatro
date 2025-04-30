@@ -36,7 +36,7 @@ public class PinLayoutManager : MonoBehaviour
     private static List<GameObject> _activeSpecialPinPrefabs = new List<GameObject>();
     private static int _activeSpecialPinsCount = 1;
 
-    private void Awake()
+    void Awake()
     {
         // Apply persistent settings if they exist
         if (_activeSpecialPinPrefabs.Count <= 0) return;

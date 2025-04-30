@@ -9,7 +9,7 @@ public class ExpandingPin : MonoBehaviour
     private new Renderer renderer;
     private Pin pin;
 
-    private void Awake()
+    void Awake()
     {
         collider = GetComponent<SphereCollider>();
         renderer = GetComponent<Renderer>();
@@ -21,7 +21,7 @@ public class ExpandingPin : MonoBehaviour
         }
     }
 
-    private void Update()
+    void Update()
     {
         if (pin == null) return;
 
@@ -52,7 +52,7 @@ public class ExpandingPin : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    void OnDestroy()
     {
         CancelInvoke();
     }
