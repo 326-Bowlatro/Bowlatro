@@ -5,12 +5,14 @@ using Random = UnityEngine.Random;
 
 public class BowlingBall : MonoBehaviour
 {
+    public static BowlingBall Instance { get; private set; }
     [Header("Boss Modifiers")]
     public bool isBossRound = false;
     public bool veerEnabled = false;
-    public float veerDirection = 1f; // 1 for right, -1 for left
+    public float veerDirection ; // 1 for right, -1 for left
     public float veerStrength = 5f;
-    public bool requireBounce = false;
+    public float slowDownFactor = 0.78f;
+    public bool slowDownEnabled = false;
 
     [Header("Special Balls")]
     public bool isMultiplierBall = false;
@@ -86,12 +88,21 @@ public class BowlingBall : MonoBehaviour
         if (isBossRound && veerEnabled)
         {
             // Making the ball veer
-            Vector3 combinedForce = (-transform.forward * LaunchForce) + 
-                                    (Vector3.right * (veerDirection * veerStrength));
+            var combinedForce = (-transform.forward * LaunchForce) + 
+                                (Vector3.right * (veerDirection * veerStrength));
             rb.AddForce(combinedForce);
             
             // Start maintaining the veer direction
             StartCoroutine(VeerBall());
+        }
+        if (isBossRound && slowDownEnabled)
+        {
+            // Making the ball veer
+            var slowDownForce = (-transform.forward * (LaunchForce * slowDownFactor));
+            rb.AddForce(slowDownForce);
+            
+            // Start maintaining the veer direction
+            StartCoroutine(SlowDownBall());
         }
         else
         {
@@ -128,10 +139,6 @@ public class BowlingBall : MonoBehaviour
         //reset reached pins bool
         reachedPins = false;
 
-        
-        isMultiplierBall = false;
-        isBonusBall = false;
-
     }
 
     IEnumerator DelayedEndTurn()
@@ -141,7 +148,7 @@ public class BowlingBall : MonoBehaviour
 
     }
     
-    public IEnumerator VeerBall()
+    private IEnumerator VeerBall()
     {
         
         while (!reachedPins)
@@ -158,14 +165,26 @@ public class BowlingBall : MonoBehaviour
     {
         while (hasLaunched && !reachedPins)
         {
-            rb.linearVelocity *= 0.99f;
+            rb.AddForce(-transform.forward * (slowDownFactor * LaunchForce));
             yield return null;
         }
     }
-
-    public void SetBossRound(bool isBoss, bool veerActive)
+    public void SetBossBlind(bool isBoss)
     {
         isBossRound = isBoss;
+    }
+    public bool HasBallBeenLaunched() => hasLaunched;
+    public bool HasBallReachedPins() => reachedPins;
+    public Rigidbody GetRigidbody() => rb;
+
+    public void SetVeerEnabled(bool veerActive, float f)
+    {
         veerEnabled = veerActive;
+        veerDirection = f;
+    }
+
+    public void SetSlowDownEnabled(bool slowDown)
+    {
+        slowDownEnabled = slowDown;
     }
 }

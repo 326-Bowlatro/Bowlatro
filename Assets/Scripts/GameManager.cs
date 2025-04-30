@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -15,6 +16,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private CameraScript mainCamera;
+    
+    [SerializeField] 
+    private BossModifierManager bossModifierManager;
 
     [SerializeField]
     private ShopBackButton shopBackButton;
@@ -45,8 +49,18 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        
+        bossModifierManager = FindObjectOfType<BossModifierManager>();
+    
+        // Make sure BowlingBall exists
+        if (bowlingBall == null)
+        {
+            bowlingBall = FindObjectOfType<BowlingBall>();
+        }
+
         currentBossScoreToBeat += currentScoreToBeat + currentScoreToBeat / 2;
     }
+
 
     void Update()
     {
@@ -55,6 +69,7 @@ public class GameManager : MonoBehaviour
             bowlingBall.LaunchBall();
         }
     }
+
 
     /// <summary>
     /// Ends the player's turn. Possibly ends the round if all pins are knocked
@@ -66,7 +81,7 @@ public class GameManager : MonoBehaviour
 
         // Reset ball
         bowlingBall.OnEndTurn();
-
+        
         // Reset/destroy pins (based on knocked status) to keep them from falling between throws
         LayoutManager.OnEndTurn();
 
@@ -140,6 +155,11 @@ public class GameManager : MonoBehaviour
         Debug.Log("Blind over");
         
         // Increment blind number
+        ++blindNum;
+        
+        // Notify boss modifier manager
+        BossModifierManager.Instance.OnBlindCompleted();
+
         ++BlindNum;
         
         //check if score is enough, if not, you lose
@@ -270,7 +290,13 @@ public class GameManager : MonoBehaviour
             if (TurnNum == 0)
             {
                 Debug.Log("STRIKE");
-
+                
+                if (BossModifierManager.Instance.isBossActive && BossModifierManager.Instance.currentModifier == BossModifierManager.BossModifier.NoStrike)
+                {
+                    Debug.Log("STRIKE PREVENTED by NoStrike modifier");
+                    return true;
+                }
+                
                 CurrentScoreMult++;
                 strikesNum++;
                 ThrowType = "Strike";
@@ -285,6 +311,7 @@ public class GameManager : MonoBehaviour
                 ThrowType = "Spare";
                 return false;
             }
+            
         }
         else
         {
@@ -293,4 +320,5 @@ public class GameManager : MonoBehaviour
             return false;
         }
     }
+    
 }
