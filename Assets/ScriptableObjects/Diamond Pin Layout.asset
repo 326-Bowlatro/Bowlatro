@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1b319f04bc82e5438f4d6bd93c2f964, type: 3}
   m_Name: Diamond Pin Layout
   m_EditorClassIdentifier: 
+  prefab: {fileID: 6029824097807513038, guid: 90860146e265ac54097e07d349ce93d0, type: 3}
   Image: {fileID: 0}
   LayoutType: 2
   LayoutName: Diamond
