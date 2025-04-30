@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -15,6 +16,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private CameraScript mainCamera;
+    
+    [SerializeField] 
+    private BossModifierManager bossModifierManager;
 
     // Per-blind state
     public int CurrentScore => CurrentScoreFlat * CurrentScoreMult;
@@ -27,9 +31,18 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-    
         Instance = this;
+        
+        bossModifierManager = FindObjectOfType<BossModifierManager>();
+    
+        // Make sure BowlingBall exists
+        if (bowlingBall == null)
+        {
+            bowlingBall = FindObjectOfType<BowlingBall>();
+        }
+
     }
+
 
    void Update()
 {
@@ -50,7 +63,7 @@ public class GameManager : MonoBehaviour
 
         // Reset ball
         bowlingBall.OnEndTurn();
-
+        
         // Reset/destroy pins (based on knocked status) to keep them from falling between throws
         LayoutManager.OnEndTurn();
 
@@ -113,6 +126,9 @@ public class GameManager : MonoBehaviour
 
         // Increment blind number
         ++blindNum;
+        
+        // Notify boss modifier manager
+        BossModifierManager.Instance.OnBlindCompleted();
 
         // Reset Score for next blind
         CurrentScoreFlat = 0;
@@ -149,7 +165,13 @@ public class GameManager : MonoBehaviour
             if (TurnNum == 0)
             {
                 Debug.Log("STRIKE");
-
+                
+                if (BossModifierManager.Instance.isBossActive && BossModifierManager.Instance.currentModifier == BossModifierManager.BossModifier.NoStrike)
+                {
+                    Debug.Log("STRIKE PREVENTED by NoStrike modifier");
+                    return true;
+                }
+                
                 CurrentScoreMult++;
                 return true;
             }
@@ -160,6 +182,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("SPARE");
                 return false;
             }
+            
         }
         else
         {
@@ -167,4 +190,5 @@ public class GameManager : MonoBehaviour
             return false;
         }
     }
+    
 }
