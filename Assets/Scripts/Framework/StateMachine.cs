@@ -20,7 +20,7 @@ public abstract class StateMachine<TSelf, TInitialState> : MonoBehaviour
     }
 
     /// <summary>
-    /// Throws if the current state is not of type TState.
+    /// Throws if the current state doesn't match the specified state.
     /// </summary>
     public void AssertState<TState>()
         where TState : State
@@ -31,6 +31,9 @@ public abstract class StateMachine<TSelf, TInitialState> : MonoBehaviour
         );
     }
 
+    /// <summary>
+    /// Transitions to the specified state.
+    /// </summary>
     public void GoToState<TState>()
         where TState : State, new()
     {

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using static GameManager;
 
 public class GameUI : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class GameUI : MonoBehaviour
         rootElement.Q<Button>("_ShopContinue").clicked += () =>
         {
             // Go to playing state
-            GameManager.Instance.GoToState<GameManager.PlayingState>();
+            GameManager.Instance.GoToState<PlayingState>();
         };
 
         Refresh();
@@ -57,10 +58,11 @@ public class GameUI : MonoBehaviour
             ? GameManager.Instance.CurrentBossScoreToBeat.ToString()
             : GameManager.Instance.CurrentScoreToBeat.ToString();
 
-        // Update shop visibility (use translation to animate show/hide)
         var shopHost = rootElement.Q<VisualElement>("_ShopHost");
-        shopHost.style.translate = new StyleTranslate(
-            new Translate(0, GameManager.Instance.CurrentState is GameManager.ShopState ? 0 : -340)
-        );
+        var isShopVisible = GameManager.Instance.CurrentState is ShopState;
+
+        // Update shop visibility (use translation to animate show/hide)
+        shopHost.style.visibility = isShopVisible ? Visibility.Visible : Visibility.Hidden;
+        shopHost.style.translate = new StyleTranslate(new Translate(0, isShopVisible ? 0 : -340));
     }
 }
