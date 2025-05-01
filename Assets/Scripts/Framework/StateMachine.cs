@@ -34,13 +34,6 @@ public abstract class StateMachine<TSelf, TInitialState> : MonoBehaviour
     public void GoToState<TState>()
         where TState : State, new()
     {
-        // Create state instance if none exists
-        if (!states.TryGetValue(typeof(TState), out State newState))
-        {
-            newState = new TState { Self = (TSelf)(object)this };
-            states[typeof(TState)] = newState;
-        }
-
         // Debug message
         if (CurrentState is null)
         {
@@ -51,7 +44,17 @@ public abstract class StateMachine<TSelf, TInitialState> : MonoBehaviour
             Debug.Log($"Entering {typeof(TState).Name} (from {CurrentState.GetType().Name})");
         }
 
+        // Exit current state
         CurrentState?.ExitState();
+        CurrentState = null;
+
+        // Create state instance if none exists
+        if (!states.TryGetValue(typeof(TState), out State newState))
+        {
+            newState = new TState { Self = (TSelf)(object)this };
+            states[typeof(TState)] = newState;
+        }
+
         CurrentState = newState;
         CurrentState.EnterState();
 

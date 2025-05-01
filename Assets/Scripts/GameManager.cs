@@ -251,10 +251,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
         LayoutManager.ClearPins();
 
         //go to next blind if roundNum > 3
-        if (
-            RoundNum >= 3
-            || true /*TEMP DO NOT COMMIT ME*/
-        )
+        if (RoundNum >= 3)
         {
             EndBlind();
         }
@@ -371,15 +368,5 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
             ThrowType = LayoutManager.NumPinsFallen + " Pins";
             return false;
         }
-    }
-
-    /// <summary>
-    /// Returns the current state, cast to the specified type, throwing if the given type does not match.
-    /// </summary>
-    public static bool TryGetState<TState>(out TState state)
-        where TState : State
-    {
-        state = Instance.CurrentState as TState;
-        return state != null;
     }
 }
