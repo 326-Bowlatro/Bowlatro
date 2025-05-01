@@ -227,11 +227,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
             TurnNum = 0;
         }
         // End the round after 2 turns or a strike
-        else if (
-            TurnNum >= 2
-            || isStrike
-            || true /* TEMP DON'T COMMIT ME */
-        )
+        else if (TurnNum >= 2 || isStrike)
         {
             EndRound();
         }
@@ -267,10 +263,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
         LayoutManager.ClearPins();
 
         //go to next blind if roundNum > 3
-        if (
-            RoundNum >= 3
-            || true /* TEMP DON'T COMMIT ME */
-        )
+        if (RoundNum >= 3)
         {
             EndBlind();
         }

@@ -48,8 +48,8 @@ public abstract class StateMachine<TSelf, TInitialState> : MonoBehaviour
         }
 
         // Exit current state
-            CurrentState?.ExitState();
-            CurrentState = null;
+        CurrentState?.ExitState();
+        CurrentState = null;
 
         // Create state instance if none exists
         if (!states.TryGetValue(typeof(TState), out State newState))
@@ -59,7 +59,7 @@ public abstract class StateMachine<TSelf, TInitialState> : MonoBehaviour
         }
 
         CurrentState = newState;
-            CurrentState.EnterState();
+        CurrentState.EnterState();
 
         // Auto-refresh UI after state change
         GameUI.Instance.Refresh();
