@@ -25,6 +25,16 @@ public class GameUI : MonoBehaviour
             // Go to playing state
             GameManager.Instance.GoToState<PlayingState>();
         };
+        rootElement.Q<Button>("_ShopOpenPack").clicked += () =>
+        {
+            (GameManager.Instance.CurrentState as ShopState).IsOpeningPack = true;
+            Refresh();
+        };
+        rootElement.Q<Button>("_ShopPackCancel").clicked += () =>
+        {
+            (GameManager.Instance.CurrentState as ShopState).IsOpeningPack = false;
+            Refresh();
+        };
 
         Refresh();
     }
@@ -58,11 +68,26 @@ public class GameUI : MonoBehaviour
             ? GameManager.Instance.CurrentBossScoreToBeat.ToString()
             : GameManager.Instance.CurrentScoreToBeat.ToString();
 
-        var shopHost = rootElement.Q<VisualElement>("_ShopHost");
-        var isShopVisible = GameManager.Instance.CurrentState is ShopState;
+        RefreshShop();
+    }
 
-        // Update shop visibility (use translation to animate show/hide)
-        shopHost.style.visibility = isShopVisible ? Visibility.Visible : Visibility.Hidden;
-        shopHost.style.translate = new StyleTranslate(new Translate(0, isShopVisible ? 0 : -340));
+    void RefreshShop()
+    {
+        var shopHost = rootElement.Q<VisualElement>("_ShopHost");
+        var shopPackHost = rootElement.Q<VisualElement>("_ShopPackHost");
+
+        // Update shop visibility based on shop state (using translation to animate show/hide)
+        if (GameManager.Instance.TryGetState<ShopState>(out var shopState))
+        {
+            shopHost.style.translate = new StyleTranslate(new Translate(0, 0));
+            shopPackHost.style.translate = new StyleTranslate(
+                new Translate(0, shopState.IsOpeningPack ? 0 : 340)
+            );
+        }
+        else
+        {
+            shopHost.style.translate = new StyleTranslate(new Translate(0, -340));
+            shopPackHost.style.translate = new StyleTranslate(new Translate(0, 340));
+        }
     }
 }

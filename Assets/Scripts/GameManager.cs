@@ -37,8 +37,6 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
     public int CurrentScoreToBeat { get; private set; } = 20;
     public int CurrentBossScoreToBeat { get; private set; }
 
-    public bool hasChosenLayout = false;
-
     private int strikesNum = 0;
     private BossModifierManager bossModifierManager;
     private PinLayoutManager pinLayoutManager;
@@ -57,8 +55,10 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
     /// <summary>
     /// Behavior specific to "playing" state.
     /// </summary>
-    public sealed class PlayingState : State
+    public class PlayingState : State
     {
+        public bool HasChosenLayout { get; set; }
+
         public override void EnterState()
         {
             // Show layout selection
@@ -77,13 +77,25 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
 
         public override void ExitState()
         {
+            // Reset score for next blind
+            Self.CurrentScoreFlat = 0;
+            Self.CurrentScoreMult = 1;
+
+            // Boss stage gives 2x cash. Else, multiplier is based on blind number.
+            Self.Cash += Self.IsBossStage
+                ? Self.normalBlindStartingCash * 2
+                : Self.normalBlindStartingCash + (Self.BlindNum - 1);
+
+            // Have interest, every 10, get 1
+            Self.Cash += Self.Cash % 10;
+
             // Clear all pins
             Self.LayoutManager.ClearPins();
         }
 
         public override void UpdateState()
         {
-            if (Input.GetKeyDown(KeyCode.W) && Self.hasChosenLayout)
+            if (Input.GetKeyDown(KeyCode.W) && HasChosenLayout)
             {
                 Self.bowlingBall.LaunchBall();
             }
@@ -116,22 +128,12 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
     /// <summary>
     /// Behavior specific to "shop" state.
     /// </summary>
-    public sealed class ShopState : State
+    public class ShopState : State
     {
+        public bool IsOpeningPack { get; set; } = false;
+
         public override void EnterState()
         {
-            // Reset score for next blind
-            Self.CurrentScoreFlat = 0;
-            Self.CurrentScoreMult = 1;
-
-            // Boss stage gives 2x cash. Else, multiplier is based on blind number.
-            Self.Cash += Self.IsBossStage
-                ? Self.normalBlindStartingCash * 2
-                : Self.normalBlindStartingCash + (Self.BlindNum - 1);
-
-            // Have interest, every 10, get 1
-            Self.Cash += Self.Cash % 10;
-
             // Set cam to look at shop spot
             Self.mainCamera.BeginLookAtShop();
         }
@@ -244,8 +246,11 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
         // Reset round state
         TurnNum = 0;
 
-        //set hasChosenLayout to false
-        hasChosenLayout = false;
+        // Set HasChosenLayout to false
+        if (TryGetState<PlayingState>(out var playingState))
+        {
+            playingState.HasChosenLayout = false;
+        }
 
         // Destroy all existing pins
         LayoutManager.ClearPins();
