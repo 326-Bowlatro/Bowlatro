@@ -44,7 +44,10 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
     private PinLayoutManager pinLayoutManager;
     private ResultsManager resultsManager;
     private ShopManager shopManager;
-
+    
+    private List<StrikePin> knockedOverStrikePins = new List<StrikePin>();
+    private List<SparePin> knockedOverSparePins = new List<SparePin>();
+    
     void Awake()
     {
         Instance = this;
@@ -356,12 +359,36 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
                 )
                 {
                     Debug.Log("STRIKE PREVENTED by NoStrike modifier");
+                    foreach (var pin in knockedOverStrikePins)
+                    {
+                        CurrentScoreMult += pin.strikeBonus;
+                        Debug.Log($"Strike Pin applied +{pin.strikeBonus} despite NoStrike");
+                    }
+                    knockedOverStrikePins.Clear();
+
                     return true;
+                }
+
+                foreach (var pin in LayoutManager.Pins)
+                {
+                    if (pin is StrikePin && pin.IsKnockedOver)
+                    {
+                        CurrentScoreMult += ((StrikePin)pin).strikeBonus;
+                        Debug.Log($"Strike Pin Bonus! +{((StrikePin)pin).strikeBonus} to multiplier!");
+                        break;
+                    }
                 }
 
                 CurrentScoreMult++;
                 strikesNum++;
                 ThrowType = "Strike";
+                foreach (var pin in knockedOverStrikePins)
+                {
+                    CurrentScoreMult += pin.strikeBonus;
+                    Debug.Log($"Strike Pin applied +{pin.strikeBonus} despite NoStrike");
+                }
+                knockedOverStrikePins.Clear();
+
                 return true;
             }
             // Spare if done on turn 2
@@ -369,6 +396,13 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
             {
                 //shouldn't have to reset because EndTurn should do it
                 Debug.Log("SPARE");
+                foreach (var pin in knockedOverSparePins)
+                {
+                    CurrentScoreFlat += pin.spareBonus;
+                    Debug.Log($"Spare Pin bonus: +{pin.spareBonus}");
+                }
+                knockedOverSparePins.Clear();
+
                 CurrentScoreFlat += 5;
                 ThrowType = "Spare";
                 return false;
@@ -394,5 +428,21 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
 
         Cash -= amount;
         Debug.Log($"Spent ${amount}, player has ${Cash} remaining.");
+    }
+
+    public void RegisterStrikePinKnockedOver(StrikePin pin)
+    {
+        knockedOverStrikePins.Add(pin);
+    }
+
+    public void RegisterSparePinKnockedOver(SparePin pin)
+    {
+        knockedOverSparePins.Add(pin);
+    }
+
+    public void ClearKnockedOverPins()
+    {
+        knockedOverStrikePins.Clear();
+        knockedOverSparePins.Clear();
     }
 }
