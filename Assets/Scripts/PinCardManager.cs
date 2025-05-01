@@ -16,19 +16,13 @@ public class PinCardManager : MonoBehaviour
         Instance = this;
     }
 
-    void Start()
-    {
-        //empty the list before starting
-        EndSelection();
-    }
-
     /// <summary>
     /// Will generate cards up to cardGenerationLimit for the player to select for the next round
     /// </summary>
     public void StartSelection()
     {
         //randomly generates 3 card to choose from
-        
+
         for (int i = 0; i < cardGenerationLimit; i++)
         {
             //creates a random int first in valid range

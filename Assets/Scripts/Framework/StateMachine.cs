@@ -65,6 +65,13 @@ public abstract class StateMachine<TSelf, TInitialState> : MonoBehaviour
         GameUI.Instance.Refresh();
     }
 
+    public bool TryGetState<TState>(out TState state)
+        where TState : State
+    {
+        state = CurrentState as TState;
+        return state != null;
+    }
+
     public abstract class State
     {
         public TSelf Self { get; set; }

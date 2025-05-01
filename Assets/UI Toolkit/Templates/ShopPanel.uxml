@@ -3,8 +3,13 @@
     <engine:VisualElement name="Container" style="flex-grow: 1; background-color: rgb(43, 58, 60); border-right-width: 2px; border-left-width: 2px; border-left-color: rgb(0, 106, 178); border-right-color: rgb(0, 106, 178); border-top-color: rgb(0, 106, 178); border-bottom-color: rgb(0, 106, 178); flex-direction: row; padding-top: 8px; padding-right: 8px; padding-bottom: 8px; padding-left: 8px; border-bottom-width: 2px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px;">
         <engine:VisualElement class="menu-item" style="flex-grow: 1; flex-direction: row; align-items: stretch; padding-top: 8px; padding-right: 6px; padding-bottom: 6px; padding-left: 6px;">
             <engine:VisualElement name="LeftContainer">
-                <engine:Button text="Continue" name="_ShopContinue" class="menu-item" style="width: 142px; height: 72px; background-color: rgb(255, 51, 51); margin-right: 4px; margin-left: 4px;" />
-                <engine:Button text="Reroll $5" name="_ShopReroll" class="menu-item" style="width: 142px; height: 72px; background-color: rgb(52, 190, 134); margin-left: 4px; margin-right: 4px;" />
+                <engine:Button text="Continue" name="_Shop_Continue" class="menu-item" style="width: 142px; height: 72px; background-color: rgb(255, 51, 51); margin-right: 4px; margin-left: 4px;" />
+                <engine:Button text="Reroll $5" name="_Shop_Reroll" class="menu-item" style="width: 142px; height: 72px; background-color: rgb(52, 190, 134); margin-left: 4px; margin-right: 4px;" />
+                <engine:VisualElement class="menu-item inner" style="flex-grow: 1;">
+                    <engine:VisualElement name="_Shop_ItemPack" style="flex-grow: 0;">
+                        <engine:Button text="Pin Pack 0&#10;($0)" name="_Shop_ItemPackButton" style="width: 60px; height: 90px; white-space: normal;" />
+                    </engine:VisualElement>
+                </engine:VisualElement>
             </engine:VisualElement>
             <engine:VisualElement name="RightContainer" style="flex-grow: 1; align-items: center;">
                 <engine:Button text="Ticket 1" style="width: 120px; height: 50px; margin-bottom: 8px;" />

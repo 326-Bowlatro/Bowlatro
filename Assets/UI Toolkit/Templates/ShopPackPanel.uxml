@@ -1,0 +1,12 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/Shared.uss?fileID=7433441132597879392&amp;guid=921c73c4fb2b341a5ab72b6e494ede34&amp;type=3#Shared" />
+    <Style src="project://database/Assets/UI%20Toolkit/Templates/ShopPackPanel.uss?fileID=7433441132597879392&amp;guid=30ba3e7791f4048c888d55678003bccf&amp;type=3#ShopPackPanel" />
+    <engine:VisualElement name="Container" style="flex-grow: 1; background-color: rgb(43, 58, 60); border-right-width: 2px; border-left-width: 2px; border-left-color: rgb(0, 106, 178); border-right-color: rgb(0, 106, 178); border-top-color: rgb(0, 106, 178); border-bottom-color: rgb(0, 106, 178); padding-top: 8px; padding-right: 8px; padding-bottom: 8px; padding-left: 8px; border-top-left-radius: 8px; border-top-right-radius: 8px; border-top-width: 2px; align-items: stretch;">
+        <engine:VisualElement style="flex-grow: 0; align-items: center;">
+            <engine:Button text="Cancel" name="_ShopPackCancel" class="menu-item" style="width: 142px; height: 72px; background-color: rgb(255, 51, 51); margin-right: 4px; margin-left: 4px;" />
+        </engine:VisualElement>
+        <engine:VisualElement name="_ShopPack_CardsContainer" class="menu-item" style="flex-grow: 1; flex-direction: row; align-items: center; padding-top: 8px; padding-right: 6px; padding-bottom: 6px; padding-left: 6px; margin-top: 8px; justify-content: space-evenly;">
+            <engine:Button text="Button&#10;" class="shop-pack-card" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

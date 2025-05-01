@@ -20,6 +20,9 @@ public class PinLayoutCardUI : MonoBehaviour, IPointerClickHandler
         GameManager.Instance.LayoutManager.SpawnPins(pinCardSO.LayoutType);
         PinCardManager.Instance.EndSelection();
         //tell gameManager that it can launch the ball now
-        GameManager.Instance.hasChosenLayout = true;
+        if (GameManager.Instance.TryGetState<GameManager.PlayingState>(out var playingState))
+        {
+            playingState.HasChosenLayout = true;
+        }
     }
 }

@@ -1,11 +1,13 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <engine:Template name="MainPanelTemplate" src="project://database/Assets/UI%20Toolkit/Templates/GamePanel.uxml?fileID=9197481963319205126&amp;guid=3748d147ea85a4293a4c1398c4ceea5c&amp;type=3#GamePanel" />
     <engine:Template name="ShopPanel" src="project://database/Assets/UI%20Toolkit/Templates/ShopPanel.uxml?fileID=9197481963319205126&amp;guid=ef56f9d56b002462ea10afaf4058c3ef&amp;type=3#ShopPanel" />
+    <engine:Template name="ShopPackPanel" src="project://database/Assets/UI%20Toolkit/Templates/ShopPackPanel.uxml?fileID=9197481963319205126&amp;guid=32b6e4b6302aa4f668eb9f9fd108102a&amp;type=3#ShopPackPanel" />
     <Style src="project://database/Assets/UI%20Toolkit/Styles/Shared.uss?fileID=7433441132597879392&amp;guid=921c73c4fb2b341a5ab72b6e494ede34&amp;type=3#Shared" />
     <engine:VisualElement picking-mode="Ignore" style="flex-grow: 1; flex-direction: row; margin-left: 36px;">
         <engine:Instance template="MainPanelTemplate" />
-        <engine:VisualElement picking-mode="Ignore" style="flex-grow: 1; padding-left: 36px;">
+        <engine:VisualElement picking-mode="Ignore" style="flex-grow: 1; justify-content: space-between; margin-left: 32px;">
             <engine:Instance template="ShopPanel" name="_ShopHost" style="height: 340px; width: 460px; transform-origin: top; transition-property: translate; transition-duration: 0.25s; transition-timing-function: ease;" />
+            <engine:Instance template="ShopPackPanel" name="_ShopPackHost" style="width: 460px; height: 340px; transform-origin: bottom; transition-duration: 0.25s; transition-property: translate;" />
         </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>
