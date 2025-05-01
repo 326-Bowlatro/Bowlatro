@@ -2,10 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BossModifier
+{
+    VeerLeft,
+    VeerRight,
+    SlowDown,
+    Obstacles,
+    NoStrike
+}
+
 public class BossModifierManager : MonoBehaviour
 {
-    public static BossModifierManager Instance { get; private set; }
-
     [Header("Settings")]
     public int blindsPerBoss = 3; // Boss every 3 blinds
     public GameObject obstaclePrefab;
@@ -20,26 +27,9 @@ public class BossModifierManager : MonoBehaviour
     private GameObject[] spawnedObstacles;
     private int blindCounter = 0;
 
-    public enum BossModifier
-    {
-        VeerLeft,
-        VeerRight,
-        SlowDown,
-        Obstacles,
-        NoStrike
-    }
-
     void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-            InitializeModifiers();
-        }
+        InitializeModifiers();
     }
 
     private void InitializeModifiers()
@@ -62,7 +52,6 @@ public class BossModifierManager : MonoBehaviour
         }
     }
 
-
     private void StartBossModifier()
     {
         if (unusedModifiers.Count == 0)
@@ -75,7 +64,7 @@ public class BossModifierManager : MonoBehaviour
         unusedModifiers.RemoveAt(randomIndex);
         
         
-        BowlingBall.Instance.SetBossBlind(true);
+        GameManager.Instance.BowlingBall.SetBossBlind(true);
         isBossActive = true;
         ApplyModifier(currentModifier);
         
@@ -87,15 +76,15 @@ public class BossModifierManager : MonoBehaviour
         switch (modifier)
         {
             case BossModifier.VeerLeft:
-                BowlingBall.Instance.SetVeerEnabled(true, 1f);
+                GameManager.Instance.BowlingBall.SetVeerEnabled(true, 1f);
                 break;
                 
             case BossModifier.VeerRight:
-                BowlingBall.Instance.SetVeerEnabled(true, -1f);
+                GameManager.Instance.BowlingBall.SetVeerEnabled(true, -1f);
                 break;
                 
             case BossModifier.SlowDown:
-                BowlingBall.Instance.SetSlowDownEnabled(true);
+                GameManager.Instance.BowlingBall.SetSlowDownEnabled(true);
                 break;
                 
             case BossModifier.Obstacles:
@@ -119,9 +108,9 @@ public class BossModifierManager : MonoBehaviour
 
     private void ClearCurrentModifier()
     {
-        BowlingBall.Instance.SetVeerEnabled(false, 0f);
-        BowlingBall.Instance.SetSlowDownEnabled(false);
-        BowlingBall.Instance.StopAllCoroutines();
+        GameManager.Instance.BowlingBall.SetVeerEnabled(false, 0f);
+        GameManager.Instance.BowlingBall.SetSlowDownEnabled(false);
+        GameManager.Instance.BowlingBall.StopAllCoroutines();
         RemoveObstacles();
     }
 

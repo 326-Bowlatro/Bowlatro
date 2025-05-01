@@ -18,6 +18,13 @@ public class GameUI : MonoBehaviour
         var uiDocument = GetComponent<UIDocument>();
         rootElement = uiDocument.rootVisualElement;
 
+        // Setup button handlers
+        rootElement.Q<Button>("_ShopContinue").clicked += () =>
+        {
+            // Go to playing state
+            GameManager.Instance.GoToState<GameManager.PlayingState>();
+        };
+
         Refresh();
     }
 
@@ -34,24 +41,26 @@ public class GameUI : MonoBehaviour
 
         rootElement.Q<Label>("_Wallet").text = "$" + GameManager.Instance.Cash;
         rootElement.Q<Label>("_Status").text = GameManager.Instance.ThrowType;
-        //need access to score needed to beat
 
+        // Update stage label
         if ((GameManager.Instance.BlindNum + 1) % 3 == 0)
         {
-            rootElement.Q<Label>("_Stage").text = "Boss Stage";   
+            rootElement.Q<Label>("_Stage").text = "Boss Stage";
         }
         else
         {
             rootElement.Q<Label>("_Stage").text = "Stage " + (GameManager.Instance.BlindNum + 1);
         }
 
-        if (GameManager.Instance.IsBossStage)
-        {
-            rootElement.Q<Label>("_ScoreToBeat").text = GameManager.Instance.CurrentBossScoreToBeat.ToString();
-        }
-        else
-        {
-            rootElement.Q<Label>("_ScoreToBeat").text = GameManager.Instance.CurrentScoreToBeat.ToString();
-        }
+        // Update score to beat
+        rootElement.Q<Label>("_ScoreToBeat").text = GameManager.Instance.IsBossStage
+            ? GameManager.Instance.CurrentBossScoreToBeat.ToString()
+            : GameManager.Instance.CurrentScoreToBeat.ToString();
+
+        // Update shop visibility (use translation to animate show/hide)
+        var shopHost = rootElement.Q<VisualElement>("_ShopHost");
+        shopHost.style.translate = new StyleTranslate(
+            new Translate(0, GameManager.Instance.CurrentState is GameManager.ShopState ? 0 : -340)
+        );
     }
 }

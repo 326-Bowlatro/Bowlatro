@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class PinCardManager : MonoBehaviour
 {
@@ -13,14 +11,15 @@ public class PinCardManager : MonoBehaviour
 
     [SerializeField] int cardGenerationLimit = 3;
 
-    void Start()
+    void Awake()
     {
         Instance = this;
-        
+    }
+
+    void Start()
+    {
         //empty the list before starting
         EndSelection();
-        //create selection before the first throw
-        StartSelection();
     }
 
     /// <summary>

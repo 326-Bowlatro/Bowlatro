@@ -26,7 +26,7 @@ public class ToShopButton : MonoBehaviour
     {
         cam.EndLookAtResults();
         //call game manager function to start shop
-        GameManager.Instance.StartShop();
+        GameManager.Instance.GoToState<GameManager.ShopState>();
         Disable();
     }
 }

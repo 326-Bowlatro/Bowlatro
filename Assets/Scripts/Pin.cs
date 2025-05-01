@@ -28,7 +28,8 @@ public class Pin : MonoBehaviour
         {
             IsKnockedOver = true;
 
-            if (!soundPlayedThisFrame) // Play sound once per frame
+            // Play sound once per frame
+            if (!soundPlayedThisFrame)
             {
                 AudioSource audio = GameObject.Find("PinAudioPlayer").GetComponent<AudioSource>();
                 if (audio != null && !audio.isPlaying)
@@ -38,7 +39,7 @@ public class Pin : MonoBehaviour
                 }
             }
 
-            //increase score by pin predefined amount
+            // Increase score by pin predefined amount
             GameManager.Instance.AddPinToScore(this);
         }
 
