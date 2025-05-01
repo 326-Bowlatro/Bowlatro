@@ -14,7 +14,7 @@ public enum BossModifier
 public class BossModifierManager : MonoBehaviour
 {
     [Header("Settings")]
-    public int blindsPerBoss = 3; // Boss every 3 blinds
+    public int blindsPerBoss = 2; // Boss every 3 blinds
     public GameObject obstaclePrefab;
     public Transform[] obstacleSpawnPoints;
 
