@@ -10165,7 +10165,7 @@ PrefabInstance:
       objectReference: {fileID: 330585548}
     - target: {fileID: 3766599417353814058, guid: 76f0228aa035f5240b535d6f5a22561b, type: 3}
       propertyPath: turnAmount
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3766599417353814058, guid: 76f0228aa035f5240b535d6f5a22561b, type: 3}
       propertyPath: laneCollider
