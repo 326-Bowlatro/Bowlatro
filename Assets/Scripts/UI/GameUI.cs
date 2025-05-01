@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static GameManager;
@@ -20,12 +21,12 @@ public class GameUI : MonoBehaviour
         rootElement = uiDocument.rootVisualElement;
 
         // Setup button handlers
-        rootElement.Q<Button>("_ShopContinue").clicked += () =>
+        rootElement.Q<Button>("_Shop_Continue").clicked += () =>
         {
             // Go to playing state
             GameManager.Instance.GoToState<PlayingState>();
         };
-        rootElement.Q<Button>("_ShopOpenPack").clicked += () =>
+        rootElement.Q<Button>("_Shop_ItemPackButton").clicked += () =>
         {
             (GameManager.Instance.CurrentState as ShopState).IsOpeningPack = true;
             Refresh();
@@ -71,23 +72,70 @@ public class GameUI : MonoBehaviour
         RefreshShop();
     }
 
-    void RefreshShop()
+    private void RefreshShop()
     {
         var shopHost = rootElement.Q<VisualElement>("_ShopHost");
         var shopPackHost = rootElement.Q<VisualElement>("_ShopPackHost");
 
-        // Update shop visibility based on shop state (using translation to animate show/hide)
+        // Are we in the "shop" state?
         if (GameManager.Instance.TryGetState<ShopState>(out var shopState))
         {
+            // Make shop visible (using translation to animate show/hide)
             shopHost.style.translate = new StyleTranslate(new Translate(0, 0));
             shopPackHost.style.translate = new StyleTranslate(
                 new Translate(0, shopState.IsOpeningPack ? 0 : 340)
             );
+
+            RefreshShopPack();
         }
         else
         {
+            // Make shop hidden
             shopHost.style.translate = new StyleTranslate(new Translate(0, -340));
             shopPackHost.style.translate = new StyleTranslate(new Translate(0, 340));
+        }
+    }
+
+    private void RefreshShopPack()
+    {
+        var shopManager = GameManager.Instance.ShopManager;
+
+        // Hide and early out if no pack is available.
+        if (shopManager.CurrentPack == null)
+        {
+            rootElement.Q<VisualElement>("_Shop_ItemPack").style.visibility = Visibility.Hidden;
+            return;
+        }
+        else
+        {
+            rootElement.Q<VisualElement>("_Shop_ItemPack").style.visibility = Visibility.Visible;
+        }
+
+        // Update pack text
+        var packButton = rootElement.Q<Button>("_Shop_ItemPackButton");
+        packButton.text =
+            $"{shopManager.CurrentPack.PackName}\n(${shopManager.CurrentPack.PackCost})";
+
+        // Add pack cards to UI (every refresh for now)
+        var cardsContainer = rootElement.Q<VisualElement>("_ShopPack_CardsContainer");
+        cardsContainer.Clear();
+        foreach (var packCard in shopManager.CurrentPack.PackCards)
+        {
+            var element = new Button();
+            element.AddToClassList("shop-pack-card");
+            element.text = packCard.name;
+
+            // Card click handler
+            element.clicked += () =>
+            {
+                // Request hiding the pack UI
+                (GameManager.Instance.CurrentState as ShopState).IsOpeningPack = false;
+
+                // Claim this pack
+                GameManager.Instance.ShopManager.ClaimPackCard(packCard);
+            };
+
+            cardsContainer.Add(element);
         }
     }
 }

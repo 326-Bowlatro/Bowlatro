@@ -20223,6 +20223,26 @@ PrefabInstance:
       propertyPath: toShopButton
       value: 
       objectReference: {fileID: 606052520}
+    - target: {fileID: 5854317158804842900, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: allPinLayoutCards.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5854317158804842900, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allPinLayoutCards.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 1cd35badc85a5924299606ee5df91449, type: 2}
+    - target: {fileID: 5854317158804842900, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allPinLayoutCards.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 31b29874d67996044aeee166810e554d, type: 2}
+    - target: {fileID: 5854317158804842900, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allPinLayoutCards.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 3e1717c4588318a46b69d8ee78c2a396, type: 2}
+    - target: {fileID: 5854317158804842900, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allPinLayoutCards.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 04a0b1808805a5447b3a3f8b6a95bb44, type: 2}
     - target: {fileID: 8921172820484345540, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: mainCam
       value: 
@@ -20234,8 +20254,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5543114670215132893, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 286234802937053096}
   m_SourcePrefab: {fileID: 100100000, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+--- !u!1 &286234802937053095 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5543114670215132893, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+  m_PrefabInstance: {fileID: 286234802937053094}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &286234802937053096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286234802937053095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2e4ddb2a64f045d898126cc814bb093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allPinLayoutCards:
+  - {fileID: 11400000, guid: 1cd35badc85a5924299606ee5df91449, type: 2}
+  - {fileID: 11400000, guid: 31b29874d67996044aeee166810e554d, type: 2}
+  - {fileID: 11400000, guid: 3e1717c4588318a46b69d8ee78c2a396, type: 2}
+  - {fileID: 11400000, guid: 04a0b1808805a5447b3a3f8b6a95bb44, type: 2}
 --- !u!1001 &2910471852512712413
 PrefabInstance:
   m_ObjectHideFlags: 0

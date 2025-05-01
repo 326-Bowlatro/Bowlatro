@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -10,6 +11,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
     public PinLayoutManager LayoutManager => pinLayoutManager;
     public ResultsManager ResultsManager => resultsManager;
     public BowlingBall BowlingBall => bowlingBall;
+    public ShopManager ShopManager => shopManager;
 
     [SerializeField]
     private BowlingBall bowlingBall;
@@ -41,6 +43,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
     private BossModifierManager bossModifierManager;
     private PinLayoutManager pinLayoutManager;
     private ResultsManager resultsManager;
+    private ShopManager shopManager;
 
     void Awake()
     {
@@ -50,6 +53,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
         bossModifierManager = GetComponent<BossModifierManager>();
         pinLayoutManager = GetComponent<PinLayoutManager>();
         resultsManager = GetComponent<ResultsManager>();
+        shopManager = GetComponent<ShopManager>();
     }
 
     /// <summary>
@@ -136,6 +140,9 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
         {
             // Set cam to look at shop spot
             Self.mainCamera.BeginLookAtShop();
+
+            // Reset/init shop inventory
+            Self.shopManager.ResetInventory();
         }
 
         public override void ExitState()
@@ -220,7 +227,11 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
             TurnNum = 0;
         }
         // End the round after 2 turns or a strike
-        else if (TurnNum >= 2 || isStrike)
+        else if (
+            TurnNum >= 2
+            || isStrike
+            || true /* TEMP DON'T COMMIT ME */
+        )
         {
             EndRound();
         }
@@ -256,7 +267,10 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
         LayoutManager.ClearPins();
 
         //go to next blind if roundNum > 3
-        if (RoundNum >= 3)
+        if (
+            RoundNum >= 3
+            || true /* TEMP DON'T COMMIT ME */
+        )
         {
             EndBlind();
         }
@@ -373,5 +387,19 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
             ThrowType = LayoutManager.NumPinsFallen + " Pins";
             return false;
         }
+    }
+
+    /// <summary>
+    /// Deducts some amount of cash, or throws if the amount is unaffordable.
+    /// </summary>
+    public void DeductCash(int amount)
+    {
+        if (Cash - amount < 0)
+        {
+            throw new System.Exception("Not enough cash available to deduct!");
+        }
+
+        Cash -= amount;
+        Debug.Log($"Spent ${amount}, player has ${Cash} remaining.");
     }
 }
