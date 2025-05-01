@@ -21,7 +21,8 @@ public class GameUI : MonoBehaviour
         // Setup button handlers
         rootElement.Q<Button>("_ShopContinue").clicked += () =>
         {
-            GameManager.Instance.EndShop();
+            // Go to playing state
+            GameManager.Instance.GoToState<GameManager.PlayingState>();
         };
 
         Refresh();
@@ -59,7 +60,7 @@ public class GameUI : MonoBehaviour
         // Update shop visibility (use translation to animate show/hide)
         var shopHost = rootElement.Q<VisualElement>("_ShopHost");
         shopHost.style.translate = new StyleTranslate(
-            new Translate(0, GameManager.Instance.State == GameState.Shop ? 0 : -340)
+            new Translate(0, GameManager.Instance.CurrentState is GameManager.ShopState ? 0 : -340)
         );
     }
 }

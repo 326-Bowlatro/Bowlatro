@@ -1,20 +1,11 @@
 using UnityEngine;
 
-public enum GameState
-{
-    Playing,
-    Results,
-    Shop
-}
-
 /// <summary>
 /// GameManager singleton, drives all game state.
 /// </summary>
-public class GameManager : MonoBehaviour
+public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
 {
     public static GameManager Instance { get; private set; }
-
-    public GameState State { get; private set; } = GameState.Playing;
 
     public PinLayoutManager LayoutManager => pinLayoutManager;
     public ResultsManager ResultsManager => resultsManager;
@@ -25,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private CameraScript mainCamera;
-    
+
     [SerializeField]
     private ToShopButton toShopButton;
 
@@ -52,7 +43,7 @@ public class GameManager : MonoBehaviour
     private BossModifierManager bossModifierManager;
     private PinLayoutManager pinLayoutManager;
     private ResultsManager resultsManager;
-    
+
     void Awake()
     {
         Instance = this;
@@ -63,12 +54,121 @@ public class GameManager : MonoBehaviour
         resultsManager = GetComponent<ResultsManager>();
     }
 
-    void Update()
+    /// <summary>
+    /// Behavior specific to "playing" state.
+    /// </summary>
+    public sealed class PlayingState : State
     {
-        if (Input.GetKeyDown(KeyCode.W) && hasChosenLayout)
+        public override void EnterState()
         {
-            bowlingBall.LaunchBall();
+            // Show layout selection
+            PinCardManager.Instance.StartSelection();
+
+            // Check for boss stage here, so it will check once you leave the shop
+            if ((Self.BlindNum + 1) % 3 == 0 && Self.BlindNum > 0)
+            {
+                Self.IsBossStage = true;
+            }
+            else
+            {
+                Self.IsBossStage = false;
+            }
         }
+
+        public override void ExitState()
+        {
+            // Clear all pins
+            Self.LayoutManager.ClearPins();
+        }
+
+        public override void UpdateState()
+        {
+            if (Input.GetKeyDown(KeyCode.W) && Self.hasChosenLayout)
+            {
+                Self.bowlingBall.LaunchBall();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Behavior specific to "results" state.
+    /// </summary>
+    public sealed class ResultsState : State
+    {
+        public override void EnterState()
+        {
+            //boss stage gives extra
+            if (Self.IsBossStage)
+            {
+                Self.resultsManager.cashToBeEarned = Self.normalBlindStartingCash * 2;
+            }
+            else
+            {
+                Self.resultsManager.cashToBeEarned =
+                    Self.normalBlindStartingCash + (Self.BlindNum - 1); //minus 1 because BlindNum has been incremented already
+            }
+
+            // resultsManager.cashToBeEarned += 3 - RoundNum; // gives more money if ended early
+            Self.resultsManager.Enable();
+        }
+    }
+
+    /// <summary>
+    /// Behavior specific to "shop" state.
+    /// </summary>
+    public sealed class ShopState : State
+    {
+        public override void EnterState()
+        {
+            // Reset score for next blind
+            Self.CurrentScoreFlat = 0;
+            Self.CurrentScoreMult = 1;
+
+            // Boss stage gives 2x cash. Else, multiplier is based on blind number.
+            Self.Cash += Self.IsBossStage
+                ? Self.normalBlindStartingCash * 2
+                : Self.normalBlindStartingCash + (Self.BlindNum - 1);
+
+            // Have interest, every 10, get 1
+            Self.Cash += Self.Cash % 10;
+
+            // Set cam to look at shop spot
+            Self.mainCamera.BeginLookAtShop();
+        }
+
+        public override void ExitState()
+        {
+            Self.mainCamera.EndLookAtShop();
+
+            //Check for boss stage here, so it will check once you leave the shop
+            if ((Self.BlindNum + 1) % 3 == 0 && Self.BlindNum > 0)
+            {
+                Self.IsBossStage = true;
+            }
+            else
+            {
+                Self.IsBossStage = false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Updates the blind score with values from a knocked-over pin.
+    /// </summary>
+    public void AddPinToScore(Pin pin)
+    {
+        // Function can only be called in "playing" state.
+        AssertState<PlayingState>();
+
+        int jokerMultiplier =
+            JokerManager.Instance != null ? JokerManager.Instance.GetTotalMultiplier() : 1;
+
+        // Update score with values from Pin
+        CurrentScoreFlat += pin.FlatScore * jokerMultiplier;
+        CurrentScoreMult += pin.MultScore;
+
+        // Update UI
+        GameUI.Instance.Refresh();
     }
 
     /// <summary>
@@ -77,20 +177,23 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void EndTurn()
     {
+        // Function can only be called in "playing" state.
+        AssertState<PlayingState>();
+
         Debug.Log("Turn over");
 
         // Reset ball
         bowlingBall.OnEndTurn();
-        
+
         // Reset/destroy pins (based on knocked status) to keep them from falling between throws
         LayoutManager.OnEndTurn();
-        
+
         // Reset camera
         mainCamera.OnEndTurn();
 
         // Check what kind of throw happened
         bool isStrike = CheckForStrike();
-        
+
         //check for turkey
         if (isStrike && strikesNum == 3)
         {
@@ -101,12 +204,15 @@ public class GameManager : MonoBehaviour
 
         // Begin next turn
         TurnNum++;
-        
+
         //if score is reached, end blind early
-        if ((CurrentScore >= CurrentScoreToBeat && !IsBossStage) ||
-            (IsBossStage && CurrentScore >= CurrentBossScoreToBeat))
+        if (
+            (CurrentScore >= CurrentScoreToBeat && !IsBossStage)
+            || (IsBossStage && CurrentScore >= CurrentBossScoreToBeat)
+        )
         {
             EndBlind();
+
             //End round early
             bowlingBall.OnEndTurn();
             TurnNum = 0;
@@ -127,6 +233,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void EndRound()
     {
+        // Function can only be called in "playing" state.
+        AssertState<PlayingState>();
+
         Debug.Log("Round over");
 
         // Increment round number
@@ -137,12 +246,15 @@ public class GameManager : MonoBehaviour
 
         //set hasChosenLayout to false
         hasChosenLayout = false;
-        
+
         // Destroy all existing pins
         LayoutManager.ClearPins();
-        
+
         //go to next blind if roundNum > 3
-        if (RoundNum >= 3 || true /*TEMP DO NOT COMMIT ME*/)
+        if (
+            RoundNum >= 3
+            || true /*TEMP DO NOT COMMIT ME*/
+        )
         {
             EndBlind();
         }
@@ -162,132 +274,58 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void EndBlind()
     {
+        // Function can only be called in "playing" state.
+        AssertState<PlayingState>();
+
         Debug.Log("Blind over");
-        
+
         // Notify boss modifier manager
         bossModifierManager.OnBlindCompleted();
 
-        ++BlindNum;
-        
+        BlindNum++;
+
         //check if score is enough, if not, you lose
         if (CurrentScore < CurrentScoreToBeat)
         {
             Debug.Log("Lose.");
         }
-        
+
         //go to next Ante if blindNum > 3
         if (BlindNum >= 3)
         {
             EndAnte();
         }
-        
+
         // Reset RoundNum
         RoundNum = 0;
-        
-        //reset strike count
+
+        // Reset strike count
         strikesNum = 0;
-        
-        //increase score to beat
+
+        // Increase score to beat
         CurrentScoreToBeat += CurrentScoreToBeat / 2;
         CurrentBossScoreToBeat += CurrentScoreToBeat / 2;
-        
-        //Go to results
-        StartResults();
+
+        // Go to results
+        GoToState<ResultsState>();
     }
+
     /// <summary>
     /// Ends current Ante/Lane (3 different blinds)
     /// Antes from Balatro will be called lanes
     /// </summary>
     public void EndAnte()
     {
+        // Function can only be called in "playing" state.
+        AssertState<PlayingState>();
+
         Debug.Log("Ante Over");
 
         //Increment Ante Number
-        ++AnteNum;
-        
+        AnteNum++;
+
         //Reset BlindNum
         BlindNum = 0;
-    }
-
-    /// <summary>
-    /// Will enable everything that shows the results of the blind that the player just finished
-    /// </summary>
-    public void StartResults()
-    {
-        State = GameState.Results;
-
-        LayoutManager.ClearPins();
-        
-        //boss stage gives extra
-        if (IsBossStage)
-        {
-            resultsManager.cashToBeEarned = normalBlindStartingCash * 2;
-        }
-        else
-        {
-            resultsManager.cashToBeEarned = normalBlindStartingCash + (BlindNum-1); //minus 1 because BlindNum has been incremented already
-        }
-        
-        // resultsManager.cashToBeEarned += 3 - RoundNum; // gives more money if ended early
-        resultsManager.Enable();
-
-        GameUI.Instance.Refresh();
-    }
-
-    public void StartShop()
-    {
-        State = GameState.Shop;
-
-        // Reset score for next blind
-        CurrentScoreFlat = 0;
-        CurrentScoreMult = 1;
-
-        // Boss stage gives 2x cash. Else, multiplier is based on blind number.
-        Cash += IsBossStage ? normalBlindStartingCash * 2 : normalBlindStartingCash + (BlindNum - 1);
-
-        // Have interest, every 10, get 1
-        Cash += Cash % 10;
-        
-        // Set cam to look at shop spot
-        mainCamera.BeginLookAtShop();
-        
-        GameUI.Instance.Refresh();
-    }
-
-    public void EndShop()
-    {
-        State = GameState.Playing;
-
-        mainCamera.EndLookAtShop();
-        PinCardManager.Instance.StartSelection();
-
-        //Check for boss stage here, so it will check once you leave the shop
-        if ((BlindNum+1) % 3 == 0 && BlindNum > 0)
-        {
-            IsBossStage = true;
-        }
-        else
-        {
-            IsBossStage = false;
-        }
-        
-        GameUI.Instance.Refresh();
-    }
-    
-    /// <summary>
-    /// Updates the blind score with values from a knocked-over pin.
-    /// </summary>
-    public void AddPinToScore(Pin pin)
-    {
-        int jokerMultiplier =
-            JokerManager.Instance != null ? JokerManager.Instance.GetTotalMultiplier() : 1;
-
-        // Update score with values from Pin
-        CurrentScoreFlat += pin.FlatScore * jokerMultiplier;
-        CurrentScoreMult += pin.MultScore;
-
-        // Update UI
-        GameUI.Instance.Refresh();
     }
 
     /// <summary>
@@ -302,13 +340,16 @@ public class GameManager : MonoBehaviour
             if (TurnNum == 0)
             {
                 Debug.Log("STRIKE");
-                
-                if (bossModifierManager.isBossActive && bossModifierManager.currentModifier == BossModifier.NoStrike)
+
+                if (
+                    bossModifierManager.isBossActive
+                    && bossModifierManager.currentModifier == BossModifier.NoStrike
+                )
                 {
                     Debug.Log("STRIKE PREVENTED by NoStrike modifier");
                     return true;
                 }
-                
+
                 CurrentScoreMult++;
                 strikesNum++;
                 ThrowType = "Strike";
@@ -323,7 +364,6 @@ public class GameManager : MonoBehaviour
                 ThrowType = "Spare";
                 return false;
             }
-            
         }
         else
         {
@@ -331,5 +371,15 @@ public class GameManager : MonoBehaviour
             ThrowType = LayoutManager.NumPinsFallen + " Pins";
             return false;
         }
+    }
+
+    /// <summary>
+    /// Returns the current state, cast to the specified type, throwing if the given type does not match.
+    /// </summary>
+    public static bool TryGetState<TState>(out TState state)
+        where TState : State
+    {
+        state = Instance.CurrentState as TState;
+        return state != null;
     }
 }

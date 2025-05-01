@@ -20,8 +20,6 @@ public class PinCardManager : MonoBehaviour
     {
         //empty the list before starting
         EndSelection();
-        //create selection before the first throw
-        StartSelection();
     }
 
     /// <summary>
