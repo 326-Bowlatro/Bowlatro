@@ -39,6 +39,8 @@ public class Pin : MonoBehaviour
                 }
             }
 
+            HandleKnockOver();
+
             // Increase score by pin predefined amount
             GameManager.Instance.AddPinToScore(this);
         }
@@ -77,5 +79,10 @@ public class Pin : MonoBehaviour
         rb.linearVelocity = Vector3.zero;
         // Set back to not knocked over
         IsKnockedOver = false;
+    }
+
+    protected virtual void HandleKnockOver()
+    {
+        // Base pins don't need special handling
     }
 }
