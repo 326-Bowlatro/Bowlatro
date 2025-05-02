@@ -7,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public class ShopManager : MonoBehaviour
 {
+    public const int RerollCost = 5;
+
     // Constant array of all possible pin layout cards that exist in the game.
     [SerializeField]
     private List<PinLayoutCardSO> allPinLayoutCards;

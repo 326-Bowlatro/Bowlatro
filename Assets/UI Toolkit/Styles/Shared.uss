@@ -100,7 +100,6 @@ Button.menu-item {
     border-right-width: 4px;
     border-bottom-width: 4px;
     font-size: 28px;
-
     scale: 1;
     transition-property: scale;
     transition-duration: 0.1s;
@@ -112,7 +111,4 @@ Button.menu-item:hover {
 
 Button.menu-item:active {
     scale: 0.98;
-}
-
-Button.menu-item.small {
 }
