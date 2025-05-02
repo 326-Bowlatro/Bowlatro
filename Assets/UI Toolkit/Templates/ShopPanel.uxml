@@ -4,14 +4,14 @@
         <engine:VisualElement class="menu-item" style="flex-grow: 1; flex-direction: row; align-items: stretch; padding-top: 8px; padding-right: 6px; padding-bottom: 6px; padding-left: 6px;">
             <engine:VisualElement name="LeftContainer">
                 <engine:Button text="Continue" name="_Shop_Continue" class="menu-item" style="width: 142px; height: 72px; background-color: rgb(255, 51, 51); margin-right: 4px; margin-left: 4px;" />
-                <engine:Button text="Reroll $5" name="_Shop_Reroll" class="menu-item" style="width: 142px; height: 72px; background-color: rgb(52, 190, 134); margin-left: 4px; margin-right: 4px;" />
+                <engine:Button text="Reroll $5" name="_Shop_Reroll" class="menu-item disabled" style="width: 142px; height: 72px; background-color: rgb(52, 190, 134); margin-left: 4px; margin-right: 4px;" />
                 <engine:VisualElement class="menu-item inner" style="flex-grow: 1;">
                     <engine:VisualElement name="_Shop_ItemPack" style="flex-grow: 0;">
                         <engine:Button text="Pin Pack 0&#10;($0)" name="_Shop_ItemPackButton" style="width: 60px; height: 90px; white-space: normal;" />
                     </engine:VisualElement>
                 </engine:VisualElement>
             </engine:VisualElement>
-            <engine:VisualElement name="RightContainer" style="flex-grow: 1; align-items: center;">
+            <engine:VisualElement name="RightContainer" class="menu-item inner" style="flex-grow: 1; align-items: center;">
                 <engine:Button text="Ticket 1" style="width: 120px; height: 50px; margin-bottom: 8px;" />
                 <engine:Button text="Ticket 2" style="width: 120px; height: 50px; margin-bottom: 8px;" />
                 <engine:Button text="Ticket 3" style="width: 120px; height: 50px;" />

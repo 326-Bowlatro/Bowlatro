@@ -26,6 +26,14 @@ public class GameUI : MonoBehaviour
             // Go to playing state
             GameManager.Instance.GoToState<PlayingState>();
         };
+        rootElement.Q<Button>("_Shop_Reroll").clicked += () =>
+        {
+            if (GameManager.Instance.Cash >= ShopManager.RerollCost)
+            {
+                GameManager.Instance.DeductCash(ShopManager.RerollCost);
+                GameManager.Instance.ShopManager.ResetInventory();
+            }
+        };
         rootElement.Q<Button>("_Shop_ItemPackButton").clicked += () =>
         {
             (GameManager.Instance.CurrentState as ShopState).IsOpeningPack = true;
