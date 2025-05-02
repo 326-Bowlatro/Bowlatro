@@ -38,7 +38,7 @@ public class Pin : MonoBehaviour
                     soundPlayedThisFrame = true;
                 }
             }
-            
+
             HandleKnockOver();
 
             // Increase score by pin predefined amount
@@ -80,9 +80,9 @@ public class Pin : MonoBehaviour
         // Set back to not knocked over
         IsKnockedOver = false;
     }
+
     protected virtual void HandleKnockOver()
     {
         // Base pins don't need special handling
     }
-
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BowlingBall : MonoBehaviour
 {
-    public static BowlingBall Instance { get; private set; }
     [Header("Boss Modifiers")]
     public bool isBossRound = false;
     public bool veerEnabled = false;
@@ -13,6 +12,10 @@ public class BowlingBall : MonoBehaviour
     public float slowDownFactor = 0.78f;
     public bool slowDownEnabled = false;
 
+    [Header("Special Balls")]
+    public bool isMultiplierBall = false;
+    public bool isBonusBall = false;
+    
     [SerializeField] private CameraScript mainCamera;
     [SerializeField] private Transform pinsMainPoint;
     [SerializeField] private Collider laneCollider;
@@ -69,27 +72,6 @@ public class BowlingBall : MonoBehaviour
             }
         }
     }
-
-    void Awake()
-    {
-        // Singleton pattern
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-        }
-    }
-    void OnDestroy()
-    {
-        if (Instance == this)
-        {
-            Instance = null;
-        }
-    }
-
 
     /// <summary>
     /// Launches the ball forward from its starting position.
