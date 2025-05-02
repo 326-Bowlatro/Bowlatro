@@ -22,7 +22,7 @@
                 <engine:Label text="0" name="_Score" class="huge" />
             </engine:VisualElement>
         </engine:VisualElement>
-        <engine:VisualElement name="PinsContainer" class="menu-item" style="margin-top: 4px; padding-top: 8px; padding-right: 8px; padding-bottom: 8px; padding-left: 8px; align-items: stretch; justify-content: space-around; height: 120px;">
+        <engine:VisualElement name="PinsContainer" class="menu-item" style="margin-top: 6px; padding-top: 8px; padding-right: 8px; padding-bottom: 8px; padding-left: 8px; align-items: stretch; justify-content: space-around; height: 120px;">
             <engine:Label text="Just Some Pins" name="_Status" style="-unity-text-align: middle-center;" />
             <engine:VisualElement style="flex-grow: 0; flex-direction: row; justify-content: space-evenly; margin-right: 56px; margin-left: 56px; height: 42px; margin-top: 2px;">
                 <engine:VisualElement class="menu-item inner" style="border-bottom-width: 2px; border-left-color: rgb(0, 94, 177); border-right-color: rgb(0, 94, 177); border-top-color: rgb(0, 94, 177); border-bottom-color: rgb(0, 94, 177); border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; background-color: rgb(0, 150, 255); align-items: flex-end; padding-right: 6px; flex-grow: 1;">
@@ -34,8 +34,8 @@
                 </engine:VisualElement>
             </engine:VisualElement>
         </engine:VisualElement>
-        <engine:VisualElement name="BallsContainer" class="menu-item" style="height: 84px; margin-top: 4px;" />
-        <engine:VisualElement name="MiscContainer" style="flex-grow: 0; flex-direction: row; margin-top: 5px; justify-content: space-between;">
+        <engine:VisualElement name="BallsContainer" class="menu-item" style="height: 84px; margin-top: 6px;" />
+        <engine:VisualElement name="MiscContainer" style="flex-grow: 0; flex-direction: row; margin-top: 6px; justify-content: space-between;">
             <engine:VisualElement name="WalletContainer" class="menu-item small" style="width: 121px; height: 70px; align-items: stretch;">
                 <engine:VisualElement class="menu-item inner" style="flex-grow: 1;">
                     <engine:Label text="$0" name="_Wallet" class="huge" style="color: rgb(255, 175, 26);" />
@@ -54,9 +54,6 @@
                 </engine:VisualElement>
             </engine:VisualElement>
         </engine:VisualElement>
-        <engine:VisualElement name="ButtonsContainer" style="flex-grow: 0; flex-direction: row; margin-top: 6px; justify-content: space-evenly;">
-            <engine:Button text="Options" class="menu-item" style="width: 142px; height: 72px; background-color: rgb(255, 145, 0); margin-left: 4px; margin-right: 4px;" />
-            <engine:Button text="Run Info" class="menu-item" style="width: 142px; height: 72px; background-color: rgb(255, 51, 51); margin-right: 4px; margin-left: 4px;" />
-        </engine:VisualElement>
+        <engine:Button text="Exit" name="_LeftPanel_Exit" class="menu-item" style="height: 72px; background-color: rgb(255, 51, 51); margin-right: 4px; margin-left: 4px; margin-top: 8px;" />
     </engine:VisualElement>
 </engine:UXML>

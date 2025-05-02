@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static GameManager;
@@ -20,7 +19,14 @@ public class GameUI : MonoBehaviour
         var uiDocument = GetComponent<UIDocument>();
         rootElement = uiDocument.rootVisualElement;
 
-        // Setup button handlers
+        // Setup button handlers (left panel)
+        rootElement.Q<Button>("_LeftPanel_Exit").clicked += () =>
+        {
+            // Quit game. NOTE this does not work in the editor.
+            Application.Quit();
+        };
+
+        // Setup button handlers (shop)
         rootElement.Q<Button>("_Shop_Continue").clicked += () =>
         {
             // Go to playing state
@@ -28,6 +34,7 @@ public class GameUI : MonoBehaviour
         };
         rootElement.Q<Button>("_Shop_Reroll").clicked += () =>
         {
+            // Spend cash, reset shop. Ignore if not enough cash.
             if (GameManager.Instance.Cash >= ShopManager.RerollCost)
             {
                 GameManager.Instance.DeductCash(ShopManager.RerollCost);
