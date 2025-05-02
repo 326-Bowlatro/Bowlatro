@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3b6ebc9ccf3502f40b331b538a6fd14c
+timeCreated: 1486317648
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 118005
+  packageName: Bowling Pack
+  packageVersion: 1.0
+  assetPath: Assets/Bowlingpack/Materials/Pin_material.mat
+  uploadId: 243803

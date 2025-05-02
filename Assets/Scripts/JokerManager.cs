@@ -28,22 +28,38 @@ public class JokerManager : MonoBehaviour
 }
 
 
-    public int GetTotalMultiplier()
+   public int GetTotalMultiplier(bool didStrike, bool didSpare, int pinsKnockedThisThrow)
+{
+    int total = 1;
+
+    foreach (string joker in activeJokers)
     {
-        int total = 1; // base multiplier
-
-        foreach (string joker in activeJokers)
+        switch (joker)
         {
-            switch (joker)
-            {
-                case "Strike": total += 1; break;
-                case "Single Throw": total += 0; break;
-                case "Spare": total += 2; break;
-                case "Blind Boss Buff": total += 3; break;
-                case "Ball Return Bonus": total += 4; break;
-            }
+            case "Strike":
+                if (didStrike) total += 2;
+                break;
+            case "Spare":
+                if (didSpare) total += 1;
+                break;
+            case "Single Throw":
+                if (pinsKnockedThisThrow == 5) total += 1;
+                break;
+            case "Blind Boss Buff":
+                if (pinsKnockedThisThrow % 2 == 1) total += 3; // odd total
+                break;
+            case "Ball Return Bonus":
+                total += 4; // (this one just applies force later, handled elsewhere)
+                break;
         }
-
-        return total;
     }
+
+    return total;
+}
+public bool HasJoker(string name)
+{
+    return activeJokers.Contains(name);
+}
+
+
 }

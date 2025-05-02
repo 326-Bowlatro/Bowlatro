@@ -24,21 +24,20 @@ public class GameManager : MonoBehaviour
     public int RoundNum { get; private set; } = 0;
 
     private int blindNum = 0;
+    private int pinsKnockedThisTurn = 0;
 
     void Awake()
     {
-    
         Instance = this;
     }
 
-   void Update()
-{
-    if (Input.GetKeyDown(KeyCode.W))
+    void Update()
     {
-        bowlingBall.LaunchBall();
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            bowlingBall.LaunchBall();
+        }
     }
-}
-
 
     /// <summary>
     /// Ends the player's turn. Possibly ends the round if all pins are knocked
@@ -47,6 +46,7 @@ public class GameManager : MonoBehaviour
     public void EndTurn()
     {
         Debug.Log("Turn over");
+        pinsKnockedThisTurn = 0;
 
         // Reset ball
         bowlingBall.OnEndTurn();
@@ -127,16 +127,52 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void AddPinToScore(Pin pin)
     {
-        int jokerMultiplier = JokerManager.Instance != null ? JokerManager.Instance.GetTotalMultiplier() : 1;
+        pinsKnockedThisTurn++; //  Count each knocked pin
 
-        // Update score with values from Pin
+        int jokerMultiplier = JokerManager.Instance != null 
+            ? JokerManager.Instance.GetTotalMultiplier(
+                LayoutManager.NumPinsFallen == 10 && TurnNum == 0, 
+                LayoutManager.NumPinsFallen == 10 && TurnNum == 1, 
+                pinsKnockedThisTurn)
+            : 1;
+
+        // Joker special conditions
+
+        // STRIKE Joker
+        if (JokerManager.Instance.HasJoker("Strike") && LayoutManager.NumPinsFallen == 10 && TurnNum == 0)
+        {
+            jokerMultiplier += 2;
+        }
+        else if (JokerManager.Instance.HasJoker("Strike"))
+        {
+            jokerMultiplier += 0;
+        }
+
+        // SPARE Joker
+        if (JokerManager.Instance.HasJoker("Spare") && LayoutManager.NumPinsFallen == 10 && TurnNum == 1)
+        {
+            jokerMultiplier += 4;
+        }
+
+        // Blind Buff Joker
+        if (JokerManager.Instance.HasJoker("Blind Boss Buff") && (LayoutManager.NumPinsFallen % 2 == 1))
+        {
+            CurrentScoreFlat += 3;
+        }
+
+        // Single Throw Joker
+        if (JokerManager.Instance.HasJoker("Single Throw") && LayoutManager.NumPinsFallen == 5 && TurnNum == 0)
+        {
+            jokerMultiplier += 1;
+        }
+
+        // Score calculation
         CurrentScoreFlat += pin.FlatScore * jokerMultiplier;
         CurrentScoreMult += pin.MultScore;
 
-        // Update UI
         GameUI.Instance.Refresh();
     }
-    
+
     /// <summary>
     /// Checks if the player has scored a strike.
     /// </summary>

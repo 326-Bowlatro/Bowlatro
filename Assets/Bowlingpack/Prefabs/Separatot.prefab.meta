@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 24291e2ecabb7eb4e97271a6ec771829
+timeCreated: 1525364139
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 118005
+  packageName: Bowling Pack
+  packageVersion: 1.0
+  assetPath: Assets/Bowlingpack/Prefabs/Separatot.prefab
+  uploadId: 243803

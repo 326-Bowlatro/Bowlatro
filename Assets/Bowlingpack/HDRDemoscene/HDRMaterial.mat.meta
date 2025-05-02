@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 90477a8e7a06ee1438e9942f446916ba
+timeCreated: 1486317216
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 118005
+  packageName: Bowling Pack
+  packageVersion: 1.0
+  assetPath: Assets/Bowlingpack/HDRDemoscene/HDRMaterial.mat
+  uploadId: 243803

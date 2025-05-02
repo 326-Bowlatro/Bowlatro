@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: fb5c0a7839580014aa53c6ebcc527439
+timeCreated: 1486317744
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 118005
+  packageName: Bowling Pack
+  packageVersion: 1.0
+  assetPath: Assets/Bowlingpack/Materials/Table_01Mat.mat
+  uploadId: 243803

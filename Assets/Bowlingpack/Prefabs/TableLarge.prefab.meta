@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: bd1b64eb3532b1249b4f97a32080123b
+timeCreated: 1525364233
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 118005
+  packageName: Bowling Pack
+  packageVersion: 1.0
+  assetPath: Assets/Bowlingpack/Prefabs/TableLarge.prefab
+  uploadId: 243803

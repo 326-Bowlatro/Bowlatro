@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3d730e6d6d01db94c9af1594e7657bbf
+timeCreated: 1486317698
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 118005
+  packageName: Bowling Pack
+  packageVersion: 1.0
+  assetPath: Assets/Bowlingpack/Materials/Seat_01_mat.mat
+  uploadId: 243803

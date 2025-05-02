@@ -1138,9 +1138,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b74c6f4f3db604f47987bc0438d9a13e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LayoutManager: {fileID: 921458846}
   bowlingBall: {fileID: 855668308}
   mainCamera: {fileID: 330585548}
-  LayoutManager: {fileID: 921458846}
 --- !u!4 &172741077
 Transform:
   m_ObjectHideFlags: 0
@@ -9024,7 +9024,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pinParent: {fileID: 1644579025}
   pinPrefab: {fileID: 7486533534180108460, guid: 6894647091809c74895ae88ee3c1281c, type: 3}
-  LayoutType: 0
 --- !u!4 &921458847
 Transform:
   m_ObjectHideFlags: 0

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8a8b1475838f282489cf53aa25012788
+timeCreated: 1486317388
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 118005
+  packageName: Bowling Pack
+  packageVersion: 1.0
+  assetPath: Assets/Bowlingpack/Materials/Balldispenser.mat
+  uploadId: 243803

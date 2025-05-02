@@ -1,14 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class JokerCardUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Joker Info")]
-    public string jokerName;       // Manually set
-    public int scoreBonus = 0;      // Bonus points
-    public Image iconImage;         // Card icon
-    public Text nameText;           // Card name
+    public string jokerName;
+    public int scoreBonus = 0;
+    [TextArea]
+    public string bonusText = "BONUS!"; // Hover tooltip message
+    public Image iconImage;
+    public Text nameText;
 
     [Header("Hover Settings")]
     public float hoverScale = 1.15f;
@@ -20,6 +23,10 @@ public class JokerCardUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private Vector3 startPos;
     private Transform originalParent;
 
+    [Header("Bonus Popup (Optional)")]
+    public GameObject popupPrefab;       // Floating bonus text prefab (optional)
+    public Transform popupParent;        // Assign parent (e.g., Canvas)
+
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -27,7 +34,6 @@ public class JokerCardUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         originalScale = transform.localScale;
     }
 
-    // === Setup Joker card with info ===
     public void Setup(string name, Sprite icon, int bonus = 0)
     {
         jokerName = name;
@@ -37,19 +43,43 @@ public class JokerCardUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         if (nameText != null) nameText.text = name;
     }
 
-    // === Called when activating card ===
     public void Activate()
     {
         Debug.Log($"Activated {jokerName} (bonus: {scoreBonus})");
+
+        // Show floating popup (optional visual feedback)
+        if (popupPrefab != null && popupParent != null)
+        {
+            GameObject popup = Instantiate(popupPrefab, popupParent);
+            TextMeshProUGUI text = popup.GetComponent<TextMeshProUGUI>();
+            CanvasGroup group = popup.GetComponent<CanvasGroup>();
+            if (text != null) text.text = bonusText;
+            if (group != null) StartCoroutine(FadeAndDestroy(popup, group));
+        }
     }
 
-    // === Drag Handlers ===
+    private System.Collections.IEnumerator FadeAndDestroy(GameObject obj, CanvasGroup group)
+    {
+        float time = 0f;
+        float duration = 1.5f;
+
+        while (time < duration)
+        {
+            group.alpha = 1 - (time / duration);
+            obj.transform.localPosition += Vector3.up * 30 * Time.deltaTime;
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        Destroy(obj);
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         startPos = rectTransform.position;
         originalParent = transform.parent;
         canvasGroup.blocksRaycasts = false;
-        transform.SetParent(transform.root, true); // Bring to front while dragging
+        transform.SetParent(transform.root, true);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -59,7 +89,6 @@ public class JokerCardUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        // Reset if not dropped on valid DropZone
         if (transform.parent == transform.root)
         {
             rectTransform.position = startPos;
@@ -69,14 +98,19 @@ public class JokerCardUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         canvasGroup.blocksRaycasts = true;
     }
 
-    // === Hover Handlers ===
     public void OnPointerEnter(PointerEventData eventData)
     {
         transform.localScale = originalScale * hoverScale;
+
+        // 🟡 Show hover tooltip
+        TooltipManager.Instance?.ShowTooltip(bonusText);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         transform.localScale = originalScale;
+
+        // 🟡 Hide tooltip
+        TooltipManager.Instance?.HideTooltip();
     }
 }

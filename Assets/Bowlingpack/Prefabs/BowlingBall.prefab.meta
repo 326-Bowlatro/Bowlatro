@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 41832f63d6e7f5b479a011be452b812f
+timeCreated: 1525364144
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 118005
+  packageName: Bowling Pack
+  packageVersion: 1.0
+  assetPath: Assets/Bowlingpack/Prefabs/BowlingBall.prefab
+  uploadId: 243803
