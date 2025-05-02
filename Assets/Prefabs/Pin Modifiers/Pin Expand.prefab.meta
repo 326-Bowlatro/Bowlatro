@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:Assets/Prefabs/Pin Modifiers/Pin Expand.prefab.meta
 fileFormatVersion: 2
 guid: 90110ed9a803f1b43a01596793d10de0
 PrefabImporter:
@@ -5,3 +6,12 @@ PrefabImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+========
+fileFormatVersion: 2
+guid: 8a62cd163bc9a7a42981f619bd8c2d6a
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+>>>>>>>> 5f21225 (Updated Pins (#38)):Assets/Prefabs/Pin Modifiers/Pin Spare Bonus.prefab.meta
