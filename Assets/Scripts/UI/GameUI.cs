@@ -22,8 +22,13 @@ public class GameUI : MonoBehaviour
         // Setup button handlers (left panel)
         rootElement.Q<Button>("_LeftPanel_Exit").clicked += () =>
         {
-            // Quit game. NOTE this does not work in the editor.
+#if UNITY_EDITOR
+            // Exit play mode in the editor
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            // Exit application in the final build
             Application.Quit();
+#endif
         };
 
         // Setup button handlers (shop)
