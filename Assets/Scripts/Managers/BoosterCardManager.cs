@@ -26,7 +26,6 @@ public class BoosterCardManager : MonoBehaviour
     public void StartSelection()
     {
         //randomly generates 3 card to choose from
-        Debug.Log("YE");
         for (int i = 0; i < cardGenerationLimit; i++)
         {
             //creates a random int first in valid range
