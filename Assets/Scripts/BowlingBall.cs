@@ -32,6 +32,9 @@ public class BowlingBall : MonoBehaviour
     private Rigidbody rb;
     private Vector3 startPosition;
     private Vector3 startRotation;
+    private Vector3 startScale;
+    private float startMass;  
+    private bool hasLaunched = false;
     private bool reachedPins = false;
     private float laneMax, laneMin;
 
@@ -40,6 +43,8 @@ public class BowlingBall : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         startPosition = transform.position;
         startRotation = transform.eulerAngles;
+        startScale = transform.localScale;
+        startMass = rb.mass;
         laneMax = laneCollider.bounds.max.x;
         laneMin = laneCollider.bounds.min.x;
     }
@@ -157,7 +162,11 @@ public class BowlingBall : MonoBehaviour
         //reset position/rotation
         transform.position = startPosition;
         transform.eulerAngles = startRotation;
-
+        
+        //reset mass/scale
+        transform.localScale = startScale;
+        rb.mass = startMass;
+            
         //reset aim line
         aimLine.SetActive(true);
         

@@ -51,6 +51,8 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
     private readonly List<SparePin> knockedOverSparePins = new();
 
     private int cashToBeEarned = 0;
+    
+    public bool ballSizeDown = false;
 
     void Awake()
     {
@@ -70,6 +72,10 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
     {
         public override void EnterState()
         {
+            // Show layout selection
+            PinCardManager.Instance.StartSelection();
+            BoosterCardManager.Instance.StartSelection();
+
             // Check for boss stage here, so it will check once you leave the shop
             if ((Self.BlindNum + 1) % 3 == 0 && Self.BlindNum > 0)
             {
@@ -229,6 +235,13 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
         // Reset ball
         bowlingBall.OnEndTurn();
         
+        //if size down, double amount of flat gotten this throw
+        if (ballSizeDown)
+        {
+            CurrentScoreFlat += LayoutManager.NumPinsFallen;
+            ballSizeDown = false;
+        }
+        
         // Reset/destroy pins (based on knocked status) to keep them from falling between throws
         LayoutManager.OnEndTurn();
 
@@ -280,7 +293,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
         AssertState<PlayingState>();
 
         Debug.Log("Round over");
-
+        
         // Increment round number
         RoundNum++;
 

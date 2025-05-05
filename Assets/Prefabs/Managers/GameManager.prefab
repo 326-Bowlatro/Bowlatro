@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2770819629102231949}
   - component: {fileID: 3858417167325434411}
   - component: {fileID: 4131023829914463580}
+  - component: {fileID: 2071406229838032239}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -122,3 +123,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1cd35badc85a5924299606ee5df91449, type: 2}
   defaultDeckBoosterCards:
   - {fileID: 11400000, guid: 6f95813552f62314a8321c43c25a25ff, type: 2}
+--- !u!114 &2071406229838032239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5543114670215132893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2e4ddb2a64f045d898126cc814bb093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allPinLayoutCards:
+  - {fileID: 11400000, guid: 1cd35badc85a5924299606ee5df91449, type: 2}
+  - {fileID: 11400000, guid: 31b29874d67996044aeee166810e554d, type: 2}
+  - {fileID: 11400000, guid: 3e1717c4588318a46b69d8ee78c2a396, type: 2}
+  - {fileID: 11400000, guid: 04a0b1808805a5447b3a3f8b6a95bb44, type: 2}
