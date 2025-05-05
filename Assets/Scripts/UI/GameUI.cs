@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using static GameManager;
 
-public class GameUI : MonoBehaviour
+public partial class GameUI : MonoBehaviour
 {
     public static GameUI Instance { get; private set; }
 
@@ -95,6 +95,22 @@ public class GameUI : MonoBehaviour
 
         RefreshShop();
         RefreshHand();
+        RefreshTickets();
+    }
+
+    private void RefreshTickets()
+    {
+        var ticketsHost = rootElement.Q<VisualElement>("_TicketsHost");
+
+        // Only hide tickets panel in "playing" and "results" states
+        var shouldHideTickets =
+            GameManager.Instance.CurrentState is PlayingState
+            || GameManager.Instance.CurrentState is ResultsState;
+
+        // Only hide tickets panel in "playing" state
+        ticketsHost.style.translate = new StyleTranslate(
+            new Translate(shouldHideTickets ? 264 : 0, 0)
+        );
     }
 
     private void RefreshHand()
@@ -131,8 +147,8 @@ public class GameUI : MonoBehaviour
         }
 
         // Add hand cards to UI (every refresh for now)
-        var cardsContainer = rootElement.Q<VisualElement>("_Hand_CardsContainer");
-        cardsContainer.Clear();
+        var layoutsContainer = rootElement.Q<VisualElement>("_Hand_LayoutsContainer");
+        layoutsContainer.Clear();
         foreach (var card in inventoryManager.CurrentHand)
         {
             var element = new Button();
@@ -147,7 +163,7 @@ public class GameUI : MonoBehaviour
                 Refresh();
             };
 
-            cardsContainer.Add(element);
+            layoutsContainer.Add(element);
         }
 
         // Add selected layout card to UI

@@ -7,10 +7,12 @@ using UnityEngine;
 /// </summary>
 public class InventoryManager : MonoBehaviour
 {
+    public const int MaxHandSize = 4;
+
     /// <summary>
     /// List of cards that the player currently owns.
     /// </summary>
-    public List<PinLayoutCardSO> OwnedItems { get; } = new();
+    public List<PinLayoutCardSO> CurrentDeck { get; } = new();
 
     /// <summary>
     /// List of cards that were drawn in the last call to <see cref="DrawCards"/>
@@ -32,7 +34,7 @@ public class InventoryManager : MonoBehaviour
     /// </summary>
     public void AddItem(PinLayoutCardSO card)
     {
-        OwnedItems.Add(card);
+        CurrentDeck.Add(card);
 
         Debug.Log($"Added {card.GetType().Name} {card} to inventory");
     }
@@ -40,13 +42,13 @@ public class InventoryManager : MonoBehaviour
     /// <summary>
     /// Clears the existing hand and reinits with a new random selection of cards.
     /// </summary>
-    public void ResetHand(int numCards)
+    public void ResetHand()
     {
         // Don't try to draw more cards than we have.
-        numCards = Mathf.Min(numCards, OwnedItems.Count);
+        var numCards = Mathf.Min(MaxHandSize, CurrentDeck.Count);
 
         // Pick n random cards to return.
-        CurrentHand = OwnedItems
+        CurrentHand = CurrentDeck
             .OrderBy(x => Random.Range(0, int.MaxValue))
             .Take(numCards)
             .ToList();
