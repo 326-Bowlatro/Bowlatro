@@ -133,17 +133,17 @@ public class GameUI : MonoBehaviour
         // Add hand cards to UI (every refresh for now)
         var cardsContainer = rootElement.Q<VisualElement>("_Hand_CardsContainer");
         cardsContainer.Clear();
-        foreach (var item in inventoryManager.OwnedItems)
+        foreach (var card in inventoryManager.CurrentHand)
         {
             var element = new Button();
             element.AddToClassList("hand-card");
             element.AddToClassList("row");
-            element.text = item.name;
+            element.text = card.name;
 
             // Card click handler (set as current layout)
             element.clicked += () =>
             {
-                GameManager.Instance.SelectedLayout = item;
+                GameManager.Instance.SelectedLayout = card;
                 Refresh();
             };
 

@@ -80,6 +80,9 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
                 Self.IsBossStage = false;
             }
 
+            // Request a new hand
+            Self.InventoryManager.ResetHand(3);
+
             // Clear state
             Self.SelectedLayout = null;
             Self.ThrowType = "";
