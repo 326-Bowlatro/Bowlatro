@@ -1,0 +1,8 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/Shared.uss?fileID=7433441132597879392&amp;guid=921c73c4fb2b341a5ab72b6e494ede34&amp;type=3#Shared" />
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/ShopPackPanel.uss?fileID=7433441132597879392&amp;guid=30ba3e7791f4048c888d55678003bccf&amp;type=3#ShopPackPanel" />
+    <engine:VisualElement name="Container" style="flex-grow: 1;">
+        <engine:VisualElement style="flex-grow: 1; border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; background-color: rgb(43, 58, 60); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgb(0, 106, 178); border-right-color: rgb(0, 106, 178); border-top-color: rgb(0, 106, 178); border-bottom-color: rgb(0, 106, 178);" />
+        <engine:Button text="Play Hand" class="menu-item" style="height: 72px; background-color: rgb(52, 190, 134); width: 320px; align-self: center; margin-top: 12px; margin-bottom: 24px;" />
+    </engine:VisualElement>
+</engine:UXML>

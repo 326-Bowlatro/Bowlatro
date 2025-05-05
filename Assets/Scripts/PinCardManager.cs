@@ -42,5 +42,4 @@ public class PinCardManager : MonoBehaviour
         }
         pinCards.Clear();
     }
-    
 }

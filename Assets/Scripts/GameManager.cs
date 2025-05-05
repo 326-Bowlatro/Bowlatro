@@ -80,6 +80,9 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
             {
                 Self.IsBossStage = false;
             }
+
+            // Reset state vars
+            HasChosenLayout = false;
         }
 
         public override void ExitState()
