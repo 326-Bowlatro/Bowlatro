@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class ToShopButton : MonoBehaviour
 {
-    [SerializeField] private CameraScript cam;
-    [SerializeField] private PinCardManager pinCardManager;
-    
+    [SerializeField]
+    private CameraScript cam;
+
     void Start()
     {
         Disable();
@@ -13,9 +13,9 @@ public class ToShopButton : MonoBehaviour
 
     public void Enable()
     {
-        gameObject.SetActive(true);   
+        gameObject.SetActive(true);
     }
-    
+
     public void Disable()
     {
         gameObject.SetActive(false);

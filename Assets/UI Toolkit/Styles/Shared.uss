@@ -125,6 +125,9 @@ Button.menu-item.orange {
 .hand-card {
     width: 86px;
     height: 140px;
-    margin-right: 12px;
     white-space: normal;
+}
+
+.hand-card.row {
+    margin-right: 12px;
 }

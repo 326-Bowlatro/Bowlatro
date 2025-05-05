@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BowlingBall : MonoBehaviour
 {
+    public bool HasLaunched { get; private set; } = false;
+
     [Header("Boss Modifiers")]
     public bool isBossRound = false;
     public bool veerEnabled = false;
@@ -27,7 +29,6 @@ public class BowlingBall : MonoBehaviour
     private Rigidbody rb;
     private Vector3 startPosition;
     private Vector3 startRotation;
-    private bool hasLaunched = false;
     private bool reachedPins = false;
     private float laneMax, laneMin;
 
@@ -53,23 +54,26 @@ public class BowlingBall : MonoBehaviour
 
             reachedPins = true;
         }
+    }
 
-        if (!hasLaunched)
+    /// <summary>
+    /// Checks for movement input and moves the ball accordingly.
+    /// </summary>
+    public void ProcessMovement()
+    {
+        //keeps ball in bounds with buffer so the ball doesn't go off the lane
+        if (Input.GetKey(KeyCode.A) && transform.position.x < laneMax-.1f)
         {
-            //keeps ball in bounds with buffer so the ball doesn't go off the lane
-            if (Input.GetKey(KeyCode.A) && transform.position.x < laneMax-.1f)
-            {
-                var pos = transform.position;
-                var newX = pos.x + aimAmount*Time.deltaTime;
-                transform.position = new Vector3(newX, pos.y, pos.z);
-            }
+            var pos = transform.position;
+            var newX = pos.x + aimAmount*Time.deltaTime;
+            transform.position = new Vector3(newX, pos.y, pos.z);
+        }
 
-            if (Input.GetKey(KeyCode.D) && transform.position.x > laneMin+.1f)
-            {
-                var pos = transform.position;
-                var newX = pos.x - aimAmount*Time.deltaTime;
-                transform.position = new Vector3(newX, pos.y, pos.z);
-            }
+        if (Input.GetKey(KeyCode.D) && transform.position.x > laneMin+.1f)
+        {
+            var pos = transform.position;
+            var newX = pos.x - aimAmount*Time.deltaTime;
+            transform.position = new Vector3(newX, pos.y, pos.z);
         }
     }
 
@@ -79,10 +83,11 @@ public class BowlingBall : MonoBehaviour
     public void LaunchBall()
     {
         // Can only launch once/turn.
-        if (hasLaunched)
+        if (HasLaunched)
         {
             return;
         }
+
         if (isBossRound && veerEnabled)
         {
             // Making the ball veer
@@ -115,7 +120,7 @@ public class BowlingBall : MonoBehaviour
             audio.Play();
         }
 
-        hasLaunched = true;
+        HasLaunched = true;
     }
 
     public void OnEndTurn()
@@ -133,7 +138,7 @@ public class BowlingBall : MonoBehaviour
         transform.eulerAngles = startRotation;
 
         //reset launched bool and timer for bowling ball launch
-        hasLaunched = false;
+        HasLaunched = false;
         //reset reached pins bool
         reachedPins = false;
 
@@ -147,7 +152,6 @@ public class BowlingBall : MonoBehaviour
     
     private IEnumerator VeerBall()
     {
-        
         while (!reachedPins)
         {
             rb.AddForce(
@@ -155,22 +159,22 @@ public class BowlingBall : MonoBehaviour
                 ForceMode.Force);
             yield return null;
         }
-
     }
 
     public IEnumerator SlowDownBall()
     {
-        while (hasLaunched && !reachedPins)
+        while (HasLaunched && !reachedPins)
         {
             rb.AddForce(-transform.forward * (slowDownFactor * LaunchForce));
             yield return null;
         }
     }
+    
     public void SetBossBlind(bool isBoss)
     {
         isBossRound = isBoss;
     }
-    public bool HasBallBeenLaunched() => hasLaunched;
+
     public bool HasBallReachedPins() => reachedPins;
     public Rigidbody GetRigidbody() => rb;
 

@@ -35,7 +35,7 @@ public class GameUI : MonoBehaviour
         rootElement.Q<Button>("_Shop_Continue").clicked += () =>
         {
             // Go to playing state
-            GameManager.Instance.GoToState<PlayingState>();
+            GameManager.Instance.GoToState<PreRoundState>();
         };
         rootElement.Q<Button>("_Shop_Reroll").clicked += () =>
         {
@@ -55,6 +55,10 @@ public class GameUI : MonoBehaviour
         {
             (GameManager.Instance.CurrentState as ShopState).IsOpeningPack = false;
             Refresh();
+        };
+        rootElement.Q<Button>("_Hand_PlayHand").clicked += () =>
+        {
+            GameManager.Instance.GoToState<PlayingState>();
         };
 
         Refresh();
@@ -97,14 +101,16 @@ public class GameUI : MonoBehaviour
     {
         var handHost = rootElement.Q<VisualElement>("_HandHost");
 
-        // Are we in the "playing" state and haven't yet chosen a hand?
-        if (
-            GameManager.Instance.TryGetState<PlayingState>(out var playingState)
-            && !playingState.HasChosenLayout
-        )
+        // Are we in the "pre-round" state?
+        if (GameManager.Instance.CurrentState is PreRoundState)
         {
             // Make hand visible (using translation to animate show/hide)
             handHost.style.translate = new StyleTranslate(new Translate(0, 0));
+
+            // Set button status based on current state
+            rootElement
+                .Q<Button>("_Hand_PlayHand")
+                .SetEnabled(GameManager.Instance.SelectedLayout != null);
 
             RefreshHandCards();
         }
@@ -130,19 +136,49 @@ public class GameUI : MonoBehaviour
         foreach (var item in inventoryManager.OwnedItems)
         {
             var element = new Button();
-            element.AddToClassList("hand-card"); //
+            element.AddToClassList("hand-card");
+            element.AddToClassList("row");
             element.text = item.name;
 
-            // Card click handler
-            element.clicked += () => {
-                // // Request hiding the pack UI
-                // (GameManager.Instance.CurrentState as ShopState).IsOpeningPack = false;
-
-                // // Claim this pack
-                // GameManager.Instance.ShopManager.ClaimPackCard(packCard);
+            // Card click handler (set as current layout)
+            element.clicked += () =>
+            {
+                GameManager.Instance.SelectedLayout = item;
+                Refresh();
             };
 
             cardsContainer.Add(element);
+        }
+
+        // Add selected layout card to UI
+        var layoutContainer = rootElement.Q<VisualElement>("_Hand_LayoutContainer");
+        layoutContainer.Clear();
+        if (GameManager.Instance.TryGetState<PreRoundState>(out var state))
+        {
+            var layout = GameManager.Instance.SelectedLayout;
+            var element = new Button();
+            element.AddToClassList("hand-card");
+
+            if (layout != null)
+            {
+                // Get values from card
+                element.text = layout.name;
+                element.style.visibility = Visibility.Visible;
+            }
+            else
+            {
+                // Leave values unset, we just want it to take up space
+                element.style.visibility = Visibility.Hidden;
+            }
+
+            // Card click handler (clear current layout)
+            element.clicked += () =>
+            {
+                GameManager.Instance.SelectedLayout = null;
+                Refresh();
+            };
+
+            layoutContainer.Add(element);
         }
     }
 
@@ -152,12 +188,12 @@ public class GameUI : MonoBehaviour
         var shopPackHost = rootElement.Q<VisualElement>("_ShopPackHost");
 
         // Are we in the "shop" state?
-        if (GameManager.Instance.TryGetState<ShopState>(out var shopState))
+        if (GameManager.Instance.TryGetState<ShopState>(out var state))
         {
             // Make shop visible (using translation to animate show/hide)
             shopHost.style.translate = new StyleTranslate(new Translate(0, 0));
             shopPackHost.style.translate = new StyleTranslate(
-                new Translate(0, shopState.IsOpeningPack ? 0 : 340)
+                new Translate(0, state.IsOpeningPack ? 0 : 340)
             );
 
             RefreshShopPack();

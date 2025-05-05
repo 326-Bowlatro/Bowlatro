@@ -5,16 +5,16 @@
         <engine:VisualElement style="flex-grow: 0; align-items: center;">
             <engine:VisualElement style="flex-grow: 0; background-color: rgb(43, 58, 60); border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgb(0, 106, 178); border-right-color: rgb(0, 106, 178); border-top-color: rgb(0, 106, 178); border-bottom-color: rgb(0, 106, 178); justify-content: center; align-items: center; padding-top: 6px; padding-right: 12px; padding-bottom: 6px; padding-left: 12px;">
                 <engine:Label text="Layout" style="margin-bottom: 4px;" />
-                <engine:VisualElement class="menu-item" style="flex-grow: 0; margin-bottom: 2px; padding-top: 10px; padding-right: 8px; padding-bottom: 10px; padding-left: 8px; border-top-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px; border-bottom-left-radius: 6px;">
-                    <engine:Button text="Layout 1" name="CardPlaceholden-HIDDEN" class="shop-pack-card" style="width: 86px; height: 140px; visibility: hidden;" />
+                <engine:VisualElement name="_Hand_LayoutContainer" class="menu-item" style="flex-grow: 0; margin-bottom: 2px; padding-top: 10px; padding-right: 8px; padding-bottom: 10px; padding-left: 8px; border-top-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px; border-bottom-left-radius: 6px;">
+                    <engine:Button text="Layout 1" name="CardPlaceholden-HIDDEN" class="hand-card" style="visibility: visible;" />
                 </engine:VisualElement>
             </engine:VisualElement>
         </engine:VisualElement>
         <engine:VisualElement name="_Hand_CardsContainer" style="flex-grow: 0; border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; background-color: rgb(43, 58, 60); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgb(0, 106, 178); border-right-color: rgb(0, 106, 178); border-top-color: rgb(0, 106, 178); border-bottom-color: rgb(0, 106, 178); flex-direction: row; justify-content: flex-start; align-items: center; margin-top: 12px; margin-bottom: 12px; padding-left: 24px; padding-top: 16px; padding-bottom: 16px;">
-            <engine:Button text="Layout 1" class="hand-card" />
-            <engine:Button text="Layout 2" class="hand-card" />
-            <engine:Button text="Layout 3" class="hand-card" />
+            <engine:Button text="Layout 1" class="hand-card row" />
+            <engine:Button text="Layout 2" class="hand-card row" />
+            <engine:Button text="Layout 3" class="hand-card row" />
         </engine:VisualElement>
-        <engine:Button text="Play Hand" enabled="false" class="menu-item green" style="height: 72px; width: 320px; align-self: center; margin-bottom: 24px;" />
+        <engine:Button text="Play Hand" name="_Hand_PlayHand" class="menu-item green" style="height: 72px; width: 320px; align-self: center; margin-bottom: 24px;" />
     </engine:VisualElement>
 </engine:UXML>
