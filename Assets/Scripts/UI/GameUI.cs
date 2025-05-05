@@ -90,6 +90,27 @@ public class GameUI : MonoBehaviour
             : GameManager.Instance.CurrentScoreToBeat.ToString();
 
         RefreshShop();
+        RefreshHand();
+    }
+
+    private void RefreshHand()
+    {
+        var handHost = rootElement.Q<VisualElement>("_HandHost");
+
+        // Are we in the "playing" state and haven't yet chosen a hand?
+        if (
+            GameManager.Instance.TryGetState<PlayingState>(out var playingState)
+            && !playingState.HasChosenLayout
+        )
+        {
+            // Make shop visible (using translation to animate show/hide)
+            handHost.style.translate = new StyleTranslate(new Translate(0, 0));
+        }
+        else
+        {
+            // Make shop hidden
+            handHost.style.translate = new StyleTranslate(new Translate(0, 340));
+        }
     }
 
     private void RefreshShop()

@@ -24,5 +24,7 @@ public class PinLayoutCardUI : MonoBehaviour, IPointerClickHandler
         {
             playingState.HasChosenLayout = true;
         }
+
+        GameUI.Instance.Refresh();
     }
 }
