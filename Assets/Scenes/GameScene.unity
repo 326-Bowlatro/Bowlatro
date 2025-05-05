@@ -20161,6 +20161,14 @@ PrefabInstance:
       propertyPath: pinParent
       value: 
       objectReference: {fileID: 1644579025}
+    - target: {fileID: 4131023829914463580, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: defaultItems.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131023829914463580, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'defaultItems.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 1cd35badc85a5924299606ee5df91449, type: 2}
     - target: {fileID: 5159426534695303106, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

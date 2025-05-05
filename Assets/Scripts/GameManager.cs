@@ -81,11 +81,10 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
             }
 
             // Request a new hand
-            Self.InventoryManager.ResetHand(3);
+            Self.InventoryManager.ResetHand();
 
-            // Clear state
+            // Clear layout slot
             Self.SelectedLayout = null;
-            Self.ThrowType = "";
         }
 
         public override void ExitState() { }
@@ -102,23 +101,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
             Self.LayoutManager.SpawnPins(Self.SelectedLayout.LayoutType);
         }
 
-        public override void ExitState()
-        {
-            // Reset score for next blind
-            Self.CurrentScoreFlat = 0;
-            Self.CurrentScoreMult = 1;
-
-            // Boss stage gives 2x cash. Else, multiplier is based on blind number.
-            Self.Cash += Self.IsBossStage
-                ? Self.normalBlindStartingCash * 2
-                : Self.normalBlindStartingCash + (Self.BlindNum - 1);
-
-            // Have interest, every 10, get 1
-            Self.Cash += Self.Cash % 10;
-
-            // Clear all pins
-            Self.LayoutManager.ClearPins();
-        }
+        public override void ExitState() { }
 
         public override void UpdateState()
         {
@@ -143,7 +126,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
     {
         public override void EnterState()
         {
-            //boss stage gives extra
+            // Boss stage gives extra
             if (Self.IsBossStage)
             {
                 Self.cashToBeEarned = Self.normalBlindStartingCash * 2;
@@ -153,6 +136,22 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
                 Self.cashToBeEarned = Self.normalBlindStartingCash + (Self.BlindNum - 1); //minus 1 because BlindNum has been incremented already
             }
 
+            // Reset score for next blind
+            Self.CurrentScoreFlat = 0;
+            Self.CurrentScoreMult = 1;
+
+            // Boss stage gives 2x cash. Else, multiplier is based on blind number.
+            Self.Cash += Self.IsBossStage
+                ? Self.normalBlindStartingCash * 2
+                : Self.normalBlindStartingCash + (Self.BlindNum - 1);
+
+            // Have interest, every 10, get 1
+            Self.Cash += Self.Cash % 10;
+
+            // Clear all pins
+            Self.LayoutManager.ClearPins();
+
+            // Move camera, show shop button
             Self.mainCamera.BeginLookAtResults();
             Self.toShopButton.Enable();
             Debug.Log(Self.cashToBeEarned);
@@ -185,7 +184,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
         {
             Self.mainCamera.EndLookAtShop();
 
-            //Check for boss stage here, so it will check once you leave the shop
+            // Check for boss stage here, so it will check once you leave the shop
             if ((Self.BlindNum + 1) % 3 == 0 && Self.BlindNum > 0)
             {
                 Self.IsBossStage = true;
@@ -287,6 +286,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
 
         // Reset round state
         TurnNum = 0;
+        ThrowType = "";
 
         // Destroy all existing pins
         LayoutManager.ClearPins();

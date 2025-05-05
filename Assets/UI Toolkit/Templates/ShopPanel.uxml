@@ -7,7 +7,7 @@
                 <engine:Button text="Reroll $5" name="_Shop_Reroll" class="menu-item orange" style="width: 142px; height: 72px; margin-left: 4px; margin-right: 4px;" />
                 <engine:VisualElement class="menu-item inner" style="flex-grow: 1;">
                     <engine:VisualElement name="_Shop_ItemPack" style="flex-grow: 0;">
-                        <engine:Button text="Pin Pack 0&#10;($0)" name="_Shop_ItemPackButton" style="width: 60px; height: 90px; white-space: normal;" />
+                        <engine:Button text="Pin Pack 0&#10;($0)" name="_Shop_ItemPackButton" style="width: 86px; height: 140px; white-space: normal;" />
                     </engine:VisualElement>
                 </engine:VisualElement>
             </engine:VisualElement>
