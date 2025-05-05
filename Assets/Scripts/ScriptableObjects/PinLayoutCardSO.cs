@@ -8,4 +8,6 @@ public class PinLayoutCardSO : ScriptableObject
     public Image Image;
     public LayoutType LayoutType;
     public string LayoutName;
+
+    public override string ToString() => LayoutName;
 }

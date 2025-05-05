@@ -4,14 +4,16 @@ using UnityEngine;
 /// <summary>
 /// GameManager singleton, drives all game state.
 /// </summary>
-public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
+public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
 {
     public static GameManager Instance { get; private set; }
 
     public PinLayoutManager LayoutManager => pinLayoutManager;
-    public ResultsManager ResultsManager => resultsManager;
     public BowlingBall BowlingBall => bowlingBall;
     public ShopManager ShopManager => shopManager;
+    public InventoryManager InventoryManager => inventoryManager;
+
+    public PinLayoutCardSO SelectedLayout { get; set; } = null;
 
     [SerializeField]
     private BowlingBall bowlingBall;
@@ -42,12 +44,14 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
     private int strikesNum = 0;
     private BossModifierManager bossModifierManager;
     private PinLayoutManager pinLayoutManager;
-    private ResultsManager resultsManager;
     private ShopManager shopManager;
-    
-    private List<StrikePin> knockedOverStrikePins = new List<StrikePin>();
-    private List<SparePin> knockedOverSparePins = new List<SparePin>();
-    
+    private InventoryManager inventoryManager;
+
+    private readonly List<StrikePin> knockedOverStrikePins = new();
+    private readonly List<SparePin> knockedOverSparePins = new();
+
+    private int cashToBeEarned = 0;
+
     void Awake()
     {
         Instance = this;
@@ -55,22 +59,17 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
 
         bossModifierManager = GetComponent<BossModifierManager>();
         pinLayoutManager = GetComponent<PinLayoutManager>();
-        resultsManager = GetComponent<ResultsManager>();
         shopManager = GetComponent<ShopManager>();
+        inventoryManager = GetComponent<InventoryManager>();
     }
 
     /// <summary>
-    /// Behavior specific to "playing" state.
+    /// Behavior specific to "pre-round" state (choosing a hand).
     /// </summary>
-    public class PlayingState : State
+    public class PreRoundState : State
     {
-        public bool HasChosenLayout { get; set; }
-
         public override void EnterState()
         {
-            // Show layout selection
-            PinCardManager.Instance.StartSelection();
-
             // Check for boss stage here, so it will check once you leave the shop
             if ((Self.BlindNum + 1) % 3 == 0 && Self.BlindNum > 0)
             {
@@ -81,8 +80,26 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
                 Self.IsBossStage = false;
             }
 
-            // Reset state vars
-            HasChosenLayout = false;
+            // Request a new hand
+            Self.InventoryManager.ResetHand(3);
+
+            // Clear state
+            Self.SelectedLayout = null;
+            Self.ThrowType = "";
+        }
+
+        public override void ExitState() { }
+    }
+
+    /// <summary>
+    /// Behavior specific to "playing" state.
+    /// </summary>
+    public class PlayingState : State
+    {
+        public override void EnterState()
+        {
+            // Spawn pins from selected layout
+            Self.LayoutManager.SpawnPins(Self.SelectedLayout.LayoutType);
         }
 
         public override void ExitState()
@@ -105,9 +122,16 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
 
         public override void UpdateState()
         {
-            if (Input.GetKeyDown(KeyCode.W) && HasChosenLayout)
+            var ball = Self.bowlingBall;
+
+            if (Input.GetKeyDown(KeyCode.W))
             {
-                Self.bowlingBall.LaunchBall();
+                ball.LaunchBall();
+            }
+
+            if (!ball.HasLaunched)
+            {
+                ball.ProcessMovement();
             }
         }
     }
@@ -122,16 +146,22 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
             //boss stage gives extra
             if (Self.IsBossStage)
             {
-                Self.resultsManager.cashToBeEarned = Self.normalBlindStartingCash * 2;
+                Self.cashToBeEarned = Self.normalBlindStartingCash * 2;
             }
             else
             {
-                Self.resultsManager.cashToBeEarned =
-                    Self.normalBlindStartingCash + (Self.BlindNum - 1); //minus 1 because BlindNum has been incremented already
+                Self.cashToBeEarned = Self.normalBlindStartingCash + (Self.BlindNum - 1); //minus 1 because BlindNum has been incremented already
             }
 
-            // resultsManager.cashToBeEarned += 3 - RoundNum; // gives more money if ended early
-            Self.resultsManager.Enable();
+            Self.mainCamera.BeginLookAtResults();
+            Self.toShopButton.Enable();
+            Debug.Log(Self.cashToBeEarned);
+        }
+
+        public override void ExitState()
+        {
+            Self.mainCamera.EndLookAtResults();
+            Self.toShopButton.Disable();
         }
     }
 
@@ -199,7 +229,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
 
         // Reset ball
         bowlingBall.OnEndTurn();
-        
+
         // Reset/destroy pins (based on knocked status) to keep them from falling between throws
         LayoutManager.OnEndTurn();
 
@@ -238,7 +268,6 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
             EndRound();
         }
 
-        // Trigger UI refresh
         GameUI.Instance.Refresh();
     }
 
@@ -259,12 +288,6 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
         // Reset round state
         TurnNum = 0;
 
-        // Set HasChosenLayout to false
-        if (TryGetState<PlayingState>(out var playingState))
-        {
-            playingState.HasChosenLayout = false;
-        }
-
         // Destroy all existing pins
         LayoutManager.ClearPins();
 
@@ -275,12 +298,9 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
         }
         else
         {
-            // Now pins are destroyed, let player select again
-            PinCardManager.Instance.StartSelection();
+            // Transition back to pre-round state
+            GoToState<PreRoundState>();
         }
-
-        // Trigger UI refresh
-        GameUI.Instance.Refresh();
     }
 
     /// <summary>
@@ -355,7 +375,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
             if (TurnNum == 0)
             {
                 Debug.Log("STRIKE");
-                
+
                 if (
                     bossModifierManager.isBossActive
                     && bossModifierManager.currentModifier == BossModifier.NoStrike
@@ -377,7 +397,9 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
                     if (pin is StrikePin && pin.IsKnockedOver)
                     {
                         CurrentScoreMult += ((StrikePin)pin).strikeBonus;
-                        Debug.Log($"Strike Pin Bonus! +{((StrikePin)pin).strikeBonus} to multiplier!");
+                        Debug.Log(
+                            $"Strike Pin Bonus! +{((StrikePin)pin).strikeBonus} to multiplier!"
+                        );
                         break;
                     }
                 }

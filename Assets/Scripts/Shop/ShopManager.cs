@@ -36,12 +36,15 @@ public class ShopManager : MonoBehaviour
     {
         var pack = CurrentPack;
 
-        // Remove pack from inventory.
+        // Remove pack from shop.
         CurrentPack = null;
         Debug.Log($"Claimed card \"{card.name}\" from pack \"{pack.PackName}\"");
 
         // Deduct cost of pack.
         GameManager.Instance.DeductCash(pack.PackCost);
+
+        // Add card to player's inventory.
+        GameManager.Instance.InventoryManager.AddItem(card);
 
         // Refresh UI
         GameUI.Instance.Refresh();
