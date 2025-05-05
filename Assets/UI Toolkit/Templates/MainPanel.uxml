@@ -10,7 +10,7 @@
             <engine:Instance template="ShopPanel" name="_ShopHost" style="height: 340px; width: 460px; transform-origin: top; transition-property: translate; transition-duration: 0.25s; transition-timing-function: ease;" />
             <engine:VisualElement style="flex-grow: 1; justify-content: flex-end;">
                 <engine:Instance template="ShopPackPanel" name="_ShopPackHost" enabled="true" style="width: 460px; height: 340px; transform-origin: bottom; transition-duration: 0.25s; transition-property: translate; position: absolute;" />
-                <engine:Instance template="HandPanel" name="_HandHost" enabled="true" style="position: absolute; height: 340px; width: 845px; transform-origin: bottom; transition-property: translate; transition-duration: 0.25s;" />
+                <engine:Instance template="HandPanel" name="_HandHost" enabled="true" style="position: absolute; height: 580px; width: 845px; transform-origin: bottom; transition-property: translate; transition-duration: 0.25s;" />
             </engine:VisualElement>
         </engine:VisualElement>
     </engine:VisualElement>

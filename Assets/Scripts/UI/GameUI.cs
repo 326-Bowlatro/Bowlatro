@@ -103,13 +103,46 @@ public class GameUI : MonoBehaviour
             && !playingState.HasChosenLayout
         )
         {
-            // Make shop visible (using translation to animate show/hide)
+            // Make hand visible (using translation to animate show/hide)
             handHost.style.translate = new StyleTranslate(new Translate(0, 0));
+
+            RefreshHandCards();
         }
         else
         {
-            // Make shop hidden
-            handHost.style.translate = new StyleTranslate(new Translate(0, 340));
+            // Make hand hidden
+            handHost.style.translate = new StyleTranslate(new Translate(0, 580));
+        }
+    }
+
+    private void RefreshHandCards()
+    {
+        var shopManager = GameManager.Instance.ShopManager;
+        var inventoryManager = GameManager.Instance.InventoryManager;
+        if (shopManager.CurrentPack == null)
+        {
+            shopManager.ResetInventory();
+        }
+
+        // Add hand cards to UI (every refresh for now)
+        var cardsContainer = rootElement.Q<VisualElement>("_Hand_CardsContainer");
+        cardsContainer.Clear();
+        foreach (var item in inventoryManager.OwnedItems)
+        {
+            var element = new Button();
+            element.AddToClassList("hand-card"); //
+            element.text = item.name;
+
+            // Card click handler
+            element.clicked += () => {
+                // // Request hiding the pack UI
+                // (GameManager.Instance.CurrentState as ShopState).IsOpeningPack = false;
+
+                // // Claim this pack
+                // GameManager.Instance.ShopManager.ClaimPackCard(packCard);
+            };
+
+            cardsContainer.Add(element);
         }
     }
 

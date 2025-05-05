@@ -12,6 +12,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
     public ResultsManager ResultsManager => resultsManager;
     public BowlingBall BowlingBall => bowlingBall;
     public ShopManager ShopManager => shopManager;
+    public InventoryManager InventoryManager => inventoryManager;
 
     [SerializeField]
     private BowlingBall bowlingBall;
@@ -44,10 +45,11 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
     private PinLayoutManager pinLayoutManager;
     private ResultsManager resultsManager;
     private ShopManager shopManager;
-    
-    private List<StrikePin> knockedOverStrikePins = new List<StrikePin>();
-    private List<SparePin> knockedOverSparePins = new List<SparePin>();
-    
+    private InventoryManager inventoryManager;
+
+    private readonly List<StrikePin> knockedOverStrikePins = new();
+    private readonly List<SparePin> knockedOverSparePins = new();
+
     void Awake()
     {
         Instance = this;
@@ -57,6 +59,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
         pinLayoutManager = GetComponent<PinLayoutManager>();
         resultsManager = GetComponent<ResultsManager>();
         shopManager = GetComponent<ShopManager>();
+        inventoryManager = GetComponent<InventoryManager>();
     }
 
     /// <summary>
@@ -199,7 +202,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
 
         // Reset ball
         bowlingBall.OnEndTurn();
-        
+
         // Reset/destroy pins (based on knocked status) to keep them from falling between throws
         LayoutManager.OnEndTurn();
 
@@ -355,7 +358,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
             if (TurnNum == 0)
             {
                 Debug.Log("STRIKE");
-                
+
                 if (
                     bossModifierManager.isBossActive
                     && bossModifierManager.currentModifier == BossModifier.NoStrike
@@ -377,7 +380,9 @@ public class GameManager : StateMachine<GameManager, GameManager.PlayingState>
                     if (pin is StrikePin && pin.IsKnockedOver)
                     {
                         CurrentScoreMult += ((StrikePin)pin).strikeBonus;
-                        Debug.Log($"Strike Pin Bonus! +{((StrikePin)pin).strikeBonus} to multiplier!");
+                        Debug.Log(
+                            $"Strike Pin Bonus! +{((StrikePin)pin).strikeBonus} to multiplier!"
+                        );
                         break;
                     }
                 }

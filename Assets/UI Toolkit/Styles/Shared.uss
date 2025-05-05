@@ -103,6 +103,7 @@ Button.menu-item {
     scale: 1;
     transition-property: scale;
     transition-duration: 0.1s;
+    background-color: rgb(255, 51, 51);
 }
 
 Button.menu-item:hover {
@@ -111,4 +112,19 @@ Button.menu-item:hover {
 
 Button.menu-item:active {
     scale: 0.98;
+}
+
+Button.menu-item.green {
+    background-color: rgb(52, 190, 134);
+}
+
+Button.menu-item.orange {
+    background-color: rgb(242, 156, 0);
+}
+
+.hand-card {
+    width: 86px;
+    height: 140px;
+    margin-right: 12px;
+    white-space: normal;
 }
