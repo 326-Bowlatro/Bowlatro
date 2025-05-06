@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1b319f04bc82e5438f4d6bd93c2f964, type: 3}
-  m_Name: Reverse Triangle Pin Layout
+  m_Script: {fileID: 11500000, guid: becc8997305ad2741b021819a0a3203a, type: 3}
+  m_Name: StrikeTicket
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6029824097807513038, guid: 1f195d28992150443ad1bca9cf08b470, type: 3}
-  Image: {fileID: 0}
-  LayoutType: 3
-  LayoutName: Reverse Triangle
+  Sprite: {fileID: 0}
+  Name: Strike
+  Description: '[+10 Mult] if all pins are knocked on the first turn'

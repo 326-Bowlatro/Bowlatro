@@ -2,6 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public interface IInventoryCard
+{
+    public string Name { get; }
+    public string Description { get; }
+    public Sprite Sprite { get; }
+}
+
 /// <summary>
 /// Manages player inventory (their "deck").
 /// </summary>
@@ -12,31 +19,34 @@ public class InventoryManager : MonoBehaviour
     /// <summary>
     /// List of cards that the player currently owns.
     /// </summary>
-    public List<PinLayoutCardSO> CurrentDeck { get; } = new();
+    public List<IInventoryCard> CurrentDeck { get; } = new();
 
     /// <summary>
     /// List of cards that were drawn in the last call to <see cref="DrawCards"/>
     /// </summary>
-    public List<PinLayoutCardSO> CurrentHand { get; private set; } = new();
+    public List<IInventoryCard> CurrentHand { get; private set; } = new();
 
-    // Constant array of all possible pin layout cards that exist in the game.
     [SerializeField]
-    private List<PinLayoutCardSO> defaultItems;
+    private List<PinLayoutCard> defaultDeckLayoutCards;
+
+    [SerializeField]
+    private List<BoosterCard> defaultDeckBoosterCards;
 
     void Awake()
     {
         // Start with some initial cards in the inventory.
-        defaultItems.ForEach(AddItem);
+        defaultDeckLayoutCards.ForEach(AddItem);
+        defaultDeckBoosterCards.ForEach(AddItem);
     }
 
     /// <summary>
     /// Adds the given card to the player's inventory.
     /// </summary>
-    public void AddItem(PinLayoutCardSO card)
+    public void AddItem(IInventoryCard card)
     {
         CurrentDeck.Add(card);
 
-        Debug.Log($"Added {card.GetType().Name} {card} to inventory");
+        Debug.Log($"Added {card.Name} to inventory");
     }
 
     /// <summary>

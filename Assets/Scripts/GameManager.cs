@@ -13,7 +13,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
     public ShopManager ShopManager => shopManager;
     public InventoryManager InventoryManager => inventoryManager;
 
-    public PinLayoutCardSO SelectedLayout { get; set; } = null;
+    public PinLayoutCard SelectedLayout { get; set; } = null;
 
     [SerializeField]
     private BowlingBall bowlingBall;
@@ -253,6 +253,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
         if (
             (CurrentScore >= CurrentScoreToBeat && !IsBossStage)
             || (IsBossStage && CurrentScore >= CurrentBossScoreToBeat)
+            || true /* TEMP DO NOT COMMIT ME! */
         )
         {
             EndBlind();

@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static GameManager;
@@ -146,15 +147,15 @@ public partial class GameUI : MonoBehaviour
             shopManager.ResetInventory();
         }
 
-        // Add hand cards to UI (every refresh for now)
+        // Add layout cards to UI (every refresh for now)
         var layoutsContainer = rootElement.Q<VisualElement>("_Hand_LayoutsContainer");
         layoutsContainer.Clear();
-        foreach (var card in inventoryManager.CurrentHand)
+        foreach (var card in inventoryManager.CurrentHand.OfType<PinLayoutCard>())
         {
             var element = new Button();
-            element.AddToClassList("hand-card");
+            element.AddToClassList("item-card");
             element.AddToClassList("row");
-            element.text = card.name;
+            element.text = card.LayoutName;
 
             // Card click handler (set as current layout)
             element.clicked += () =>
@@ -166,6 +167,26 @@ public partial class GameUI : MonoBehaviour
             layoutsContainer.Add(element);
         }
 
+        // Add boster cards to UI (every refresh for now)
+        var boostersContainer = rootElement.Q<VisualElement>("_Hand_BoostersContainer");
+        boostersContainer.Clear();
+        foreach (var card in inventoryManager.CurrentHand.OfType<BoosterCard>())
+        {
+            var element = new Button();
+            element.AddToClassList("item-card");
+            element.AddToClassList("row");
+            element.text = card.Name;
+
+            // TODO: Card click handler (use booster)
+            // element.clicked += () =>
+            // {
+            //     GameManager.Instance.SelectedLayout = card;
+            //     Refresh();
+            // };
+
+            boostersContainer.Add(element);
+        }
+
         // Add selected layout card to UI
         var layoutContainer = rootElement.Q<VisualElement>("_Hand_LayoutContainer");
         layoutContainer.Clear();
@@ -173,12 +194,12 @@ public partial class GameUI : MonoBehaviour
         {
             var layout = GameManager.Instance.SelectedLayout;
             var element = new Button();
-            element.AddToClassList("hand-card");
+            element.AddToClassList("item-card");
 
             if (layout != null)
             {
                 // Get values from card
-                element.text = layout.name;
+                element.text = layout.LayoutName;
                 element.style.visibility = Visibility.Visible;
             }
             else
@@ -248,7 +269,7 @@ public partial class GameUI : MonoBehaviour
         foreach (var packCard in shopManager.CurrentPack.PackCards)
         {
             var element = new Button();
-            element.AddToClassList("shop-pack-card");
+            element.AddToClassList("item-card");
             element.text = packCard.name;
 
             // Card click handler

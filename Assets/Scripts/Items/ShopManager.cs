@@ -11,7 +11,7 @@ public class ShopManager : MonoBehaviour
 
     // Constant array of all possible pin layout cards that exist in the game.
     [SerializeField]
-    private List<PinLayoutCardSO> allPinLayoutCards;
+    private List<PinLayoutCard> allPinLayoutCards;
 
     /// <summary>
     /// Current layout card pack available in the shop. Can be null if the pack has been claimed.
@@ -32,7 +32,7 @@ public class ShopManager : MonoBehaviour
     /// <summary>
     /// Claims a card from the current pack, removing the pack from inventory.
     /// </summary>
-    public void ClaimPackCard(PinLayoutCardSO card)
+    public void ClaimPackCard(PinLayoutCard card)
     {
         var pack = CurrentPack;
 
@@ -88,5 +88,5 @@ public record LayoutCardPack
     /// <summary>
     /// Collection of layout cards in this pack.
     /// </summary>
-    public List<PinLayoutCardSO> PackCards { get; set; }
+    public List<PinLayoutCard> PackCards { get; set; }
 }

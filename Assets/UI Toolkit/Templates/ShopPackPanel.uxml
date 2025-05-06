@@ -6,7 +6,7 @@
             <engine:Button text="Cancel" name="_ShopPackCancel" class="menu-item" style="width: 142px; height: 72px; margin-right: 4px; margin-left: 4px;" />
         </engine:VisualElement>
         <engine:VisualElement name="_ShopPack_CardsContainer" class="menu-item" style="flex-grow: 1; flex-direction: row; align-items: center; padding-top: 8px; padding-right: 6px; padding-bottom: 6px; padding-left: 6px; margin-top: 8px; justify-content: space-evenly;">
-            <engine:Button text="Button&#10;" class="shop-pack-card" />
+            <engine:Button text="Button&#10;" class="item-card" />
         </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>

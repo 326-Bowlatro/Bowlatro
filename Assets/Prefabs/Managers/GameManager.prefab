@@ -117,5 +117,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultItems:
   - {fileID: 11400000, guid: 04a0b1808805a5447b3a3f8b6a95bb44, type: 2}
-  - {fileID: 11400000, guid: 3e1717c4588318a46b69d8ee78c2a396, type: 2}
   - {fileID: 11400000, guid: 1cd35badc85a5924299606ee5df91449, type: 2}
