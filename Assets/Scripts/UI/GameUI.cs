@@ -171,6 +171,12 @@ public partial class GameUI : MonoBehaviour
         layoutsContainer.Clear();
         foreach (var card in inventoryManager.CurrentHandLayouts)
         {
+            // Skip if the card is in the layout slot (pretend it's been "moved")
+            if (card == GameManager.Instance.SelectedLayout)
+            {
+                continue;
+            }
+
             var element = new CardElement();
             element.SetCard(card);
 
