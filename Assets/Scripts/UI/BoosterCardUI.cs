@@ -16,9 +16,9 @@ public class BoosterCardUI : MonoBehaviour, IPointerClickHandler
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        UnityEngine.Debug.Log("Cicked");
         ++BoosterCardManager.Instance.chosenCardAmount;
-        if (BoosterCardManager.Instance.chosenCardAmount == 2)
+        GameManager.Instance.BoosterManager.ApplyAffect(boostCardSO.boostType);
+        if (BoosterCardManager.Instance.chosenCardAmount >= 2)
         {
             BoosterCardManager.Instance.EndSelection();
         }

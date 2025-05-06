@@ -44,5 +44,6 @@ public class BoosterCardManager : MonoBehaviour
             Destroy(boosterCard);
         }
         boosterCards.Clear();
+        chosenCardAmount = 0;
     }
 }

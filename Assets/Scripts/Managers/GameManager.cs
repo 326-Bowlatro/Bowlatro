@@ -12,6 +12,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
     public BowlingBall BowlingBall => bowlingBall;
     public ShopManager ShopManager => shopManager;
     public InventoryManager InventoryManager => inventoryManager;
+    public BoosterManager BoosterManager => boosterManager;
 
     public PinLayoutCard SelectedLayout { get; set; } = null;
 
@@ -46,6 +47,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
     private PinLayoutManager pinLayoutManager;
     private ShopManager shopManager;
     private InventoryManager inventoryManager;
+    private BoosterManager boosterManager;
 
     private readonly List<StrikePin> knockedOverStrikePins = new();
     private readonly List<SparePin> knockedOverSparePins = new();
@@ -63,6 +65,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
         pinLayoutManager = GetComponent<PinLayoutManager>();
         shopManager = GetComponent<ShopManager>();
         inventoryManager = GetComponent<InventoryManager>();
+        boosterManager = GetComponent<BoosterManager>();
     }
 
     /// <summary>
@@ -73,7 +76,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
         public override void EnterState()
         {
             // Show layout selection
-            PinCardManager.Instance.StartSelection();
+            // PinCardManager.Instance.StartSelection();
             BoosterCardManager.Instance.StartSelection();
 
             // Check for boss stage here, so it will check once you leave the shop
@@ -245,6 +248,9 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
         // Reset/destroy pins (based on knocked status) to keep them from falling between throws
         LayoutManager.OnEndTurn();
 
+        //remove all boost objects made
+        BoosterManager.DestroyBoosts();
+        
         // Reset camera
         mainCamera.OnEndTurn();
 
@@ -482,5 +488,21 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
     {
         knockedOverStrikePins.Clear();
         knockedOverSparePins.Clear();
+    }
+
+    /// <summary>
+    /// will just add scores but publicly
+    /// </summary>
+    /// <param name="score"></param>
+    public void AddFlatScore(int score)
+    {
+        CurrentScoreFlat += score;
+        GameUI.Instance.Refresh();
+    }
+
+    public void AddMultScore(int mult)
+    {
+        CurrentScoreMult += mult;
+        GameUI.Instance.Refresh();
     }
 }

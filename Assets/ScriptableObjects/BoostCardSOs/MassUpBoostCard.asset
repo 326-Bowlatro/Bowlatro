@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: MassUpBoostCard
   m_EditorClassIdentifier: 
   prefab: {fileID: 6029824097807513038, guid: 3af4468544cfee44c94e4ce4ddabe950, type: 3}
+  boostType: 2
   icon: {fileID: 0}
   boosterName: Size Up

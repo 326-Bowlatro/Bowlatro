@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4ca6f14ba8576f49a9760229c936e0c, type: 3}
-  m_Name: SizeDownBoostCard
+  m_Name: RampBoostCard
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6029824097807513038, guid: 299cc3b66020a224c8165ffeb349dd07, type: 3}
-  boostType: 1
+  prefab: {fileID: 6029824097807513038, guid: ab36a405162efc34891224a140b1fb0c, type: 3}
+  boostPrefab: {fileID: 5862227338537242004, guid: a290a3a1b1f0b474592b783f179c4304, type: 3}
+  boostType: 4
   icon: {fileID: 0}
-  boosterName: Size Down
+  boosterName: Ramp
