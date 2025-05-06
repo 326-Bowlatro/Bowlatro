@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: 0}
   Name: Strike
-  Description: '[+10 Mult] if all pins are knocked on the first turn'
+  Description: +10 MULT if all pins are knocked on the first turn

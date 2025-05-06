@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/UI%20Toolkit/Styles/Shared.uss?fileID=7433441132597879392&amp;guid=921c73c4fb2b341a5ab72b6e494ede34&amp;type=3#Shared" />
     <engine:VisualElement style="flex-grow: 0; width: 86px; height: 140px;">
         <engine:Button name="_Button" style="align-items: center; justify-content: center; flex-grow: 1;">
-            <engine:Label text="Card" name="_Text" style="white-space: normal;" />
+            <engine:Label text="Card" name="_Text" picking-mode="Ignore" style="white-space: normal;" />
         </engine:Button>
     </engine:VisualElement>
 </engine:UXML>

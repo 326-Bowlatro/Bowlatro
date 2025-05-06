@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: 0}
   Name: Booster 1
-  Description: '[+2 Mult] and [+25 Pins]'
+  Description: +2 MULT and +25 PINS
   FlatBonus: 25
   MultBonus: 2

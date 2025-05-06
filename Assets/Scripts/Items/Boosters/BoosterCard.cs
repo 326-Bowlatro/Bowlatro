@@ -16,6 +16,6 @@ public abstract class BoosterCard : ScriptableObject, IInventoryCard
 
     // IInventoryCard implementation
     string IInventoryCard.Name => Name;
-    string IInventoryCard.Description => "No effect ):"; // TODO
+    string IInventoryCard.Description => Description;
     Sprite IInventoryCard.Sprite => Sprite;
 }

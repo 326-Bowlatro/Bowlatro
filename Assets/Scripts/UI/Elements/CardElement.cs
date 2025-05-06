@@ -6,33 +6,37 @@ using UnityEngine.UIElements;
 public partial class CardElement : VisualElement
 {
     /// <summary>
-    /// Reference to the card displayed by this element.
-    /// </summary>
-    public IInventoryCard Card { get; private set; }
-
-    /// <summary>
     /// Gets/sets card visibility.
     /// </summary>
     public bool IsHidden
     {
         get => this.Q<Button>("_Button").style.visibility == Visibility.Hidden;
-        set =>
+        set
+        {
             this.Q<Button>("_Button").style.visibility = value
                 ? Visibility.Hidden
                 : Visibility.Visible;
+
+            tooltipManipulator.IsHidden = value;
+        }
     }
 
     public event Action OnClick;
+
+    private readonly ToolTipManipulator tooltipManipulator;
 
     public CardElement()
     {
         Resources.Load<VisualTreeAsset>("Elements/CardElement").CloneTree(this);
         this.Q<Button>("_Button").clicked += () => OnClick?.Invoke();
+
+        // Add tooltip manipulator
+        tooltipManipulator = new ToolTipManipulator();
+        this.AddManipulator(tooltipManipulator);
     }
 
     public void SetCard(IInventoryCard card)
     {
-        Card = card;
         IsHidden = card == null;
         if (!IsHidden)
         {
@@ -43,5 +47,7 @@ public partial class CardElement : VisualElement
     public void SetCard(string name, string description, Sprite sprite)
     {
         this.Q<Label>("_Text").text = name;
+        tooltipManipulator.Title = name;
+        tooltipManipulator.Description = description;
     }
 }

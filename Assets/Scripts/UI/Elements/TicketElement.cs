@@ -12,9 +12,15 @@ public partial class TicketElement : VisualElement
 
     public event Action OnClick;
 
+    private readonly ToolTipManipulator tooltipManipulator;
+
     public TicketElement()
     {
         Resources.Load<VisualTreeAsset>("Elements/TicketElement").CloneTree(this);
+
+        // Add tooltip manipulator
+        tooltipManipulator = new ToolTipManipulator();
+        this.AddManipulator(tooltipManipulator);
     }
 
     public TicketElement(Ticket ticket)
@@ -24,5 +30,7 @@ public partial class TicketElement : VisualElement
 
         this.Q<Label>("_Text").text = Ticket.Name;
         this.Q<Button>("_Button").clicked += () => OnClick?.Invoke();
+        tooltipManipulator.Title = ticket.Name;
+        tooltipManipulator.Description = ticket.Description;
     }
 }
