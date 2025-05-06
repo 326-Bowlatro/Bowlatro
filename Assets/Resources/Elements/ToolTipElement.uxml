@@ -1,7 +1,7 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/Styles/Shared.uss?fileID=7433441132597879392&amp;guid=921c73c4fb2b341a5ab72b6e494ede34&amp;type=3#Shared" />
     <engine:VisualElement picking-mode="Ignore" class="menu-item" style="width: 200px; height: 100px; padding-top: 8px; padding-right: 8px; padding-bottom: 8px; padding-left: 8px;">
-        <engine:Label text="Strike" name="_Title" picking-mode="Ignore" style="font-size: 28px; -unity-font-style: normal; margin-bottom: 8px; color: rgb(255, 175, 26);" />
+        <engine:Label text="Strike" name="_Title" picking-mode="Ignore" style="font-size: 28px; -unity-font-style: normal; margin-bottom: 8px; color: rgb(255, 175, 26); white-space: normal;" />
         <engine:Label text="[+10 Mult] if all pins are knocked on the first turn" name="_Description" picking-mode="Ignore" style="white-space: normal; -unity-text-align: middle-center; -unity-font-style: normal;" />
     </engine:VisualElement>
 </engine:UXML>

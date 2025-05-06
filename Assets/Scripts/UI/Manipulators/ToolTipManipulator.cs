@@ -47,6 +47,8 @@ public class ToolTipManipulator : Manipulator
 
     private void MouseEnter(MouseEnterEvent e)
     {
+        var root = GetRootElement(target);
+
         if (IsHidden)
         {
             return;
@@ -58,13 +60,18 @@ public class ToolTipManipulator : Manipulator
             hasAddedElement = true;
         }
 
+        // Prevent tooltip from going out of bounds
+        var top = target.worldBound.yMax - 20;
+        if (top + ToolTipElement.Height > root.worldBound.yMax)
+        {
+            var offset = Mathf.CeilToInt(top + ToolTipElement.Height - root.worldBound.yMax);
+            top -= offset;
+        }
+
         // Update tooltip placement
-        element.style.position = Position.Absolute;
+        element.style.top = top;
         element.style.left = target.worldBound.center.x - (ToolTipElement.Width / 2);
-        element.style.top = target
-            .worldBound
-            .yMax /* + (ToolTipElement.Height / 2)*/
-        ;
+        element.style.position = Position.Absolute;
         element.style.visibility = Visibility.Visible;
     }
 
