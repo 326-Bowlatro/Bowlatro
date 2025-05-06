@@ -198,12 +198,16 @@ public partial class GameUI : MonoBehaviour
             var element = new CardElement();
             element.SetCard(card);
 
-            // TODO: Card click handler (use booster)
-            // element.OnClick += () =>
-            // {
-            //     GameManager.Instance.SelectedLayout = card;
-            //     Refresh();
-            // };
+            // Card click handler (use booster)
+            element.OnClick += () =>
+            {
+                // Activate booster
+                GameManager.Instance.ActivateBooster(card);
+
+                // Remove from hand
+                inventoryManager.CurrentHandBoosters.Remove(card);
+                Refresh();
+            };
 
             boostersContainer.Add(element);
         }

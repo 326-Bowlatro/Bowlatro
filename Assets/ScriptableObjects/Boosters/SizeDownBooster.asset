@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: 0}
   Name: Size Down
-  Description: 
+  Description: 0.75x SIZE to ball
   sizeFactor: 0.75

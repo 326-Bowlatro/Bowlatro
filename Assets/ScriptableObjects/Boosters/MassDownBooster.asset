@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: 0}
   Name: Mass Down
-  Description: 
+  Description: 0.5x MASS to ball
   massFactor: 0.5
