@@ -269,8 +269,8 @@ public partial class GameUI : MonoBehaviour
 
         // Update pack info
         shopPack.SetCard(
-            $"{shopManager.CurrentPack.PackName}\n(${shopManager.CurrentPack.PackCost})",
-            null,
+            $"${shopManager.CurrentPack.PackCost} Pack",
+            "Choose 1 of up to 3 LAYOUT cards to add to your deck",
             null
         );
 
