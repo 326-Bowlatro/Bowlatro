@@ -174,12 +174,10 @@ public partial class GameUI : MonoBehaviour
         layoutsContainer.Clear();
         foreach (var card in inventoryManager.CurrentHandLayouts)
         {
-            var element = new Button();
-            element.AddToClassList("item-card");
-            element.text = card.LayoutName;
+            var element = new CardElement(card);
 
             // Card click handler (set as current layout)
-            element.clicked += () =>
+            element.OnClick += () =>
             {
                 GameManager.Instance.SelectedLayout = card;
                 Refresh();
@@ -193,12 +191,10 @@ public partial class GameUI : MonoBehaviour
         boostersContainer.Clear();
         foreach (var card in inventoryManager.CurrentHandBoosters)
         {
-            var element = new Button();
-            element.AddToClassList("item-card");
-            element.text = card.Name;
+            var element = new CardElement(card);
 
             // TODO: Card click handler (use booster)
-            // element.clicked += () =>
+            // element.OnClick += () =>
             // {
             //     GameManager.Instance.SelectedLayout = card;
             //     Refresh();
@@ -212,24 +208,12 @@ public partial class GameUI : MonoBehaviour
         layoutContainer.Clear();
         if (GameManager.Instance.TryGetState<PreRoundState>(out var state))
         {
+            // Layout can be null here (if slot is empty). That's fine, just hide it.
             var layout = GameManager.Instance.SelectedLayout;
-            var element = new Button();
-            element.AddToClassList("item-card");
-
-            if (layout != null)
-            {
-                // Get values from card
-                element.text = layout.LayoutName;
-                element.style.visibility = Visibility.Visible;
-            }
-            else
-            {
-                // Leave values unset, we just want it to take up space
-                element.style.visibility = Visibility.Hidden;
-            }
+            var element = new CardElement(layout) { IsHidden = layout == null };
 
             // Card click handler (clear current layout)
-            element.clicked += () =>
+            element.OnClick += () =>
             {
                 GameManager.Instance.SelectedLayout = null;
                 Refresh();
@@ -288,12 +272,10 @@ public partial class GameUI : MonoBehaviour
         cardsContainer.Clear();
         foreach (var packCard in shopManager.CurrentPack.PackCards)
         {
-            var element = new Button();
-            element.AddToClassList("item-card");
-            element.text = packCard.name;
+            var element = new CardElement(packCard);
 
             // Card click handler
-            element.clicked += () =>
+            element.OnClick += () =>
             {
                 // Request hiding the pack UI
                 (GameManager.Instance.CurrentState as ShopState).IsOpeningPack = false;

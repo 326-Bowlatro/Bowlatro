@@ -14,7 +14,7 @@
             <engine:VisualElement name="_Hand_LayoutsContainer" class="col-gap-12" style="flex-grow: 0; flex-direction: row;">
                 <engine:Button text="Layout 1" class="item-card" />
                 <engine:Button text="Layout 2" class="item-card" />
-                <engine:Button text="Layout 3" class="item-card" />
+                <CardElement name="CardElement" />
             </engine:VisualElement>
             <engine:VisualElement style="flex-grow: 1;" />
             <engine:VisualElement name="_Hand_BoostersContainer" class="col-gap-12" style="flex-grow: 0; align-items: flex-end; flex-direction: row; margin-left: 12px;">
