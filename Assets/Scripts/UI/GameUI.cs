@@ -101,17 +101,35 @@ public partial class GameUI : MonoBehaviour
 
     private void RefreshTickets()
     {
-        var ticketsHost = rootElement.Q<VisualElement>("_TicketsHost");
+        var inventoryManager = GameManager.Instance.InventoryManager;
 
-        // Only hide tickets panel in "playing" and "results" states
+        // Only hide tickets panel in "playing" and "results" states (or if we have no tickets)
         var shouldHideTickets =
             GameManager.Instance.CurrentState is PlayingState
-            || GameManager.Instance.CurrentState is ResultsState;
+            || GameManager.Instance.CurrentState is ResultsState
+            || inventoryManager.CurrentTickets.Count == 0;
 
         // Only hide tickets panel in "playing" state
+        var ticketsHost = rootElement.Q<VisualElement>("_TicketsHost");
         ticketsHost.style.translate = new StyleTranslate(
             new Translate(shouldHideTickets ? 264 : 0, 0)
         );
+
+        // Add tickets to UI (every refresh for now)
+        var ticketsContainer = rootElement.Q<VisualElement>("_Tickets_TicketsContainer");
+        ticketsContainer.Clear();
+        foreach (var ticket in inventoryManager.CurrentTickets)
+        {
+            var element = new Button();
+            element.AddToClassList("item-ticket");
+            element.text = ticket.Name;
+
+            ticketsContainer.Add(element);
+        }
+
+        // Update ticket count for display
+        rootElement.Q<Label>("_Tickets_TicketCount").text =
+            $"{inventoryManager.CurrentTickets.Count}/{InventoryManager.MaxTickets}";
     }
 
     private void RefreshHand()
@@ -150,11 +168,10 @@ public partial class GameUI : MonoBehaviour
         // Add layout cards to UI (every refresh for now)
         var layoutsContainer = rootElement.Q<VisualElement>("_Hand_LayoutsContainer");
         layoutsContainer.Clear();
-        foreach (var card in inventoryManager.CurrentHand.OfType<PinLayoutCard>())
+        foreach (var card in inventoryManager.CurrentHandLayouts)
         {
             var element = new Button();
             element.AddToClassList("item-card");
-            element.AddToClassList("row");
             element.text = card.LayoutName;
 
             // Card click handler (set as current layout)
@@ -170,11 +187,10 @@ public partial class GameUI : MonoBehaviour
         // Add boster cards to UI (every refresh for now)
         var boostersContainer = rootElement.Q<VisualElement>("_Hand_BoostersContainer");
         boostersContainer.Clear();
-        foreach (var card in inventoryManager.CurrentHand.OfType<BoosterCard>())
+        foreach (var card in inventoryManager.CurrentHandBoosters)
         {
             var element = new Button();
             element.AddToClassList("item-card");
-            element.AddToClassList("row");
             element.text = card.Name;
 
             // TODO: Card click handler (use booster)

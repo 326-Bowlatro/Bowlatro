@@ -115,6 +115,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 523718b8b8f4c9d4bb3a0df2926442fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultItems:
-  - {fileID: 11400000, guid: 04a0b1808805a5447b3a3f8b6a95bb44, type: 2}
+  defaultTickets:
+  - {fileID: 11400000, guid: 63e1a2355cb983b4588f81172fc4f900, type: 2}
+  defaultDeckLayoutCards:
+  - {fileID: 11400000, guid: 31b29874d67996044aeee166810e554d, type: 2}
   - {fileID: 11400000, guid: 1cd35badc85a5924299606ee5df91449, type: 2}
+  defaultDeckBoosterCards:
+  - {fileID: 11400000, guid: 6f95813552f62314a8321c43c25a25ff, type: 2}
