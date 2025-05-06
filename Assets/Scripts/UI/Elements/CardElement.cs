@@ -27,14 +27,21 @@ public partial class CardElement : VisualElement
     public CardElement()
     {
         Resources.Load<VisualTreeAsset>("Elements/CardElement").CloneTree(this);
+        this.Q<Button>("_Button").clicked += () => OnClick?.Invoke();
     }
 
-    public CardElement(IInventoryCard card)
-        : this()
+    public void SetCard(IInventoryCard card)
     {
         Card = card;
+        IsHidden = card == null;
+        if (!IsHidden)
+        {
+            SetCard(card.Name, card.Description, card.Sprite);
+        }
+    }
 
-        this.Q<Label>("_Text").text = card?.Name;
-        this.Q<Button>("_Button").clicked += () => OnClick?.Invoke();
+    public void SetCard(string name, string description, Sprite sprite)
+    {
+        this.Q<Label>("_Text").text = name;
     }
 }

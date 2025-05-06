@@ -125,18 +125,6 @@ Button.menu-item.orange {
     background-color: rgb(242, 156, 0);
 }
 
-.item-card {
-    width: 86px;
-    height: 140px;
-    white-space: normal;
-}
-
-.item-ticket {
-    width: 120px;
-    height: 50px;
-    white-space: normal;
-}
-
 .col-gap-12 {
     margin-right: -12px;
 }

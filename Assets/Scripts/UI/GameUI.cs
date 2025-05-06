@@ -47,14 +47,14 @@ public partial class GameUI : MonoBehaviour
                 GameManager.Instance.ShopManager.ResetInventory();
             }
         };
-        rootElement.Q<Button>("_Shop_ItemPackButton").clicked += () =>
-        {
-            (GameManager.Instance.CurrentState as ShopState).IsOpeningPack = true;
-            Refresh();
-        };
-        rootElement.Q<Button>("_ShopPackCancel").clicked += () =>
+        rootElement.Q<Button>("_ShopPack_Cancel").clicked += () =>
         {
             (GameManager.Instance.CurrentState as ShopState).IsOpeningPack = false;
+            Refresh();
+        };
+        rootElement.Q<CardElement>("_Shop_ItemPack").OnClick += () =>
+        {
+            (GameManager.Instance.CurrentState as ShopState).IsOpeningPack = true;
             Refresh();
         };
         rootElement.Q<Button>("_Hand_PlayHand").clicked += () =>
@@ -120,10 +120,7 @@ public partial class GameUI : MonoBehaviour
         ticketsContainer.Clear();
         foreach (var ticket in inventoryManager.CurrentTickets)
         {
-            var element = new Button();
-            element.AddToClassList("item-ticket");
-            element.text = ticket.Name;
-
+            var element = new TicketElement(ticket);
             ticketsContainer.Add(element);
         }
 
@@ -174,7 +171,8 @@ public partial class GameUI : MonoBehaviour
         layoutsContainer.Clear();
         foreach (var card in inventoryManager.CurrentHandLayouts)
         {
-            var element = new CardElement(card);
+            var element = new CardElement();
+            element.SetCard(card);
 
             // Card click handler (set as current layout)
             element.OnClick += () =>
@@ -191,7 +189,8 @@ public partial class GameUI : MonoBehaviour
         boostersContainer.Clear();
         foreach (var card in inventoryManager.CurrentHandBoosters)
         {
-            var element = new CardElement(card);
+            var element = new CardElement();
+            element.SetCard(card);
 
             // TODO: Card click handler (use booster)
             // element.OnClick += () =>
@@ -210,7 +209,8 @@ public partial class GameUI : MonoBehaviour
         {
             // Layout can be null here (if slot is empty). That's fine, just hide it.
             var layout = GameManager.Instance.SelectedLayout;
-            var element = new CardElement(layout) { IsHidden = layout == null };
+            var element = new CardElement();
+            element.SetCard(layout);
 
             // Card click handler (clear current layout)
             element.OnClick += () =>
@@ -252,27 +252,29 @@ public partial class GameUI : MonoBehaviour
         var shopManager = GameManager.Instance.ShopManager;
 
         // Hide and early out if no pack is available.
+        var shopPack = rootElement.Q<CardElement>("_Shop_ItemPack");
+        shopPack.IsHidden = shopManager.CurrentPack == null;
+
+        // Hide and early out if no pack is available.
         if (shopManager.CurrentPack == null)
         {
-            rootElement.Q<VisualElement>("_Shop_ItemPack").style.visibility = Visibility.Hidden;
             return;
         }
-        else
-        {
-            rootElement.Q<VisualElement>("_Shop_ItemPack").style.visibility = Visibility.Visible;
-        }
 
-        // Update pack text
-        var packButton = rootElement.Q<Button>("_Shop_ItemPackButton");
-        packButton.text =
-            $"{shopManager.CurrentPack.PackName}\n(${shopManager.CurrentPack.PackCost})";
+        // Update pack info
+        shopPack.SetCard(
+            $"{shopManager.CurrentPack.PackName}\n(${shopManager.CurrentPack.PackCost})",
+            null,
+            null
+        );
 
         // Add pack cards to UI (every refresh for now)
         var cardsContainer = rootElement.Q<VisualElement>("_ShopPack_CardsContainer");
         cardsContainer.Clear();
         foreach (var packCard in shopManager.CurrentPack.PackCards)
         {
-            var element = new CardElement(packCard);
+            var element = new CardElement();
+            element.SetCard(packCard);
 
             // Card click handler
             element.OnClick += () =>

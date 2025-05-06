@@ -6,15 +6,13 @@
                 <engine:Button text="Continue" name="_Shop_Continue" class="menu-item" style="width: 142px; height: 72px; margin-right: 4px; margin-left: 4px;" />
                 <engine:Button text="Reroll $5" name="_Shop_Reroll" class="menu-item orange" style="width: 142px; height: 72px; margin-left: 4px; margin-right: 4px; margin-top: 2px;" />
                 <engine:VisualElement class="menu-item inner" style="flex-grow: 1;">
-                    <engine:VisualElement name="_Shop_ItemPack" style="flex-grow: 0;">
-                        <engine:Button text="Pin Pack 0&#10;($0)" name="_Shop_ItemPackButton" class="item-card" />
-                    </engine:VisualElement>
+                    <CardElement name="_Shop_ItemPack" />
                 </engine:VisualElement>
             </engine:VisualElement>
             <engine:VisualElement name="RightContainer" class="menu-item inner row-gap-8" style="flex-grow: 1; align-items: center;">
-                <engine:Button text="Ticket 1" class="item-ticket" />
-                <engine:Button text="Ticket 2" style="width: 120px; height: 50px;" />
-                <engine:Button text="Ticket 3" style="width: 120px; height: 50px;" />
+                <TicketElement />
+                <TicketElement />
+                <TicketElement />
             </engine:VisualElement>
         </engine:VisualElement>
     </engine:VisualElement>

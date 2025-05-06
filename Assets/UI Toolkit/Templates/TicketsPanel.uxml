@@ -3,11 +3,11 @@
     <engine:VisualElement style="flex-grow: 1;">
         <engine:VisualElement name="Container" style="flex-grow: 1; background-color: rgb(43, 58, 60); border-right-width: 2px; border-left-width: 2px; border-left-color: rgb(0, 106, 178); border-right-color: rgb(0, 106, 178); border-top-color: rgb(0, 106, 178); border-bottom-color: rgb(0, 106, 178); flex-direction: row; padding-top: 8px; padding-right: 8px; padding-bottom: 8px; padding-left: 8px; border-bottom-width: 2px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; border-top-width: 2px; border-top-left-radius: 8px; border-top-right-radius: 8px;">
             <engine:VisualElement name="_Tickets_TicketsContainer" class="row-gap-8" style="flex-grow: 1; align-items: center; padding-top: 24px;">
-                <engine:Button text="Ticket 1" class="item-ticket" />
-                <engine:Button text="Ticket 2" class="item-ticket" />
-                <engine:Button text="Ticket 3" class="item-ticket" />
-                <engine:Button text="Ticket 4" class="item-ticket" />
-                <engine:Button text="Ticket 5" class="item-ticket" />
+                <TicketElement />
+                <TicketElement />
+                <TicketElement />
+                <TicketElement />
+                <TicketElement />
             </engine:VisualElement>
         </engine:VisualElement>
         <engine:VisualElement style="flex-grow: 0; flex-direction: row-reverse; padding-right: 8px; padding-left: 8px;">
