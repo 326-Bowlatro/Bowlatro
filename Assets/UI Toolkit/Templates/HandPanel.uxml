@@ -10,7 +10,7 @@
                 </engine:VisualElement>
             </engine:VisualElement>
         </engine:VisualElement>
-        <engine:VisualElement name="VisualElement" style="border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; background-color: rgb(43, 58, 60); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgb(0, 106, 178); border-right-color: rgb(0, 106, 178); border-top-color: rgb(0, 106, 178); border-bottom-color: rgb(0, 106, 178); justify-content: flex-start; align-items: center; margin-top: 12px; margin-bottom: 12px; padding-left: 16px; padding-top: 16px; padding-bottom: 16px; flex-direction: row; padding-right: 16px;">
+        <engine:VisualElement name="VisualElement" style="border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; background-color: rgb(43, 58, 60); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgb(0, 106, 178); border-right-color: rgb(0, 106, 178); border-top-color: rgb(0, 106, 178); border-bottom-color: rgb(0, 106, 178); justify-content: flex-start; align-items: center; margin-top: 12px; padding-left: 16px; padding-top: 16px; padding-bottom: 16px; flex-direction: row; padding-right: 16px;">
             <engine:VisualElement name="_Hand_LayoutsContainer" class="col-gap-12" style="flex-grow: 0; flex-direction: row;">
                 <engine:Button text="Layout 1" class="item-card" />
                 <engine:Button text="Layout 2" class="item-card" />
@@ -25,6 +25,10 @@
                 <engine:Button text="Booster 5" class="item-card row" />
             </engine:VisualElement>
         </engine:VisualElement>
-        <engine:Button text="Play Hand" name="_Hand_PlayHand" class="menu-item green" style="height: 72px; width: 320px; align-self: center; margin-bottom: 24px;" />
+        <engine:VisualElement style="flex-grow: 0; margin-bottom: 24px; flex-direction: row; justify-content: space-between; padding-right: 16px; padding-left: 16px; align-items: flex-start;">
+            <engine:Label text="0/3" name="_Hand_LayoutCount" style="font-size: 24px; flex-grow: 0; margin-top: 4px;" />
+            <engine:Button text="Play Hand" name="_Hand_PlayHand" class="menu-item green" style="height: 72px; width: 320px; margin-top: 12px;" />
+            <engine:Label text="0/5" name="_Hand_BoosterCount" style="font-size: 24px; flex-grow: 0; margin-top: 4px;" />
+        </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>

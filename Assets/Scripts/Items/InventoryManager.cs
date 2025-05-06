@@ -61,8 +61,6 @@ public class InventoryManager : MonoBehaviour
     public void AddItem(IInventoryCard card)
     {
         CurrentDeck.Add(card);
-
-        Debug.Log($"Added {card.Name} to inventory");
     }
 
     /// <summary>
@@ -71,8 +69,6 @@ public class InventoryManager : MonoBehaviour
     public void AddItem(Ticket ticket)
     {
         CurrentTickets.Add(ticket);
-
-        Debug.Log($"Added {ticket.Name} to inventory");
     }
 
     /// <summary>
@@ -93,6 +89,10 @@ public class InventoryManager : MonoBehaviour
             .OrderBy(x => Random.Range(0, int.MaxValue))
             .Take(MaxBoosters)
             .ToList();
+
+        Debug.Log(
+            $"InventoryManager: {CurrentHandLayouts.Count} layout cards, {CurrentHandBoosters.Count} booster cards drawn from deck."
+        );
 
         // Refresh UI
         GameUI.Instance.Refresh();

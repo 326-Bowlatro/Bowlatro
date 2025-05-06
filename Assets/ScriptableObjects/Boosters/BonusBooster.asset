@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BonusBooster
   m_EditorClassIdentifier: 
   Sprite: {fileID: 0}
-  Name: Bonus 1
-  Description: '[+2 Mult] and [+25 Chips]'
+  Name: Booster 1
+  Description: '[+2 Mult] and [+25 Pins]'
   FlatBonus: 25
   MultBonus: 2

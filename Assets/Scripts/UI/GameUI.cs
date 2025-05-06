@@ -152,7 +152,7 @@ public partial class GameUI : MonoBehaviour
         else
         {
             // Make hand hidden
-            handHost.style.translate = new StyleTranslate(new Translate(0, 580));
+            handHost.style.translate = new StyleTranslate(new Translate(0, 502));
         }
     }
 
@@ -160,10 +160,14 @@ public partial class GameUI : MonoBehaviour
     {
         var shopManager = GameManager.Instance.ShopManager;
         var inventoryManager = GameManager.Instance.InventoryManager;
-        if (shopManager.CurrentPack == null)
-        {
-            shopManager.ResetInventory();
-        }
+
+        // Update layout count for display
+        rootElement.Q<Label>("_Hand_LayoutCount").text =
+            $"{inventoryManager.CurrentDeck.OfType<PinLayoutCard>().Count()}/{InventoryManager.MaxLayouts}";
+
+        // Update booster count for display
+        rootElement.Q<Label>("_Hand_BoosterCount").text =
+            $"{inventoryManager.CurrentDeck.OfType<BoosterCard>().Count()}/{InventoryManager.MaxBoosters}";
 
         // Add layout cards to UI (every refresh for now)
         var layoutsContainer = rootElement.Q<VisualElement>("_Hand_LayoutsContainer");
