@@ -253,7 +253,6 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
         if (
             (CurrentScore >= CurrentScoreToBeat && !IsBossStage)
             || (IsBossStage && CurrentScore >= CurrentBossScoreToBeat)
-            || true /* TEMP DO NOT COMMIT ME! */
         )
         {
             EndBlind();
