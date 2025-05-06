@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.UIElements;
 
 public class ToolTipManipulator : Manipulator
@@ -28,17 +29,23 @@ public class ToolTipManipulator : Manipulator
 
     protected override void RegisterCallbacksOnTarget()
     {
-        target.RegisterCallback<MouseEnterEvent>(MouseIn);
-        target.RegisterCallback<MouseOutEvent>(MouseOut);
+        target.RegisterCallback<MouseEnterEvent>(MouseEnter);
+        target.RegisterCallback<MouseLeaveEvent>(MouseLeave);
+        target.RegisterCallback<DetachFromPanelEvent>(DetachFromPanel);
     }
 
     protected override void UnregisterCallbacksFromTarget()
     {
-        target.UnregisterCallback<MouseEnterEvent>(MouseIn);
-        target.UnregisterCallback<MouseOutEvent>(MouseOut);
+        target.UnregisterCallback<MouseEnterEvent>(MouseEnter);
+        target.UnregisterCallback<MouseLeaveEvent>(MouseLeave);
     }
 
-    private void MouseIn(MouseEnterEvent e)
+    private void DetachFromPanel(DetachFromPanelEvent e)
+    {
+        element.RemoveFromHierarchy();
+    }
+
+    private void MouseEnter(MouseEnterEvent e)
     {
         if (IsHidden)
         {
@@ -61,7 +68,7 @@ public class ToolTipManipulator : Manipulator
         element.style.visibility = Visibility.Visible;
     }
 
-    private void MouseOut(MouseOutEvent e)
+    private void MouseLeave(MouseLeaveEvent e)
     {
         element.style.visibility = Visibility.Hidden;
     }
