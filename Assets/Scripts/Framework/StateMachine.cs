@@ -38,14 +38,7 @@ public abstract class StateMachine<TSelf, TInitialState> : MonoBehaviour
         where TState : State, new()
     {
         // Debug message
-        if (CurrentState is null)
-        {
-            Debug.Log($"Entering {typeof(TState).Name}");
-        }
-        else
-        {
-            Debug.Log($"Entering {typeof(TState).Name} (from {CurrentState.GetType().Name})");
-        }
+        Debug.Log($"{GetType().Name}: Entering {typeof(TState).Name}");
 
         // Exit current state
         CurrentState?.ExitState();

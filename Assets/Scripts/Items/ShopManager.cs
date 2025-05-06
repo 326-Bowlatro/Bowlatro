@@ -9,10 +9,6 @@ public class ShopManager : MonoBehaviour
 {
     public const int RerollCost = 5;
 
-    // Constant array of all possible pin layout cards that exist in the game.
-    [SerializeField]
-    private List<PinLayoutCardSO> allPinLayoutCards;
-
     /// <summary>
     /// Current layout card pack available in the shop. Can be null if the pack has been claimed.
     /// </summary>
@@ -32,7 +28,7 @@ public class ShopManager : MonoBehaviour
     /// <summary>
     /// Claims a card from the current pack, removing the pack from inventory.
     /// </summary>
-    public void ClaimPackCard(PinLayoutCardSO card)
+    public void ClaimPackCard(PinLayoutCard card)
     {
         var pack = CurrentPack;
 
@@ -62,7 +58,8 @@ public class ShopManager : MonoBehaviour
         var packName = $"Pin Pack {Random.Range(1, 1000)}";
 
         // Pick 3 random cards to put in the pack.
-        var packCards = allPinLayoutCards.OrderBy(x => Random.Range(0, int.MaxValue)).Take(3);
+        var allCards = Resources.FindObjectsOfTypeAll<PinLayoutCard>();
+        var packCards = allCards.OrderBy(x => Random.Range(0, int.MaxValue)).Take(3);
 
         return new LayoutCardPack
         {
@@ -88,5 +85,5 @@ public record LayoutCardPack
     /// <summary>
     /// Collection of layout cards in this pack.
     /// </summary>
-    public List<PinLayoutCardSO> PackCards { get; set; }
+    public List<PinLayoutCard> PackCards { get; set; }
 }

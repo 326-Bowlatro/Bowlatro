@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static GameManager;
@@ -46,14 +47,14 @@ public partial class GameUI : MonoBehaviour
                 GameManager.Instance.ShopManager.ResetInventory();
             }
         };
-        rootElement.Q<Button>("_Shop_ItemPackButton").clicked += () =>
-        {
-            (GameManager.Instance.CurrentState as ShopState).IsOpeningPack = true;
-            Refresh();
-        };
-        rootElement.Q<Button>("_ShopPackCancel").clicked += () =>
+        rootElement.Q<Button>("_ShopPack_Cancel").clicked += () =>
         {
             (GameManager.Instance.CurrentState as ShopState).IsOpeningPack = false;
+            Refresh();
+        };
+        rootElement.Q<CardElement>("_Shop_ItemPack").OnClick += () =>
+        {
+            (GameManager.Instance.CurrentState as ShopState).IsOpeningPack = true;
             Refresh();
         };
         rootElement.Q<Button>("_Hand_PlayHand").clicked += () =>
@@ -100,17 +101,32 @@ public partial class GameUI : MonoBehaviour
 
     private void RefreshTickets()
     {
-        var ticketsHost = rootElement.Q<VisualElement>("_TicketsHost");
+        var inventoryManager = GameManager.Instance.InventoryManager;
 
-        // Only hide tickets panel in "playing" and "results" states
+        // Only hide tickets panel in "playing" and "results" states (or if we have no tickets)
         var shouldHideTickets =
             GameManager.Instance.CurrentState is PlayingState
-            || GameManager.Instance.CurrentState is ResultsState;
+            || GameManager.Instance.CurrentState is ResultsState
+            || inventoryManager.CurrentTickets.Count == 0;
 
         // Only hide tickets panel in "playing" state
+        var ticketsHost = rootElement.Q<VisualElement>("_TicketsHost");
         ticketsHost.style.translate = new StyleTranslate(
             new Translate(shouldHideTickets ? 264 : 0, 0)
         );
+
+        // Add tickets to UI (every refresh for now)
+        var ticketsContainer = rootElement.Q<VisualElement>("_Tickets_TicketsContainer");
+        ticketsContainer.Clear();
+        foreach (var ticket in inventoryManager.CurrentTickets)
+        {
+            var element = new TicketElement(ticket);
+            ticketsContainer.Add(element);
+        }
+
+        // Update ticket count for display
+        rootElement.Q<Label>("_Tickets_TicketCount").text =
+            $"{inventoryManager.CurrentTickets.Count}/{InventoryManager.MaxTickets}";
     }
 
     private void RefreshHand()
@@ -133,7 +149,7 @@ public partial class GameUI : MonoBehaviour
         else
         {
             // Make hand hidden
-            handHost.style.translate = new StyleTranslate(new Translate(0, 580));
+            handHost.style.translate = new StyleTranslate(new Translate(0, 502));
         }
     }
 
@@ -141,23 +157,25 @@ public partial class GameUI : MonoBehaviour
     {
         var shopManager = GameManager.Instance.ShopManager;
         var inventoryManager = GameManager.Instance.InventoryManager;
-        if (shopManager.CurrentPack == null)
-        {
-            shopManager.ResetInventory();
-        }
 
-        // Add hand cards to UI (every refresh for now)
+        // Update layout count for display
+        rootElement.Q<Label>("_Hand_LayoutCount").text =
+            $"{inventoryManager.CurrentDeck.OfType<PinLayoutCard>().Count()}/{InventoryManager.MaxLayouts}";
+
+        // Update booster count for display
+        rootElement.Q<Label>("_Hand_BoosterCount").text =
+            $"{inventoryManager.CurrentDeck.OfType<BoosterCard>().Count()}/{InventoryManager.MaxBoosters}";
+
+        // Add layout cards to UI (every refresh for now)
         var layoutsContainer = rootElement.Q<VisualElement>("_Hand_LayoutsContainer");
         layoutsContainer.Clear();
-        foreach (var card in inventoryManager.CurrentHand)
+        foreach (var card in inventoryManager.CurrentHandLayouts)
         {
-            var element = new Button();
-            element.AddToClassList("hand-card");
-            element.AddToClassList("row");
-            element.text = card.name;
+            var element = new CardElement();
+            element.SetCard(card);
 
             // Card click handler (set as current layout)
-            element.clicked += () =>
+            element.OnClick += () =>
             {
                 GameManager.Instance.SelectedLayout = card;
                 Refresh();
@@ -166,29 +184,36 @@ public partial class GameUI : MonoBehaviour
             layoutsContainer.Add(element);
         }
 
+        // Add boster cards to UI (every refresh for now)
+        var boostersContainer = rootElement.Q<VisualElement>("_Hand_BoostersContainer");
+        boostersContainer.Clear();
+        foreach (var card in inventoryManager.CurrentHandBoosters)
+        {
+            var element = new CardElement();
+            element.SetCard(card);
+
+            // TODO: Card click handler (use booster)
+            // element.OnClick += () =>
+            // {
+            //     GameManager.Instance.SelectedLayout = card;
+            //     Refresh();
+            // };
+
+            boostersContainer.Add(element);
+        }
+
         // Add selected layout card to UI
         var layoutContainer = rootElement.Q<VisualElement>("_Hand_LayoutContainer");
         layoutContainer.Clear();
         if (GameManager.Instance.TryGetState<PreRoundState>(out var state))
         {
+            // Layout can be null here (if slot is empty). That's fine, just hide it.
             var layout = GameManager.Instance.SelectedLayout;
-            var element = new Button();
-            element.AddToClassList("hand-card");
-
-            if (layout != null)
-            {
-                // Get values from card
-                element.text = layout.name;
-                element.style.visibility = Visibility.Visible;
-            }
-            else
-            {
-                // Leave values unset, we just want it to take up space
-                element.style.visibility = Visibility.Hidden;
-            }
+            var element = new CardElement();
+            element.SetCard(layout);
 
             // Card click handler (clear current layout)
-            element.clicked += () =>
+            element.OnClick += () =>
             {
                 GameManager.Instance.SelectedLayout = null;
                 Refresh();
@@ -227,32 +252,32 @@ public partial class GameUI : MonoBehaviour
         var shopManager = GameManager.Instance.ShopManager;
 
         // Hide and early out if no pack is available.
+        var shopPack = rootElement.Q<CardElement>("_Shop_ItemPack");
+        shopPack.IsHidden = shopManager.CurrentPack == null;
+
+        // Hide and early out if no pack is available.
         if (shopManager.CurrentPack == null)
         {
-            rootElement.Q<VisualElement>("_Shop_ItemPack").style.visibility = Visibility.Hidden;
             return;
         }
-        else
-        {
-            rootElement.Q<VisualElement>("_Shop_ItemPack").style.visibility = Visibility.Visible;
-        }
 
-        // Update pack text
-        var packButton = rootElement.Q<Button>("_Shop_ItemPackButton");
-        packButton.text =
-            $"{shopManager.CurrentPack.PackName}\n(${shopManager.CurrentPack.PackCost})";
+        // Update pack info
+        shopPack.SetCard(
+            $"{shopManager.CurrentPack.PackName}\n(${shopManager.CurrentPack.PackCost})",
+            null,
+            null
+        );
 
         // Add pack cards to UI (every refresh for now)
         var cardsContainer = rootElement.Q<VisualElement>("_ShopPack_CardsContainer");
         cardsContainer.Clear();
         foreach (var packCard in shopManager.CurrentPack.PackCards)
         {
-            var element = new Button();
-            element.AddToClassList("shop-pack-card");
-            element.text = packCard.name;
+            var element = new CardElement();
+            element.SetCard(packCard);
 
             // Card click handler
-            element.clicked += () =>
+            element.OnClick += () =>
             {
                 // Request hiding the pack UI
                 (GameManager.Instance.CurrentState as ShopState).IsOpeningPack = false;

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1b319f04bc82e5438f4d6bd93c2f964, type: 3}
-  m_Name: Triangle Pin Layout
+  m_Name: ReverseTriangleLayout
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6029824097807513038, guid: 7d6e4092cd81f414484a9b4a9610fd86, type: 3}
+  prefab: {fileID: 6029824097807513038, guid: 1f195d28992150443ad1bca9cf08b470, type: 3}
   Image: {fileID: 0}
-  LayoutType: 1
-  LayoutName: Triangle
+  LayoutType: 3
+  LayoutName: Reverse Triangle

@@ -92,6 +92,20 @@ Label.huge {
     font-size: 46px;
 }
 
+Button {
+    scale: 1;
+    transition-property: scale;
+    transition-duration: 0.1s;
+}
+
+Button:hover {
+    scale: 1.02;
+}
+
+Button:active {
+    scale: 0.98;
+}
+
 Button.menu-item {
     border-left-color: rgb(20, 30, 33);
     border-right-color: rgb(20, 30, 33);
@@ -100,18 +114,7 @@ Button.menu-item {
     border-right-width: 4px;
     border-bottom-width: 4px;
     font-size: 28px;
-    scale: 1;
-    transition-property: scale;
-    transition-duration: 0.1s;
     background-color: rgb(255, 51, 51);
-}
-
-Button.menu-item:hover {
-    scale: 1.02;
-}
-
-Button.menu-item:active {
-    scale: 0.98;
 }
 
 Button.menu-item.green {
@@ -122,16 +125,18 @@ Button.menu-item.orange {
     background-color: rgb(242, 156, 0);
 }
 
-.hand-card {
-    width: 86px;
-    height: 140px;
-    white-space: normal;
-}
-
-.gap-12 {
+.col-gap-12 {
     margin-right: -12px;
 }
 
-.gap-12 > * {
+.col-gap-12 > * {
     margin-right: 12px;
+}
+
+.row-gap-8 {
+    margin-bottom: -8px;
+}
+
+.row-gap-8 > * {
+    margin-bottom: 8px;
 }
