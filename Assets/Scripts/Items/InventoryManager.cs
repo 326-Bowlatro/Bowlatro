@@ -91,7 +91,7 @@ public class InventoryManager : MonoBehaviour
             .ToList();
 
         Debug.Log(
-            $"InventoryManager: {CurrentHandLayouts.Count} layout cards, {CurrentHandBoosters.Count} booster cards drawn from deck."
+            $"InventoryManager: {CurrentHandLayouts.Count} layout cards, {CurrentHandBoosters.Count} booster cards drawn from deck"
         );
 
         // Refresh UI
