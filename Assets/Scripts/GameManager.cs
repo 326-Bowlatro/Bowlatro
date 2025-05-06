@@ -484,4 +484,16 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
         // Add to active boosters list
         activeBoosters.Add(booster);
     }
+
+    public void AddFlatScore(int score)
+    {
+        CurrentScoreFlat += score;
+        GameUI.Instance.Refresh();
+    }
+
+    public void AddMultScore(int score)
+    {
+        CurrentScoreMult += score;
+        GameUI.Instance.Refresh();
+    }
 }

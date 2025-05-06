@@ -20163,7 +20163,7 @@ PrefabInstance:
       objectReference: {fileID: 1644579025}
     - target: {fileID: 4131023829914463580, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: defaultDeckBoosterCards.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4131023829914463580, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: 'defaultDeckBoosterCards.Array.data[1]'
@@ -20173,6 +20173,10 @@ PrefabInstance:
       propertyPath: 'defaultDeckBoosterCards.Array.data[2]'
       value: 
       objectReference: {fileID: 11400000, guid: afd7f44f25379704c97f8023f157d69e, type: 2}
+    - target: {fileID: 4131023829914463580, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'defaultDeckBoosterCards.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b1d7a1afbcaf5704baa03476ca5da772, type: 2}
     - target: {fileID: 5159426534695303106, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

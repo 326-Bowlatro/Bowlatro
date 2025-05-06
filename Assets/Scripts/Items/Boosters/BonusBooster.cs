@@ -9,6 +9,7 @@ public class BonusBooster : BoosterCard
 
     public override void Activate()
     {
-        // TODO
+        GameManager.Instance.AddFlatScore(FlatBonus);
+        GameManager.Instance.AddMultScore(MultBonus);
     }
 }
