@@ -21,7 +21,7 @@ public partial class ToolTipElement : VisualElement
     {
         Resources.Load<VisualTreeAsset>("Elements/ToolTipElement").CloneTree(this);
         style.width = Width;
-        style.height = Height;
+        style.minHeight = Height;
         pickingMode = PickingMode.Ignore;
     }
 }
