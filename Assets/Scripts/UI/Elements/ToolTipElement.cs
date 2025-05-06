@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 public partial class ToolTipElement : VisualElement
 {
     public const int Width = 200;
-    public const int Height = 150;
+    public const int Height = 100;
 
     public string Title
     {
