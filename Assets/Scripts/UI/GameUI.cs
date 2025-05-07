@@ -254,12 +254,35 @@ public partial class GameUI : MonoBehaviour
             );
 
             RefreshShopPack();
+            RefreshShopTickets();
         }
         else
         {
             // Make shop hidden
             shopHost.style.translate = new StyleTranslate(new Translate(0, -340));
             shopPackHost.style.translate = new StyleTranslate(new Translate(0, 340));
+        }
+    }
+
+    private void RefreshShopTickets()
+    {
+        var shopManager = GameManager.Instance.ShopManager;
+
+        // Add tickets to UI (every refresh for now)
+        var ticketsContainer = rootElement.Q<VisualElement>("_Shop_TicketsContainer");
+        ticketsContainer.Clear();
+        foreach (var ticket in shopManager.CurrentTickets)
+        {
+            var element = new TicketElement(ticket);
+
+            // Ticket click handler
+            element.OnClick += () =>
+            {
+                // Claim this ticket
+                GameManager.Instance.ShopManager.ClaimTicket(ticket);
+            };
+
+            ticketsContainer.Add(element);
         }
     }
 
