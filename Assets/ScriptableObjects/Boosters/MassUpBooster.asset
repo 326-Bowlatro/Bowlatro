@@ -16,3 +16,4 @@ MonoBehaviour:
   Name: Mass Up
   Description: 3x MASS to ball
   massFactor: 3
+  launchForce: 2400

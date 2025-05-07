@@ -150,9 +150,9 @@ GameObject:
   - component: {fileID: 2419732795036291959}
   - component: {fileID: 7226478996279230473}
   - component: {fileID: 858844194772474847}
-  - component: {fileID: 167224336116861486}
   - component: {fileID: 208046133409746043}
   - component: {fileID: 3766599417353814058}
+  - component: {fileID: 1524002648898718190}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Player
@@ -229,27 +229,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &167224336116861486
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8225460910210095332}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &208046133409746043
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -305,3 +284,26 @@ MonoBehaviour:
   aimLine: {fileID: 5700593188853116872}
   LaunchForce: 800
   ResetDelay: 4
+--- !u!136 &1524002648898718190
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8225460910210095332}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 0
+  m_Center: {x: 0, y: 0, z: 0}

@@ -10109,6 +10109,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2419732795036291959, guid: 76f0228aa035f5240b535d6f5a22561b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2419732795036291959, guid: 76f0228aa035f5240b535d6f5a22561b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.5
       objectReference: {fileID: 0}
@@ -19835,7 +19839,7 @@ PrefabInstance:
       objectReference: {fileID: 1644579025}
     - target: {fileID: 4131023829914463580, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: defaultDeckLayoutCards.Array.size
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4131023829914463580, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: defaultDeckBoosterCards.Array.size
@@ -19844,11 +19848,11 @@ PrefabInstance:
     - target: {fileID: 4131023829914463580, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: 'defaultDeckLayoutCards.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: 6b83ca0a345431f4fb35f5574bf7f68a, type: 2}
+      objectReference: {fileID: 11400000, guid: 1cd35badc85a5924299606ee5df91449, type: 2}
     - target: {fileID: 4131023829914463580, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: 'defaultDeckLayoutCards.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: deaa1b456173b6c4585b209f09c7c648, type: 2}
+      objectReference: {fileID: 11400000, guid: 31b29874d67996044aeee166810e554d, type: 2}
     - target: {fileID: 4131023829914463580, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: 'defaultDeckLayoutCards.Array.data[2]'
       value: 
@@ -19868,11 +19872,11 @@ PrefabInstance:
     - target: {fileID: 4131023829914463580, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: 'defaultDeckBoosterCards.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: b1d7a1afbcaf5704baa03476ca5da772, type: 2}
+      objectReference: {fileID: 11400000, guid: 990515f31432f69468ed316f2485575e, type: 2}
     - target: {fileID: 4131023829914463580, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: 'defaultDeckBoosterCards.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: 9a16d0a424703e448b5fd16df0c28032, type: 2}
+      objectReference: {fileID: 11400000, guid: 6e9d3847600ab1d419d8654ff0af828e, type: 2}
     - target: {fileID: 5159426534695303106, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
