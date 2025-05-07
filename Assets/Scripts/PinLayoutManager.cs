@@ -9,6 +9,7 @@ public enum LayoutType
     Triangle,
     Diamond,
     ReverseTriangle,
+    Array,
 }
 
 public class PinLayoutManager : MonoBehaviour
@@ -103,6 +104,13 @@ public class PinLayoutManager : MonoBehaviour
                 new[] { 0, 0, 0, 1, 0, 0, 0 },
                 new[] { 0, 0, 1, 0, 1, 0, 0 },
                 new[] { 0, 1, 0, 1, 0, 1, 0 },
+                new[] { 1, 0, 1, 0, 1, 0, 1 },
+            },
+            LayoutType.Array => new[]
+            {
+                new[] { 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 1, 0, 1, 0, 1, 0, 1 },
+                new[] { 0, 1, 0, 0, 0, 1, 0 },
                 new[] { 1, 0, 1, 0, 1, 0, 1 },
             },
             _ => throw new NotImplementedException(),
