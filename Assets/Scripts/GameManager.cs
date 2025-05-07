@@ -86,7 +86,11 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
             Self.SelectedLayout = null;
         }
 
-        public override void ExitState() { }
+        public override void ExitState()
+        {
+            // Activate tickets on round start
+            Self.InventoryManager.CurrentTickets.ForEach(ticket => ticket.Activate());
+        }
     }
 
     /// <summary>
