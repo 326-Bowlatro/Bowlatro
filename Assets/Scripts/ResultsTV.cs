@@ -1,16 +1,16 @@
+using System;
 using UnityEngine;
 
 public class ResultsTV : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private const string PLAYERTAG = "Player";
+    public bool isBreakable = false;
+    [SerializeField] private int points = 5;
+    private void OnCollisionEnter(Collision other)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (isBreakable && other.gameObject.CompareTag(PLAYERTAG))
+        {
+            GameManager.Instance.AddFlatScore(points);
+        }
     }
 }
