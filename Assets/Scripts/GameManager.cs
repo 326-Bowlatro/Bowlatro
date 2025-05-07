@@ -1,4 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 /// <summary>
@@ -226,6 +229,8 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
 
         Debug.Log("Turn over");
 
+        RunFeedback();
+
         // Reset ball
         bowlingBall.OnEndTurn();
 
@@ -446,5 +451,28 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
     {
         CurrentScoreMult += score;
         GameUI.Instance.Refresh();
+    }
+
+    private void RunFeedback()
+    {
+        foreach (var pin in LayoutManager.Pins)
+        {
+            pin.GetComponentInChildren<CanvasGroup>().alpha = 1;
+            Wait(1);
+            Debug.Log($"Pin: {pin} Alpha: {pin.GetComponentInChildren<CanvasGroup>().alpha}");
+            //pin.GetComponentInChildren<CanvasGroup>().alpha = 0;
+            
+            Debug.Log($"Pin: {pin} Alpha: {pin.GetComponentInChildren<CanvasGroup>().alpha}");
+            
+        }
+        
+    }
+
+    private void Wait(float duration)
+    {
+        var endTime = Time.time + duration;
+        while (Time.time < endTime)
+        {
+        }
     }
 }

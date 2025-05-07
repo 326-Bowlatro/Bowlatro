@@ -43,6 +43,7 @@ public class Pin : MonoBehaviour
 
             // Increase score by pin predefined amount
             GameManager.Instance.AddPinToScore(this);
+            
         }
 
         // Reset static flag at end of frame
