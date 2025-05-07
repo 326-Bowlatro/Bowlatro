@@ -109,10 +109,9 @@ public partial class GameUI : MonoBehaviour
     {
         var inventoryManager = GameManager.Instance.InventoryManager;
 
-        // Only hide tickets panel in "playing" and "results" states (or if we have no tickets)
+        // Only hide tickets panel in "playing" state (or if we have no tickets)
         var shouldHideTickets =
             GameManager.Instance.CurrentState is PlayingState
-            || GameManager.Instance.CurrentState is ResultsState
             || inventoryManager.CurrentTickets.Count == 0;
 
         // Only hide tickets panel in "playing" state
