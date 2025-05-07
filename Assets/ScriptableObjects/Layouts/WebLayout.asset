@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1f18843b7d78f54587cd59316d382e7, type: 3}
-  m_Name: MassDownBooster
+  m_Script: {fileID: 11500000, guid: f1b319f04bc82e5438f4d6bd93c2f964, type: 3}
+  m_Name: WebLayout
   m_EditorClassIdentifier: 
-  Sprite: {fileID: -611655412, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
-  Name: Mass Down
-  Description: 0.5x MASS to ball
-  massFactor: 0.75
-  launchForce: 600
+  Image: {fileID: 0}
+  LayoutType: 5
+  LayoutName: Web

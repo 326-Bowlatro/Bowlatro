@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1f18843b7d78f54587cd59316d382e7, type: 3}
-  m_Name: MassDownBooster
+  m_Script: {fileID: 11500000, guid: 42e49f3448e4cd8498299fbcd55187e8, type: 3}
+  m_Name: TVBooster
   m_EditorClassIdentifier: 
-  Sprite: {fileID: -611655412, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
-  Name: Mass Down
-  Description: 0.5x MASS to ball
-  massFactor: 0.75
-  launchForce: 600
+  Sprite: {fileID: 0}
+  Name: TV Breaker
+  Description: Break the TV!

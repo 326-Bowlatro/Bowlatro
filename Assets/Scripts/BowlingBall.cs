@@ -25,7 +25,7 @@ public class BowlingBall : MonoBehaviour
     [SerializeField] private float turnAmount = 15f;
     [SerializeField] private GameObject aimLine;
     
-    [SerializeField] private float LaunchForce = 1500f;
+    public float LaunchForce = 800f;
     [SerializeField] private float ResetDelay = 4f;
 
     private Rigidbody rb;
@@ -35,6 +35,7 @@ public class BowlingBall : MonoBehaviour
     private float startMass;  
     private bool reachedPins = false;
     private float laneMax, laneMin;
+    private float startLaunchForce;
 
     void Start()
     {
@@ -45,6 +46,7 @@ public class BowlingBall : MonoBehaviour
         startMass = rb.mass;
         laneMax = laneCollider.bounds.max.x;
         laneMin = laneCollider.bounds.min.x;
+        startLaunchForce = LaunchForce;
     }
 
     void Update()
@@ -164,6 +166,9 @@ public class BowlingBall : MonoBehaviour
         //reset mass/scale
         transform.localScale = startScale;
         rb.mass = startMass;
+        
+        //reset launch force that accounts for mass
+        LaunchForce = startLaunchForce;
             
         //reset aim line
         aimLine.SetActive(true);

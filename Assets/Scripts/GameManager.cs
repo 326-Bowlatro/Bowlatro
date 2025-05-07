@@ -12,12 +12,16 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
     public BowlingBall BowlingBall => bowlingBall;
     public ShopManager ShopManager => shopManager;
     public InventoryManager InventoryManager => inventoryManager;
+    public ResultsTV ResultsTV => resultsTV;
 
     public PinLayoutCard SelectedLayout { get; set; } = null;
 
     [SerializeField]
     private BowlingBall bowlingBall;
 
+    [SerializeField] 
+    private ResultsTV resultsTV;
+    
     [SerializeField]
     private CameraScript mainCamera;
 
@@ -48,7 +52,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
     private InventoryManager inventoryManager;
 
     private readonly List<BoosterCard> activeBoosters = new();
-
+    
     private int cashToBeEarned = 0;
 
     void Awake()
