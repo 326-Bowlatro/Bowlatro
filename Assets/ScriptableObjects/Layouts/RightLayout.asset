@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: RightLayout
   m_EditorClassIdentifier: 
   Image: {fileID: 0}
-  LayoutType: 0
-  LayoutName: 
+  LayoutType: 8
+  LayoutName: Right

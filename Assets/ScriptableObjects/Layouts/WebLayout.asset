@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Image: {fileID: 0}
   LayoutType: 5
-  LayoutName: X
+  LayoutName: Web
