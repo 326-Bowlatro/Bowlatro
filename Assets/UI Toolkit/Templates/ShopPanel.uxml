@@ -9,7 +9,7 @@
                     <CardElement name="_Shop_ItemPack" />
                 </engine:VisualElement>
             </engine:VisualElement>
-            <engine:VisualElement name="RightContainer" class="menu-item inner row-gap-8" style="flex-grow: 1; align-items: center;">
+            <engine:VisualElement name="RightContainer" class="menu-item inner" style="flex-grow: 1; align-items: center; justify-content: space-evenly;">
                 <TicketElement />
                 <TicketElement />
                 <TicketElement />

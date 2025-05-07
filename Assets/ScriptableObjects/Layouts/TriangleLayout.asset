@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1b319f04bc82e5438f4d6bd93c2f964, type: 3}
   m_Name: TriangleLayout
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6029824097807513038, guid: 7d6e4092cd81f414484a9b4a9610fd86, type: 3}
-  Image: {fileID: 0}
+  Image: {fileID: -2140094170, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
   LayoutType: 1
   LayoutName: Triangle

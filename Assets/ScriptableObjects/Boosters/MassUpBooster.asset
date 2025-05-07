@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1f18843b7d78f54587cd59316d382e7, type: 3}
   m_Name: MassUpBooster
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 0}
+  Sprite: {fileID: -800880113, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
   Name: Mass Up
   Description: 3x MASS to ball
   massFactor: 3

@@ -1,8 +1,6 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/Styles/Shared.uss?fileID=7433441132597879392&amp;guid=921c73c4fb2b341a5ab72b6e494ede34&amp;type=3#Shared" />
     <engine:VisualElement style="flex-grow: 0; width: 86px; height: 140px;">
-        <engine:Button name="_Button" style="align-items: center; justify-content: center; flex-grow: 1;">
-            <engine:Label text="Card" name="_Text" picking-mode="Ignore" style="white-space: normal;" />
-        </engine:Button>
+        <engine:Button name="_Button" style="align-items: center; justify-content: center; flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/BowlatroSprites.png?fileID=1382227270&amp;guid=6d9f6fc0cfa094564a5df0f15e538afe&amp;type=3#Card_Block&quot;); background-color: rgba(188, 188, 188, 0);" />
     </engine:VisualElement>
 </engine:UXML>

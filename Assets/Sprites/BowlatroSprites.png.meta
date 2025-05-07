@@ -347,7 +347,7 @@ TextureImporter:
         width: 57
         height: 93
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -356,6 +356,28 @@ TextureImporter:
       bones: []
       spriteID: 95844bb65e78a43e296e44595ea747f3
       internalID: -483122257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ticket
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 869
+        width: 77
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3dc1ecfac9b6b4d579885a428935fa05
+      internalID: 1970979264
       vertices: []
       indices: 
       edges: []
@@ -386,6 +408,7 @@ TextureImporter:
       Card_Triangle: -2140094170
       Pack_Booster: -483122257
       Pack_Pin: 1206427662
+      Ticket: 1970979264
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

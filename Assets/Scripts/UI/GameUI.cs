@@ -7,6 +7,12 @@ public partial class GameUI : MonoBehaviour
 {
     public static GameUI Instance { get; private set; }
 
+    [SerializeField]
+    private Sprite layoutPackSprite;
+
+    [SerializeField]
+    private Sprite boosterPackSprite;
+
     private VisualElement rootElement;
 
     void Awake()
@@ -275,7 +281,7 @@ public partial class GameUI : MonoBehaviour
         shopPack.SetCard(
             $"${shopManager.CurrentPack.PackCost} Pack",
             "Choose 1 of up to 3 LAYOUT cards to add to your deck",
-            null
+            layoutPackSprite
         );
 
         // Add pack cards to UI (every refresh for now)

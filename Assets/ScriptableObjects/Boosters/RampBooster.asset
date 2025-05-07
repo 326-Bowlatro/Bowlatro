@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f066d5bc437c75e48b1e9e352f77f045, type: 3}
   m_Name: RampBooster
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 823838024, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
   Name: Ramp
   Description: 
   rampPrefab: {fileID: 5862227338537242004, guid: 5091f92ac4a424e46a6218f7a4798419, type: 3}
