@@ -15,3 +15,4 @@ MonoBehaviour:
   Sprite: {fileID: 0}
   Name: Ramp
   Description: 
+  rampPrefab: {fileID: 5862227338537242004, guid: 5091f92ac4a424e46a6218f7a4798419, type: 3}
