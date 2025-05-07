@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19dba2a9fe400c54e8b6e3f10b6a9fbd, type: 3}
   m_Name: SizeUpBooster
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 1048976218, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
   Name: Size Up
   Description: 1.25x SIZE to ball
   sizeFactor: 1.25

@@ -46,7 +46,7 @@ public partial class CardElement : VisualElement
 
     public void SetCard(string name, string description, Sprite sprite)
     {
-        this.Q<Label>("_Text").text = name;
+        this.Q<Button>("_Button").style.backgroundImage = new StyleBackground(sprite);
         tooltipManipulator.Title = name;
         tooltipManipulator.Description = description;
     }

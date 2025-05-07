@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19dba2a9fe400c54e8b6e3f10b6a9fbd, type: 3}
   m_Name: SizeDownBooster
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 0}
+  Sprite: {fileID: -1867813571, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
   Name: Size Down
   Description: 0.75x SIZE to ball
   sizeFactor: 0.75
