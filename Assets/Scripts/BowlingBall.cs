@@ -22,13 +22,17 @@ public class BowlingBall : MonoBehaviour
     [SerializeField] private Transform pinsMainPoint;
     [SerializeField] private Collider laneCollider;
     [SerializeField] private float aimAmount = 1f;
-
+    [SerializeField] private float turnAmount = 15f;
+    [SerializeField] private GameObject aimLine;
+    
     [SerializeField] private float LaunchForce = 1500f;
     [SerializeField] private float ResetDelay = 4f;
 
     private Rigidbody rb;
     private Vector3 startPosition;
     private Vector3 startRotation;
+    private Vector3 startScale;
+    private float startMass;  
     private bool reachedPins = false;
     private float laneMax, laneMin;
 
@@ -37,6 +41,8 @@ public class BowlingBall : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         startPosition = transform.position;
         startRotation = transform.eulerAngles;
+        startScale = transform.localScale;
+        startMass = rb.mass;
         laneMax = laneCollider.bounds.max.x;
         laneMin = laneCollider.bounds.min.x;
     }
@@ -75,6 +81,22 @@ public class BowlingBall : MonoBehaviour
             var newX = pos.x - aimAmount*Time.deltaTime;
             transform.position = new Vector3(newX, pos.y, pos.z);
         }
+
+        // if (Input.GetKey(KeyCode.LeftArrow) && transform.eulerAngles.y is < 60 or > 300) //turn left, have a maximum angle to turn to
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            //change rotation leftwards
+            Vector3 rotation = transform.eulerAngles;
+            transform.eulerAngles = new Vector3(rotation.x, rotation.y - (turnAmount * Time.deltaTime), rotation.z);
+        }
+
+        // if (Input.GetKey(KeyCode.RightArrow) && transform.eulerAngles.y is < 60 or > 300) //turn right, have a maximum angle to turn to
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            //change rotation rightwards
+            Vector3 rotation = transform.eulerAngles;
+            transform.eulerAngles = new Vector3(rotation.x, rotation.y + (turnAmount * Time.deltaTime), rotation.z);
+        }
     }
 
     /// <summary>
@@ -87,7 +109,9 @@ public class BowlingBall : MonoBehaviour
         {
             return;
         }
-
+        
+        aimLine.SetActive(false);
+        
         if (isBossRound && veerEnabled)
         {
             // Making the ball veer
@@ -98,7 +122,7 @@ public class BowlingBall : MonoBehaviour
             // Start maintaining the veer direction
             StartCoroutine(VeerBall());
         }
-        if (isBossRound && slowDownEnabled)
+        else if (isBossRound && slowDownEnabled)
         {
             // Making the ball veer
             var slowDownForce = (-transform.forward * (LaunchForce * slowDownFactor));
@@ -136,7 +160,14 @@ public class BowlingBall : MonoBehaviour
         //reset position/rotation
         transform.position = startPosition;
         transform.eulerAngles = startRotation;
-
+        
+        //reset mass/scale
+        transform.localScale = startScale;
+        rb.mass = startMass;
+            
+        //reset aim line
+        aimLine.SetActive(true);
+        
         //reset launched bool and timer for bowling ball launch
         HasLaunched = false;
         //reset reached pins bool

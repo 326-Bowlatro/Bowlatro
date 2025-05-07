@@ -14,6 +14,8 @@ public abstract class BoosterCard : ScriptableObject, IInventoryCard
 
     public virtual void Activate() { }
 
+    public virtual void Deactivate() { }
+
     // IInventoryCard implementation
     string IInventoryCard.Name => Name;
     string IInventoryCard.Description => Description;

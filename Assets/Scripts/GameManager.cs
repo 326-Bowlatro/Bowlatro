@@ -49,6 +49,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
 
     private readonly List<StrikePin> knockedOverStrikePins = new();
     private readonly List<SparePin> knockedOverSparePins = new();
+    private readonly List<BoosterCard> activeBoosters = new();
 
     private int cashToBeEarned = 0;
 
@@ -235,10 +236,14 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
         // Reset camera
         mainCamera.OnEndTurn();
 
+        // Deactivate boosters
+        activeBoosters.ForEach(booster => booster.Deactivate());
+        activeBoosters.Clear();
+
         // Check what kind of throw happened
         bool isStrike = CheckForStrike();
 
-        //check for turkey
+        // Check for turkey
         if (isStrike && strikesNum == 3)
         {
             Debug.Log("TURKEY");
@@ -469,5 +474,26 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
     {
         knockedOverStrikePins.Clear();
         knockedOverSparePins.Clear();
+    }
+
+    public void ActivateBooster(BoosterCard booster)
+    {
+        // Activate the booster
+        booster.Activate();
+
+        // Add to active boosters list
+        activeBoosters.Add(booster);
+    }
+
+    public void AddFlatScore(int score)
+    {
+        CurrentScoreFlat += score;
+        GameUI.Instance.Refresh();
+    }
+
+    public void AddMultScore(int score)
+    {
+        CurrentScoreMult += score;
+        GameUI.Instance.Refresh();
     }
 }
