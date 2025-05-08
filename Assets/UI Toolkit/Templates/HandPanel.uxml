@@ -11,7 +11,7 @@
             </engine:VisualElement>
         </engine:VisualElement>
         <engine:VisualElement name="VisualElement" style="border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; background-color: rgb(43, 58, 60); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgb(0, 106, 178); border-right-color: rgb(0, 106, 178); border-top-color: rgb(0, 106, 178); border-bottom-color: rgb(0, 106, 178); justify-content: flex-start; align-items: center; margin-top: 12px; padding-left: 16px; padding-top: 16px; padding-bottom: 16px; flex-direction: row; padding-right: 16px;">
-            <engine:VisualElement name="_Hand_LayoutsContainer" class="col-gap-12" style="flex-grow: 0; flex-direction: row;">
+            <engine:VisualElement name="_Hand_LayoutsContainer" class="col-gap-12" style="flex-grow: 0; flex-direction: row; min-height: 140px;">
                 <CardElement />
                 <CardElement />
                 <CardElement />
