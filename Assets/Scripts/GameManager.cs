@@ -70,9 +70,6 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
     {
         public override void EnterState()
         {
-            // Reset score for next blind
-            Self.CurrentScoreFlat = 0;
-            Self.CurrentScoreMult = 1;
             Self.ThrowType = "";
 
             // Check for boss stage here, so it will check once you leave the shop
@@ -179,6 +176,10 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
             {
                 Self.IsBossStage = false;
             }
+
+            // Reset score for next blind
+            Self.CurrentScoreFlat = 0;
+            Self.CurrentScoreMult = 1;
         }
     }
 
