@@ -42,6 +42,8 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
     public int CurrentScoreToBeat { get; private set; } = 20;
     public int CurrentBossScoreToBeat { get; private set; }
 
+    public bool isNormalThrow { get; private set; } = false;
+    
     private int strikesNum = 0;
     private BossModifierManager bossModifierManager;
     private PinLayoutManager pinLayoutManager;
@@ -49,7 +51,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
     private InventoryManager inventoryManager;
 
     private readonly List<BoosterCard> activeBoosters = new();
-
+    
     private int cashToBeEarned = 0;
 
     void Awake()
@@ -73,7 +75,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
             Self.ThrowType = "";
 
             // Check for boss stage here, so it will check once you leave the shop
-            if ((Self.BlindNum + 1) % 3 == 0 && Self.BlindNum > 0)
+            if ((Self.BlindNum+1) % 3 == 0 && Self.BlindNum > 0)
             {
                 Self.IsBossStage = true;
             }
@@ -225,7 +227,11 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
 
         // Check what kind of throw happened
         bool isStrike = CheckForStrike();
+        
+        CheckThrowTypeTickets();
 
+        isNormalThrow = false;
+        
         // Check for turkey
         if (isStrike && strikesNum == 3)
         {
@@ -254,7 +260,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
         {
             EndRound();
         }
-
+        
         GameUI.Instance.Refresh();
     }
 
@@ -391,6 +397,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
         else
         {
             Debug.Log("Normal");
+            isNormalThrow = true;
             ThrowType = LayoutManager.NumPinsFallen + " Pins";
             return false;
         }
@@ -430,4 +437,23 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
         CurrentScoreMult += score;
         GameUI.Instance.Refresh();
     }
+
+    private void CheckThrowTypeTickets()
+    {
+        foreach (Ticket ticket in InventoryManager.CurrentTickets)
+        {
+            if ((ticket is StrikeTicket && ThrowType == "Strike") || 
+                (ticket is SpareTicketMult or SpareTicketFlat && ThrowType == "Spare"))
+            {
+                ticket.ApplyAffect();
+            }
+        }
+    }
+
+    public BossModifier GetCurrentBossModifier()
+    {
+        return bossModifierManager.currentModifier;
+    }
+    
+    
 }

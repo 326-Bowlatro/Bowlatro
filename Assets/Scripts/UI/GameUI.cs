@@ -89,10 +89,12 @@ public partial class GameUI : MonoBehaviour
         if ((GameManager.Instance.BlindNum + 1) % 3 == 0)
         {
             rootElement.Q<Label>("_Stage").text = "Boss Stage";
+            rootElement.Q<Label>("_BossModifier").text = GameManager.Instance.GetCurrentBossModifier().ToString();
         }
         else
         {
             rootElement.Q<Label>("_Stage").text = "Stage " + (GameManager.Instance.BlindNum + 1);
+            rootElement.Q<Label>("_BossModifier").text = "";
         }
 
         // Update score to beat
