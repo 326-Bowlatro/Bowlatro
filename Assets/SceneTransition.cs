@@ -5,7 +5,7 @@ using System.Collections;
 
 public class SceneSwirlTransition : MonoBehaviour
 {
-    public string targetScene = "JokerModifiers"; // Set your target scene name
+    public string targetScene = "GameScene"; // Set your target scene name
     public float duration = 1.5f;
     public AudioClip transitionSound;
 

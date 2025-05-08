@@ -5,6 +5,6 @@ public class MainMenuManager : MonoBehaviour
 {
     public void LoadJokerScene()
     {
-        SceneManager.LoadScene("JokerModifiers"); // Make sure this name matches your scene!
+        SceneManager.LoadScene("GameScene"); // Make sure this name matches your scene!
     }
 }
