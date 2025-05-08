@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42e49f3448e4cd8498299fbcd55187e8, type: 3}
   m_Name: TVBooster
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 1847228017, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
   Name: TV Breaker
   Description: Break the TV!
