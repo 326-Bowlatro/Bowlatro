@@ -5,17 +5,18 @@ using UnityEngine.Serialization;
 public class StrikeTicket : Ticket
 {
     public bool isActive = false;
-
+    public int multFactor = 10;
+    private const string STRIKE = "Strike";
     public override void Activate()
     {
         isActive = true;
     }
 
-    public override void ApplyAffect(bool boolCheck)
+    public override void ApplyAffect()
     {
-        if (boolCheck)
+        if (isActive && GameManager.Instance.ThrowType == STRIKE)
         {
-            GameManager.Instance.AddMultScore(10);
+            GameManager.Instance.AddMultScore(multFactor);
         }
     }
 }

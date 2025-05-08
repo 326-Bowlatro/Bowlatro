@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: becc8997305ad2741b021819a0a3203a, type: 3}
-  m_Name: StrikeTicket
+  m_Script: {fileID: 11500000, guid: 3c417f9cf58ab874a99569e98905ea69, type: 3}
+  m_Name: NormalTicketMult
   m_EditorClassIdentifier: 
   Sprite: {fileID: 1970979264, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
-  Name: Strike ($10)
-  Cost: 10
-  Description: +10 MULT if a strike is hit
-  isActive: 1
-  multFactor: 10
+  Name: Normal ($6)
+  Cost: 6
+  Description: +2 MULT if you have a skill issue
+  isActive: 0
+  multFactor: 2

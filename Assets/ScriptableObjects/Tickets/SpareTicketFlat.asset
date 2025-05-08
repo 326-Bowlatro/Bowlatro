@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: becc8997305ad2741b021819a0a3203a, type: 3}
-  m_Name: StrikeTicket
+  m_Script: {fileID: 11500000, guid: d1a1d1ccf76a87e4e8428d4c34a1c8ec, type: 3}
+  m_Name: SpareTicketFlat
   m_EditorClassIdentifier: 
   Sprite: {fileID: 1970979264, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
-  Name: Strike ($10)
-  Cost: 10
-  Description: +10 MULT if a strike is hit
+  Name: Spare ($5)
+  Cost: 5
+  Description: +10 FLAT if a spare is hit
   isActive: 1
-  multFactor: 10
+  flatFactor: 10

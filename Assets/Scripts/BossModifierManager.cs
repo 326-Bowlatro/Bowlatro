@@ -41,7 +41,7 @@ public class BossModifierManager : MonoBehaviour
     {
         blindCounter++;
         
-        if (blindCounter % blindsPerBoss == 0)
+        if ((blindCounter + 1) % blindsPerBoss == 0)
         {
             StartBossModifier();
         }

@@ -23569,7 +23569,7 @@ PrefabInstance:
       objectReference: {fileID: 1644579025}
     - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: allTickets.Array.size
-      value: 4
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: 'allTickets.Array.data[0]'
@@ -23587,6 +23587,22 @@ PrefabInstance:
       propertyPath: 'allTickets.Array.data[3]'
       value: 
       objectReference: {fileID: 11400000, guid: 5217edf1e406f4f03886d002bb9bd4bc, type: 2}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allTickets.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 2d86629039b3be346811a29e53c28c6d, type: 2}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allTickets.Array.data[5]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 9cc26c73f406e63409c7f3c43c15dfb8, type: 2}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allTickets.Array.data[6]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 610a869de3a238544ba02357d111a3a5, type: 2}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allTickets.Array.data[7]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 8042997505b1fe843a05fad1286bf470, type: 2}
     - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: allLayoutCards.Array.size
       value: 4

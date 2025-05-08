@@ -34,7 +34,9 @@
                 </engine:VisualElement>
             </engine:VisualElement>
         </engine:VisualElement>
-        <engine:VisualElement name="BallsContainer" class="menu-item" style="height: 84px; margin-top: 6px;" />
+        <engine:VisualElement name="BossModifierContainer" class="menu-item" style="height: 84px; margin-top: 6px;">
+            <engine:Label text="Label" name="_BossModifier" class="huge" />
+        </engine:VisualElement>
         <engine:VisualElement name="MiscContainer" style="flex-grow: 0; flex-direction: row; margin-top: 6px; justify-content: space-between;">
             <engine:VisualElement name="WalletContainer" class="menu-item small" style="width: 121px; height: 70px; align-items: stretch;">
                 <engine:VisualElement class="menu-item inner" style="flex-grow: 1;">

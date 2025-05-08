@@ -17,5 +17,5 @@ public abstract class Ticket : ScriptableObject
 
     public virtual void Activate() { }
     
-    public virtual void ApplyAffect(bool boolCheck) { }
+    public virtual void ApplyAffect() { }
 }
