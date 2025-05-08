@@ -16,4 +16,6 @@ public abstract class Ticket : ScriptableObject
     public bool IsOwned() => GameManager.Instance.InventoryManager.CurrentTickets.Contains(this);
 
     public virtual void Activate() { }
+    
+    public virtual void ApplyAffect(bool boolCheck) { }
 }

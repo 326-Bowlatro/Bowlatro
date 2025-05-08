@@ -226,6 +226,14 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
         // Check what kind of throw happened
         bool isStrike = CheckForStrike();
 
+        foreach (Ticket ticket in InventoryManager.CurrentTickets)
+        {
+            if (ticket is StrikeTicket)
+            {
+                ticket.ApplyAffect(isStrike);
+            }
+        }
+        
         // Check for turkey
         if (isStrike && strikesNum == 3)
         {
