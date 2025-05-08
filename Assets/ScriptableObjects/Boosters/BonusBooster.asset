@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60329ed2800b3614aac141a091c2a43c, type: 3}
   m_Name: BonusBooster
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 1847228017, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
+  Sprite: {fileID: 1139608480, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
   Name: Bonus
   Description: +2 MULT and +25 PINS
   FlatBonus: 25
