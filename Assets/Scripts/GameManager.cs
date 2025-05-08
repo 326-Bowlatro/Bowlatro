@@ -26,9 +26,6 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
     private CameraScript mainCamera;
 
     [SerializeField]
-    private ToShopButton toShopButton;
-
-    [SerializeField]
     private int normalBlindStartingCash = 3;
 
     // Per-blind state
@@ -108,30 +105,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
             Self.LayoutManager.SpawnPins(Self.SelectedLayout.LayoutType);
         }
 
-        public override void ExitState() { }
-
-        public override void UpdateState()
-        {
-            var ball = Self.bowlingBall;
-
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                ball.LaunchBall();
-            }
-
-            if (!ball.HasLaunched)
-            {
-                ball.ProcessMovement();
-            }
-        }
-    }
-
-    /// <summary>
-    /// Behavior specific to "results" state.
-    /// </summary>
-    public sealed class ResultsState : State
-    {
-        public override void EnterState()
+        public override void ExitState()
         {
             // Boss stage gives extra
             if (Self.IsBossStage)
@@ -157,17 +131,21 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
 
             // Clear all pins
             Self.LayoutManager.ClearPins();
-
-            // Move camera, show shop button
-            Self.mainCamera.BeginLookAtResults();
-            Self.toShopButton.Enable();
-            Debug.Log(Self.cashToBeEarned);
         }
 
-        public override void ExitState()
+        public override void UpdateState()
         {
-            Self.mainCamera.EndLookAtResults();
-            Self.toShopButton.Disable();
+            var ball = Self.bowlingBall;
+
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                ball.LaunchBall();
+            }
+
+            if (!ball.HasLaunched)
+            {
+                ball.ProcessMovement();
+            }
         }
     }
 
@@ -350,7 +328,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
         CurrentBossScoreToBeat += CurrentScoreToBeat / 2;
 
         // Go to results
-        GoToState<ResultsState>();
+        GoToState<ShopState>();
     }
 
     /// <summary>
