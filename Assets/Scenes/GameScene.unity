@@ -19853,8 +19853,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4131023829914463580, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: defaultDeckLayoutCards.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131023829914463580, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: defaultDeckBoosterCards.Array.size
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4131023829914463580, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: 'defaultDeckBoosterCards.Array.data[0]'
