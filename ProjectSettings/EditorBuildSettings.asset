@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/ManinMenu.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: c265dcd7ff62ac241a4e4e77ff74aaf7
   - enabled: 1
     path: Assets/Scenes/JokerModifiers.unity
