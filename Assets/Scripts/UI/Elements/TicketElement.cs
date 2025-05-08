@@ -28,7 +28,6 @@ public partial class TicketElement : VisualElement
     {
         Ticket = ticket;
 
-        this.Q<Label>("_Text").text = Ticket.Name;
         this.Q<Button>("_Button").clicked += () => OnClick?.Invoke();
         this.Q<Button>("_Button").style.backgroundImage = new StyleBackground(ticket.Sprite);
         tooltipManipulator.Title = ticket.Name;

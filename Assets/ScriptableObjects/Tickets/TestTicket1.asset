@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: becc8997305ad2741b021819a0a3203a, type: 3}
   m_Name: TestTicket1
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 1970979264, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
-  Name: Test ($4)
+  Sprite: {fileID: 802046457, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
+  Name: Test
   Cost: 4
   Description: Does some thing
+  isActive: 0
+  multFactor: 10

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: becc8997305ad2741b021819a0a3203a, type: 3}
   m_Name: StrikeTicket
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 1970979264, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
-  Name: Strike ($10)
-  Cost: 10
+  Sprite: {fileID: 1370387484, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
+  Name: Strike
+  Cost: 5
   Description: +10 MULT if a strike is hit
   isActive: 1
   multFactor: 10

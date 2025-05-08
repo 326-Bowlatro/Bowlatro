@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b3cf52d1a2c394b9ae288454a41d9e, type: 3}
   m_Name: NormalTicketFlat
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 1970979264, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
-  Name: Normal ($5)
+  Sprite: {fileID: 1370387484, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
+  Name: Normal
   Cost: 5
   Description: +8 FLAT if you have a skill issue
   isActive: 0

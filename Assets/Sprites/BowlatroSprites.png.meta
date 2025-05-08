@@ -361,7 +361,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ticket
+      name: Ticket_0
       rect:
         serializedVersion: 2
         x: 240
@@ -391,7 +391,7 @@ TextureImporter:
         width: 57
         height: 93
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -413,7 +413,7 @@ TextureImporter:
         width: 57
         height: 93
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -422,6 +422,116 @@ TextureImporter:
       bones: []
       spriteID: baa748d5e1646438a898436db2a0ad7b
       internalID: 1139608480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ticket_1
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 831
+        width: 77
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f857c77137686400085d4df41f72a32c
+      internalID: 425267521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ticket_2
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 793
+        width: 77
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d567c19f0975b4e93895bb9d0fa73909
+      internalID: 311683182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ticket_3
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 755
+        width: 77
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40b22b1ef9e634d6eaacca0d10c4b2ad
+      internalID: 171740684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ticket_4
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 717
+        width: 77
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9ec44cffbc454d91835b4a1dec98769
+      internalID: 802046457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ticket_5
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 679
+        width: 77
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3858ae21638f543f6a07224232f4d4e3
+      internalID: 1370387484
       vertices: []
       indices: 
       edges: []
@@ -454,7 +564,12 @@ TextureImporter:
       Card_WideBall: -1540992156
       Pack_Booster: -483122257
       Pack_Pin: 1206427662
-      Ticket: 1970979264
+      Ticket_0: 1970979264
+      Ticket_1: 425267521
+      Ticket_2: 311683182
+      Ticket_3: 171740684
+      Ticket_4: 802046457
+      Ticket_5: 1370387484
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

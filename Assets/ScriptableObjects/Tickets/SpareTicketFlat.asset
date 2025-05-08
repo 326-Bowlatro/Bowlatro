@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1a1d1ccf76a87e4e8428d4c34a1c8ec, type: 3}
   m_Name: SpareTicketFlat
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 1970979264, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
-  Name: Spare ($5)
-  Cost: 5
+  Sprite: {fileID: 171740684, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
+  Name: Spare
+  Cost: 3
   Description: +10 FLAT if a spare is hit
   isActive: 1
   flatFactor: 10
