@@ -277,8 +277,12 @@ public partial class GameUI : MonoBehaviour
             // Ticket click handler
             element.OnClick += () =>
             {
-                // Claim this ticket
-                GameManager.Instance.ShopManager.ClaimTicket(ticket);
+                // Claim this ticket, ignore if not enough cash.
+                if (GameManager.Instance.Cash >= ticket.Cost)
+                {
+                    // Claim this ticket
+                    GameManager.Instance.ShopManager.ClaimTicket(ticket);
+                }
             };
 
             ticketsContainer.Add(element);
@@ -300,10 +304,11 @@ public partial class GameUI : MonoBehaviour
         }
 
         // Update pack info
+        var isLayoutPack = shopManager.CurrentPack.IsLayoutPack;
         shopPack.SetCard(
             $"${shopManager.CurrentPack.PackCost} Pack",
-            "Choose 1 of up to 3 LAYOUT cards to add to your deck",
-            layoutPackSprite
+            $"Choose 1 of up to 3 {(isLayoutPack ? "LAYOUT" : "BOOSTER")} cards to add to your deck",
+            isLayoutPack ? layoutPackSprite : boosterPackSprite
         );
 
         // Add pack cards to UI (every refresh for now)

@@ -19,9 +19,9 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
     [SerializeField]
     private BowlingBall bowlingBall;
 
-    [SerializeField] 
+    [SerializeField]
     private ResultsTV resultsTV;
-    
+
     [SerializeField]
     private CameraScript mainCamera;
 
@@ -49,7 +49,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
     private InventoryManager inventoryManager;
 
     private readonly List<BoosterCard> activeBoosters = new();
-    
+
     private int cashToBeEarned = 0;
 
     void Awake()
@@ -327,7 +327,7 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
         CurrentScoreToBeat += CurrentScoreToBeat / 2;
         CurrentBossScoreToBeat += CurrentScoreToBeat / 2;
 
-        // Go to results
+        // Go to shop
         GoToState<ShopState>();
     }
 

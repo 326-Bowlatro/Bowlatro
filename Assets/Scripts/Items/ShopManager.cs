@@ -13,6 +13,10 @@ public class ShopManager : MonoBehaviour
     [SerializeField]
     private List<PinLayoutCard> allLayoutCards = new();
 
+    // All booster cards available in the game.
+    [SerializeField]
+    private List<BoosterCard> allBoosterCards = new();
+
     // All tickets available in the game.
     [SerializeField]
     private List<Ticket> allTickets = new();
@@ -32,7 +36,8 @@ public class ShopManager : MonoBehaviour
     /// </summary>
     public void ResetInventory()
     {
-        CurrentPack = CreatePack();
+        // Choose layout or booster pack at random.
+        CurrentPack = CreatePack(Random.Range(0, 2) == 0);
 
         // Randomly select 3 unowned tickets to put in the shop.
         CurrentTickets.Clear();
@@ -69,13 +74,13 @@ public class ShopManager : MonoBehaviour
     /// <summary>
     /// Claims a card from the current pack, removing the pack from inventory.
     /// </summary>
-    public void ClaimPackCard(PinLayoutCard card)
+    public void ClaimPackCard(IInventoryCard card)
     {
         var pack = CurrentPack;
 
         // Remove pack from shop.
         CurrentPack = null;
-        Debug.Log($"Claimed card \"{card.name}\" from pack \"{pack.PackName}\"");
+        Debug.Log($"Claimed card \"{card.Name}\" from pack \"{pack.PackName}\"");
 
         // Deduct cost of pack.
         GameManager.Instance.DeductCash(pack.PackCost);
@@ -90,7 +95,7 @@ public class ShopManager : MonoBehaviour
     /// <summary>
     /// Creates a new layout card pack with a random selection of cards.
     /// </summary>
-    private LayoutCardPack CreatePack()
+    private LayoutCardPack CreatePack(bool isLayoutPack)
     {
         // TODO: Generate randomly.
         var packCost = 4;
@@ -99,19 +104,28 @@ public class ShopManager : MonoBehaviour
         var packName = $"Pin Pack {Random.Range(1, 1000)}";
 
         // Pick 3 random cards to put in the pack.
-        var packCards = allLayoutCards.OrderBy(x => Random.Range(0, int.MaxValue)).Take(3);
+        var packCards = (isLayoutPack ? allLayoutCards.Cast<IInventoryCard>() : allBoosterCards)
+            .Cast<IInventoryCard>()
+            .OrderBy(x => Random.Range(0, int.MaxValue))
+            .Take(3);
 
         return new LayoutCardPack
         {
             PackName = packName,
             PackCost = packCost,
             PackCards = packCards.ToList(),
+            IsLayoutPack = isLayoutPack,
         };
     }
 }
 
 public record LayoutCardPack
 {
+    /// <summary>
+    /// Is this pack a layout or a booster pack?
+    /// </summary>
+    public bool IsLayoutPack { get; set; }
+
     /// <summary>
     /// Display name of the pack.
     /// </summary>
@@ -125,5 +139,5 @@ public record LayoutCardPack
     /// <summary>
     /// Collection of layout cards in this pack.
     /// </summary>
-    public List<PinLayoutCard> PackCards { get; set; }
+    public List<IInventoryCard> PackCards { get; set; }
 }

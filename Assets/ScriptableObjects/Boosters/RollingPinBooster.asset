@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 108714a92acc4fd4881759133a2a0627, type: 3}
   m_Name: RollingPinBooster
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 1847228017, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
   Name: Rolling Pin
   Description: BECOME WIDE
   widthAmount: 3.5

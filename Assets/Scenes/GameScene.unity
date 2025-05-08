@@ -20188,9 +20188,45 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: allBoosterCards.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: 'allLayoutCards.Array.data[4]'
       value: 
       objectReference: {fileID: 11400000, guid: 04a0b1808805a5447b3a3f8b6a95bb44, type: 2}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allBoosterCards.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f95813552f62314a8321c43c25a25ff, type: 2}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allBoosterCards.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: ea05bde1409525140ae83e93b2ed686c, type: 2}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allBoosterCards.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 990515f31432f69468ed316f2485575e, type: 2}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allBoosterCards.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b1d7a1afbcaf5704baa03476ca5da772, type: 2}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allBoosterCards.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 6e9d3847600ab1d419d8654ff0af828e, type: 2}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allBoosterCards.Array.data[5]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d77ec5d311771fa45be9cae7addfc480, type: 2}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allBoosterCards.Array.data[6]'
+      value: 
+      objectReference: {fileID: 11400000, guid: afd7f44f25379704c97f8023f157d69e, type: 2}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allBoosterCards.Array.data[7]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 9a16d0a424703e448b5fd16df0c28032, type: 2}
     - target: {fileID: 4131023829914463580, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: defaultTickets.Array.size
       value: 0
