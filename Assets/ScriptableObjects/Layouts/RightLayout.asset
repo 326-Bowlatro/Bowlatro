@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1b319f04bc82e5438f4d6bd93c2f964, type: 3}
   m_Name: RightLayout
   m_EditorClassIdentifier: 
-  Image: {fileID: 0}
+  Image: {fileID: -205405359, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
   LayoutType: 8
   LayoutName: Right

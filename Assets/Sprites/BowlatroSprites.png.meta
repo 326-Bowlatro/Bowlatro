@@ -457,7 +457,7 @@ TextureImporter:
         width: 77
         height: 35
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -479,7 +479,7 @@ TextureImporter:
         width: 77
         height: 35
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -501,7 +501,7 @@ TextureImporter:
         width: 77
         height: 35
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -523,7 +523,7 @@ TextureImporter:
         width: 77
         height: 35
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -532,6 +532,116 @@ TextureImporter:
       bones: []
       spriteID: 3858ae21638f543f6a07224232f4d4e3
       internalID: 1370387484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Card_Array
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 619
+        width: 57
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e032ceb8bfe884ef8824ad05d3f01f99
+      internalID: -1255805744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Card_Web
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 619
+        width: 57
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8aeba92d029334edb9fec4a3d42af061
+      internalID: 1618903866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Card_Oval
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 619
+        width: 57
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea9517594780248f799fc54a44c83ca2
+      internalID: 291552269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Card_Right
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 619
+        width: 57
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73ae5588065b244d9915316afef37235
+      internalID: -205405359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Card_Left
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 523
+        width: 57
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67d5de0ca01e744e0ac39d47b8a314f5
+      internalID: 1812394367
       vertices: []
       indices: 
       edges: []
@@ -550,17 +660,22 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
+      Card_Array: -1255805744
       Card_Block: 1382227270
       Card_Bonus: 1139608480
       Card_Diamond: -1721730099
+      Card_Left: 1812394367
       Card_MassDown: -611655412
       Card_MassUp: -800880113
+      Card_Oval: 291552269
       Card_Ramp: 823838024
       Card_ReverseTriangle: 786155329
+      Card_Right: -205405359
       Card_SizeDown: -1867813571
       Card_SizeUp: 1048976218
       Card_TV: 1847228017
       Card_Triangle: -2140094170
+      Card_Web: 1618903866
       Card_WideBall: -1540992156
       Pack_Booster: -483122257
       Pack_Pin: 1206427662
