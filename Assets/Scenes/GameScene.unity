@@ -23451,7 +23451,7 @@ PrefabInstance:
       objectReference: {fileID: 1644579025}
     - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: allTickets.Array.size
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: 'allTickets.Array.data[0]'
@@ -23460,34 +23460,34 @@ PrefabInstance:
     - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: 'allTickets.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: cddd34d6de71345a2bc966880a5b8e7e, type: 2}
+      objectReference: {fileID: 11400000, guid: 2d86629039b3be346811a29e53c28c6d, type: 2}
     - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: 'allTickets.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: 691978bef1fe74ae19ee1f937bd929c6, type: 2}
+      objectReference: {fileID: 11400000, guid: 9cc26c73f406e63409c7f3c43c15dfb8, type: 2}
     - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: 'allTickets.Array.data[3]'
       value: 
-      objectReference: {fileID: 11400000, guid: 5217edf1e406f4f03886d002bb9bd4bc, type: 2}
+      objectReference: {fileID: 11400000, guid: 610a869de3a238544ba02357d111a3a5, type: 2}
     - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: 'allTickets.Array.data[4]'
       value: 
-      objectReference: {fileID: 11400000, guid: 2d86629039b3be346811a29e53c28c6d, type: 2}
+      objectReference: {fileID: 11400000, guid: 8042997505b1fe843a05fad1286bf470, type: 2}
     - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: 'allTickets.Array.data[5]'
       value: 
-      objectReference: {fileID: 11400000, guid: 9cc26c73f406e63409c7f3c43c15dfb8, type: 2}
+      objectReference: {fileID: 11400000, guid: 8042997505b1fe843a05fad1286bf470, type: 2}
     - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: 'allTickets.Array.data[6]'
       value: 
-      objectReference: {fileID: 11400000, guid: 610a869de3a238544ba02357d111a3a5, type: 2}
+      objectReference: {fileID: 11400000, guid: 8042997505b1fe843a05fad1286bf470, type: 2}
     - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: 'allTickets.Array.data[7]'
       value: 
       objectReference: {fileID: 11400000, guid: 8042997505b1fe843a05fad1286bf470, type: 2}
     - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: allLayoutCards.Array.size
-      value: 4
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: allBoosterCards.Array.size
@@ -23496,7 +23496,27 @@ PrefabInstance:
     - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: 'allLayoutCards.Array.data[4]'
       value: 
+      objectReference: {fileID: 11400000, guid: 47e701aacf29ace4289fb2712f394a81, type: 2}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allLayoutCards.Array.data[5]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 6b83ca0a345431f4fb35f5574bf7f68a, type: 2}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allLayoutCards.Array.data[6]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 336c49347a832de429cbe89d3210856b, type: 2}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allLayoutCards.Array.data[7]'
+      value: 
+      objectReference: {fileID: 11400000, guid: deaa1b456173b6c4585b209f09c7c648, type: 2}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allLayoutCards.Array.data[8]'
+      value: 
       objectReference: {fileID: 11400000, guid: 04a0b1808805a5447b3a3f8b6a95bb44, type: 2}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allLayoutCards.Array.data[9]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 12ce42db02dfc154cb14178f90d7438f, type: 2}
     - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: 'allBoosterCards.Array.data[0]'
       value: 
