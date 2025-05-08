@@ -70,6 +70,11 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
     {
         public override void EnterState()
         {
+            // Reset score for next blind
+            Self.CurrentScoreFlat = 0;
+            Self.CurrentScoreMult = 1;
+            Self.ThrowType = "";
+
             // Check for boss stage here, so it will check once you leave the shop
             if ((Self.BlindNum + 1) % 3 == 0 && Self.BlindNum > 0)
             {
@@ -116,10 +121,6 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
             {
                 Self.cashToBeEarned = Self.normalBlindStartingCash + (Self.BlindNum - 1); //minus 1 because BlindNum has been incremented already
             }
-
-            // Reset score for next blind
-            Self.CurrentScoreFlat = 0;
-            Self.CurrentScoreMult = 1;
 
             // Boss stage gives 2x cash. Else, multiplier is based on blind number.
             Self.Cash += Self.IsBossStage
@@ -272,7 +273,6 @@ public class GameManager : StateMachine<GameManager, GameManager.PreRoundState>
 
         // Reset round state
         TurnNum = 0;
-        ThrowType = "";
 
         // Destroy all existing pins
         LayoutManager.ClearPins();
