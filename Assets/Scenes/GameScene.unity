@@ -20163,6 +20163,38 @@ PrefabInstance:
       propertyPath: pinParent
       value: 
       objectReference: {fileID: 1644579025}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: allTickets.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allTickets.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 63e1a2355cb983b4588f81172fc4f900, type: 2}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allTickets.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: cddd34d6de71345a2bc966880a5b8e7e, type: 2}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allTickets.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 691978bef1fe74ae19ee1f937bd929c6, type: 2}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allTickets.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 5217edf1e406f4f03886d002bb9bd4bc, type: 2}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: allLayoutCards.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3858417167325434411, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: 'allLayoutCards.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 04a0b1808805a5447b3a3f8b6a95bb44, type: 2}
+    - target: {fileID: 4131023829914463580, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
+      propertyPath: defaultTickets.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4131023829914463580, guid: 65b95cd7909366544a5b7352cd89a217, type: 3}
       propertyPath: defaultDeckBoosterCards.Array.size
       value: 4

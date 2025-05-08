@@ -11,7 +11,16 @@ public class ShopManager : MonoBehaviour
 
     // All layout cards available in the game.
     [SerializeField]
-    private List<PinLayoutCard> allLayoutCards = new List<PinLayoutCard>();
+    private List<PinLayoutCard> allLayoutCards = new();
+
+    // All tickets available in the game.
+    [SerializeField]
+    private List<Ticket> allTickets = new();
+
+    /// <summary>
+    /// Current set of tickets available in the shop.
+    /// </summary>
+    public List<Ticket> CurrentTickets { get; private set; } = new();
 
     /// <summary>
     /// Current layout card pack available in the shop. Can be null if the pack has been claimed.
@@ -24,6 +33,34 @@ public class ShopManager : MonoBehaviour
     public void ResetInventory()
     {
         CurrentPack = CreatePack();
+
+        // Randomly select 3 unowned tickets to put in the shop.
+        CurrentTickets.Clear();
+        CurrentTickets.AddRange(
+            allTickets
+                .Where(ticket => !ticket.IsOwned())
+                .OrderBy(x => Random.Range(0, int.MaxValue))
+                .Take(3)
+        );
+
+        // Refresh UI
+        GameUI.Instance.Refresh();
+    }
+
+    /// <summary>
+    /// Claims a ticket, removing the ticket from shop inventory.
+    /// </summary>
+    public void ClaimTicket(Ticket ticket)
+    {
+        // Remove ticket from shop.
+        CurrentTickets.Remove(ticket);
+        Debug.Log($"Claimed ticket \"{ticket.name}\"");
+
+        // Deduct cost of pack.
+        GameManager.Instance.DeductCash(ticket.Cost);
+
+        // Add card to player's inventory.
+        GameManager.Instance.InventoryManager.AddItem(ticket);
 
         // Refresh UI
         GameUI.Instance.Refresh();
