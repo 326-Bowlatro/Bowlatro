@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c417f9cf58ab874a99569e98905ea69, type: 3}
   m_Name: NormalTicketMult
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 1970979264, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
-  Name: Normal ($6)
-  Cost: 6
+  Sprite: {fileID: 171740684, guid: 6d9f6fc0cfa094564a5df0f15e538afe, type: 3}
+  Name: Normal
+  Cost: 3
   Description: +2 MULT if you have a skill issue
   isActive: 0
   multFactor: 2
