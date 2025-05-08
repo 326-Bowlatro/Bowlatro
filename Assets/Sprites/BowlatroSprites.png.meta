@@ -295,7 +295,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Card_Booster
+      name: Card_TV
       rect:
         serializedVersion: 2
         x: 61
@@ -369,7 +369,7 @@ TextureImporter:
         width: 77
         height: 35
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -378,6 +378,50 @@ TextureImporter:
       bones: []
       spriteID: 3dc1ecfac9b6b4d579885a428935fa05
       internalID: 1970979264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Card_WideBall
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 715
+        width: 57
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbb0c73d756034b99a40eb94d7244124
+      internalID: -1540992156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Card_Bonus
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 715
+        width: 57
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: baa748d5e1646438a898436db2a0ad7b
+      internalID: 1139608480
       vertices: []
       indices: 
       edges: []
@@ -397,7 +441,7 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Card_Block: 1382227270
-      Card_Booster: 1847228017
+      Card_Bonus: 1139608480
       Card_Diamond: -1721730099
       Card_MassDown: -611655412
       Card_MassUp: -800880113
@@ -405,7 +449,9 @@ TextureImporter:
       Card_ReverseTriangle: 786155329
       Card_SizeDown: -1867813571
       Card_SizeUp: 1048976218
+      Card_TV: 1847228017
       Card_Triangle: -2140094170
+      Card_WideBall: -1540992156
       Pack_Booster: -483122257
       Pack_Pin: 1206427662
       Ticket: 1970979264
